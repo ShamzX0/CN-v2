@@ -1,0 +1,46 @@
+.ticker {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: #0f1d30;
+}
+
+.ticker::before,
+.ticker::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.ticker::before {
+    left: 0;
+    background: linear-gradient(to right, #0f1d30, transparent);
+}
+
+.ticker::after {
+    right: 0;
+    background: linear-gradient(to left, #0f1d30, transparent);
+}
+
+.tickerContent {
+    display: flex;
+    animation: scroll 40s linear infinite;
+    width: fit-content;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.ticker:hover .tickerContent {
+    animation-play-state: paused;
+}
