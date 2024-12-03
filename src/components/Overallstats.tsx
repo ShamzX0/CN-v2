@@ -1,8 +1,11 @@
 import formatLargeNumber from '@/helper/numberHelper';
 import React from 'react';
 import styles from './Overallstats.module.css';
+interface Props {
+    data: any
+}
 
-const Overallstats = (props: any) => {
+const Overallstats = (props: Props) => {
     const { data } = props;
 
     const btcMCchange = data?.bitcoinData?.bitcoin?.usd_24h_change;

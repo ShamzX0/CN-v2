@@ -1,11 +1,14 @@
-import { CircleDollarSign, DollarSign, Percent, Slash } from "lucide-react";
+import { DollarSign, Percent } from "lucide-react";
 import Image from "next/image";
 import React from "react"
 
-const Trending = ({ data }) => {
+interface Props {
+    data: any
+}
 
-    const btcPrice = data?.bitcoinData?.bitcoin?.usd;
-    const marketCap = data?.globalData?.data?.total_market_cap?.usd;
+const TrendingCoins = (props: Props) => {
+    const { data } = props
+
     const trendingCoins = data?.trendingCoins?.coins;
 
     const formatPriceChange = (priceChange: number) => {
@@ -21,13 +24,13 @@ const Trending = ({ data }) => {
         <div className="flex justify-end">
             {/* Trending CARD */}
             <div className="bg-[#0f1d30] rounded-2xl  px-6 w-2/6 pt-2">
-                <div className="flex flex-row justify-between">
+                <div className="flex flex-row justify-between mb-3">
                     {/* header + indicators*/}
-                    <h1 className="flex mb-3 text-base font-bold font-mono">Trending Coins</h1>
+                    <h1 className="flex text-base font-bold font-mono border-b-[1px] border-[#00FFFF]">Trending Coins</h1>
                     <div className="flex flex-row items-center space-x-1">
-                        <p className="text-[#00FFFF]"><DollarSign size={16} /></p>
+                        <p className="text-[#00FFFF]"><DollarSign size={13} /></p>
                         <p>/</p>
-                        <p className="text-[#00FFFF]"><Percent size={16} /></p>
+                        <p className="text-[#00FFFF]"><Percent size={13} /></p>
                     </div>
                 </div>
 
@@ -36,7 +39,7 @@ const Trending = ({ data }) => {
                     const { item } = coin;
 
                     return (
-                        <div key={item.id} className="flex items-center my-2 py-1 justify-between hover:bg-[#1a2842] rounded-lg">
+                        <div key={item.id} className="flex items-center my-1 py-1 justify-between hover:bg-[#1a2842] rounded-lg">
                             <div className="flex items-center gap-3">
                                 <div className="text-sm">
                                     <span className="text-xs">#</span>{index + 1}
@@ -55,7 +58,7 @@ const Trending = ({ data }) => {
                             </div>
                             {/* Price & %P.change */}
                             <div className="flex items-center flex-col">
-                                <span className="font-medium">${item.data.price.toFixed(2)}</span>
+                                <span className="text-[14px]">${item.data.price.toFixed(2)}</span>
                                 <div className="flex text-[11px] gap-2">
                                     {formatPriceChange(item.data.price_change_percentage_24h.usd)}
                                 </div>
@@ -68,4 +71,4 @@ const Trending = ({ data }) => {
     );
 };
 
-export default Trending;
+export default TrendingCoins;

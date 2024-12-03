@@ -28,3 +28,14 @@ export const fetchCoinGeckoData = async () => {
         return null;
     }
 };
+
+export const getFearGreedIndex = async () => {
+    try {
+        const response = await fetch('https://api.alternative.me/fng/?limit=1');
+        const json = await response.json();
+        return json.data[0];
+    } catch (error) {
+        console.error('Error fetching Fear & Greed Index:', error);
+        return null;
+    }
+};
