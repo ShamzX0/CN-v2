@@ -2,14 +2,15 @@ import React from "react";
 import Navbar from "./Navbar";
 import Dashboard from "./Dashboard";
 import Overallstats from "./Overallstats";
+import Footer from "./Footer";
 
 const HomePage = () => {
 
     return (
         <div className='w-[99vw] py-3 px-5 mx-auto'>
             <Navbar />
-            {/* <Overallstats /> */}
             <Dashboard />
+            <Footer />
         </div>
     )
 }

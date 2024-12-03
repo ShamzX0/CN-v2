@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { fetchCoinGeckoData } from '@/lib/utils.api';
 import Overallstats from './Overallstats';
+import Trending from './Trending';
 
 const Dashboard = () => {
     const [data, setData] = useState<any>(null);
@@ -32,28 +33,10 @@ const Dashboard = () => {
     if (error) return <div>Error: {error}</div>;
     if (!data) return <div>No data available</div>;
 
-    const btcPrice = data?.bitcoinData?.bitcoin?.usd;
-    const marketCap = data?.globalData?.data?.total_market_cap?.usd;
-    const trendingCoins = data?.trendingCoins?.coins;
-
-
     return (
         <main className="rounded-xl min-h-screen">
             <Overallstats data={data} />
-
-            <div className='flex justify-end'>
-                <div className='bg-[#0f1d30] w-2/6 px-[50px] py-6'>
-                    <h1 className='flex justify-center'>Trending Coins</h1>
-                    <p>1</p>
-                    <p>2</p>
-                    <p>3</p>
-                    <p>4</p>
-                    <p>5</p>
-                    {/* <h1>BTC Price: ${btcPrice?.toLocaleString()}</h1>
-                <h2>Market Cap: ${marketCap?.toLocaleString()}</h2>
-                Add your other UI elements here */}
-                </div>
-            </div>
+            <Trending data={data} />
         </main>
     );
 };
