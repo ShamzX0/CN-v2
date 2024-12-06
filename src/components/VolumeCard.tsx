@@ -15,7 +15,7 @@ const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
 
     const generateTrendLine = (): string => {
         const points: string[] = [];
-        const steps = 24; // One point per hour
+        const steps = 24;
         const height = 40;
         const width = 200;
 
@@ -39,14 +39,14 @@ const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
     };
 
     return (
-        <div className="bg-[#1A1D23] p-4 rounded-xl w-fit">
+        <div className="bg-[#1A1D23] p-4 w-fit h-fit rounded-xl">
             <div className="flex items-center justify-between mb-2">
-                <h2 className="text-lg">Volume 24h</h2>
+                <h2 className="text-sm">Volume 24h</h2>
             </div>
-            <div className="text-2xl font-bold">
+            <div className="text-xs font-bold">
                 {formatVolume(volume)}
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex text-xs items-center gap-2">
                 <span className={`${changePercent > 0 ? 'text-green-500' : 'text-red-500'}`}>
                     {changePercent > 0 ? '▲' : '▼'} {Math.abs(changePercent).toFixed(2)}% (24h)
                 </span>
@@ -60,7 +60,7 @@ const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
                         strokeWidth="1.5"
                     />
                 </svg>
-                <div className="flex justify-between text-xs text-gray-400 mt-1">
+                <div className="flex justify-between text-[8px] text-gray-400 mt-1">
                     <span>24h ago</span>
                     <span>Now</span>
                 </div>

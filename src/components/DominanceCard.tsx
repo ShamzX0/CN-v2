@@ -18,11 +18,10 @@ const DominanceCard: React.FC<Props> = ({ data }) => {
     const ethDominance = data?.globalData?.data?.market_cap_percentage?.eth;
 
     return (
-        <div className="bg-[#1A1D23] p-4 rounded-xl w-fit">
-            <div className="flex items-center justify-between mb-3">
-                <h2 className="text-lg">Majors Dominance</h2>
+        <div className="bg-[#1A1D23] p-4 w-full h-full rounded-xl">
+            <div className="flex items-center justify-between mb-2">
+                <h2 className="text-sm">Total Market Cap</h2>
             </div>
-
             <div className="space-y-3">
                 {/* Bitcoin Dominance */}
                 <div className="flex items-center gap-2">

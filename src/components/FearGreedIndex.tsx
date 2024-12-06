@@ -18,7 +18,7 @@ const FearGreedIndex = () => {
         fetchData();
     }, []);
 
-    const getGradientColor = (value) => {
+    const getGradientColor = (value: number) => {
         const normalizedValue = value / 100;
         return -90 + (normalizedValue * 180);
     };
@@ -32,7 +32,7 @@ const FearGreedIndex = () => {
     );
 
     return (
-        <div className="bg-[#1A1D23] p-2 rounded-xl w-fit relative">
+        <div className="bg-[#1A1D23] p-4 w-full h-full rounded-xl">
             {/* Header */}
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg">Fear & Greed Index</h2>
