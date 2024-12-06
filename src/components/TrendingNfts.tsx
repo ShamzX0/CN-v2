@@ -23,7 +23,7 @@ const TrendingNFTs = (props: Props) => {
         <div className="flex">
             {/* Trending NFTs CARD */}
             <div className="bg-[#0f1d30] rounded-2xl px-6 w-full pt-2">
-                <div className="flex flex-row justify-between mb-3 mr-2">
+                <div className="flex flex-row justify-between mb-5 mr-2">
                     {/* header + indicators*/}
                     <h1 className="flex text-base font-bold font-mono border-b-[1px] border-[#00FFFF]">Trending NFTs</h1>
                     <div className="flex flex-row items-center space-x-2">
@@ -37,10 +37,10 @@ const TrendingNFTs = (props: Props) => {
                     if (index > 4) return null;
 
                     return (
-                        <div key={nft.id} className="flex items-center my-1 py-1 justify-between hover:bg-[#1a2842] rounded-lg">
+                        <div key={nft.id} className="flex items-center py-[4px] justify-between hover:bg-[#1a2842] rounded-lg">
                             <div className="flex items-center gap-3">
                                 <div className="text-sm">
-                                    <span className="text-xs">#</span>{index + 1}
+                                    <span className="text-xs"></span>{index + 1}.
                                 </div>
                                 <Image
                                     src={nft.thumb}

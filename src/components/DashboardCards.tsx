@@ -20,15 +20,13 @@ const DashboardCards = (props: Props) => {
     const volumeChangePercent = ((volume - (volume / (1 + marketCapChangePercent / 100))) / (volume / (1 + marketCapChangePercent / 100))) * 100 || 0;
 
     return (
-        <div className='flex flex-row w-full gap-5'>
-            {/* 1. half of the dashboard */}
-            <div className='flex w-1/2 gap-4'>
+        <div className='flex flex-row w-full'>
+            {/* Left half - this looks fine */}
+            <div className='flex w-1/2 gap-4 h-[280px]'>
                 <div className='w-2/3'>
-
                     <TrendingNFTs data={data} />
                 </div>
-
-                <div className="flex flex-col w-1/3  gap-4">
+                <div className="flex flex-col w-1/3 gap-4 h-[280px]">
                     <MarketCapCard
                         marketCap={marketCap}
                         changePercent={marketCapChangePercent}
@@ -39,20 +37,23 @@ const DashboardCards = (props: Props) => {
                     />
                 </div>
             </div>
-            {/* 2. second half of the dashboard */}
-            <div className='flex w-1/2 gap-4'>
-                <div className='w-full'>
+            {/* Right half - needs fixing */}
+            <div className='flex w-1/2 gap-4 h-[280px]'>
+                <div className='w-4/5'>
                     <TrendingCoins data={data} />
                 </div>
-
-                <div className="flex flex-col w-1/3 gap-4">
-                    <FearGreedIndex />
-                    <DominanceCard data={data} />
+                <div className="flex flex-col w-1/5 gap-4 h-[280px]">
+                    <div className="w-full">
+                        <FearGreedIndex />
+                    </div>
+                    <div className="w-full">
+                        <DominanceCard data={data} />
+                    </div>
                 </div>
             </div>
-
         </div>
     )
 }
+
 
 export default DashboardCards

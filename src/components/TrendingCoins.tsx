@@ -24,7 +24,7 @@ const TrendingCoins = (props: Props) => {
         <div className="flex justify-center">
             <div className="bg-[#0f1d30] rounded-2xl px-6 w-full pt-2">
                 {/* Single Row Header */}
-                <div className="flex w-full items-center mb-3">
+                <div className="flex w-full items-center mb-4">
                     {/* Title column - matches width of coin info column */}
                     <div className="w-2/5">
                         <h1 className="text-base font-bold font-mono border-b-[1px] border-[#00FFFF] inline-block">
@@ -59,8 +59,8 @@ const TrendingCoins = (props: Props) => {
                                     className="hover:bg-[#1a2842] rounded-lg"
                                 >
                                     {/* Rank + Image + Name Column */}
-                                    <td className="py-2 w-2/5">
-                                        <div className="flex items-center gap-3">
+                                    <td className="py-[7px] w-2/5">
+                                        <div className="flex items-center gap-2">
                                             <span className="text-sm min-w-[20px]">{index + 1}.</span>
                                             <Image
                                                 src={item.thumb}
@@ -70,13 +70,15 @@ const TrendingCoins = (props: Props) => {
                                                 height={24}
                                             />
                                             <div className="flex flex-col min-w-[50px]">
-                                                <span className="text-[12px]">{item.name}</span>
-                                                <span className="text-xs text-gray-400">
-                                                    {item.symbol.toUpperCase()}
-                                                </span>
-                                            </div>
-                                            <div className="text-[9px] text-gray-400">
-                                                #{item.market_cap_rank}
+                                                <span className="text-[10px]">{item.name}</span>
+                                                <div className='flex'>
+                                                    <span className="text-xs text-gray-400">
+                                                        {item.symbol.toUpperCase()}
+                                                        <span className="text-[9px] text-[#00FFFF] ml-1">
+                                                            #{item.market_cap_rank}
+                                                        </span>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
@@ -105,7 +107,7 @@ const TrendingCoins = (props: Props) => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div >
     );
 };
 

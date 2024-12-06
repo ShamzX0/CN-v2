@@ -39,12 +39,12 @@ const MarketCapCard: React.FC<Props> = ({ marketCap, changePercent }) => {
     };
 
     return (
-        <div className="bg-[#1A1D23] p-4 w-fit h-fit rounded-xl">
+        <div className="bg-[#1A1D23] p-2 w-fit h-full rounded-2xl">
             <div className="flex items-center justify-between mb-2">
-                <h2 className="text-sm">Total Market Cap</h2>
-            </div>
-            <div className="text-xs font-bold">
-                {formatMarketCap(marketCap)}
+                <h2 className="text-xs">Total Market Cap</h2>
+                <div className="text-xs font-bold">
+                    {formatMarketCap(marketCap)}
+                </div>
             </div>
             <div className="flex text-xs items-center gap-2">
                 <span className={`${changePercent > 0 ? 'text-green-500' : 'text-red-500'}`}>

@@ -18,10 +18,10 @@ const DominanceCard: React.FC<Props> = ({ data }) => {
     const ethDominance = data?.globalData?.data?.market_cap_percentage?.eth;
 
     return (
-        <div className="bg-[#1A1D23] p-4 w-full h-full rounded-xl">
-            <div className="flex items-center justify-between mb-2">
-                <h2 className="text-sm">Total Market Cap</h2>
-            </div>
+        <div className="flex flex-col justify-center items-center bg-[#1A1D23] p-2 w-full h-full rounded-xl">
+
+            <h2 className="text-[12px] mb-4">Majors Dominance</h2>
+
             <div className="space-y-3">
                 {/* Bitcoin Dominance */}
                 <div className="flex items-center gap-2">
@@ -33,7 +33,7 @@ const DominanceCard: React.FC<Props> = ({ data }) => {
                             </g>
                         </svg>
                     </div>
-                    <span className="text-lg font-medium">
+                    <span className="text-sm font-medium">
                         {btcDominance?.toFixed(2)}%
                     </span>
                 </div>
@@ -55,7 +55,7 @@ const DominanceCard: React.FC<Props> = ({ data }) => {
                             </g>
                         </svg>
                     </div>
-                    <span className="text-lg font-medium">
+                    <span className="text-sm font-medium">
                         {ethDominance?.toFixed(2)}%
                     </span>
                 </div>
