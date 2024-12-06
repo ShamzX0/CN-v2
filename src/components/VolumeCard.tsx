@@ -47,6 +47,7 @@ const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
                 {formatVolume(volume)}
             </div>
             <div className="flex text-xs items-center gap-2">
+                {/* CHAT GPT THIS IS WHAT I WANT BESICALY TO RECREAT IN MY TRENDING CARD CONPONENT FOR THE PRICE CHANGE */}
                 <span className={`${changePercent > 0 ? 'text-green-500' : 'text-red-500'}`}>
                     {changePercent > 0 ? '▲' : '▼'} {Math.abs(changePercent).toFixed(2)}% (24h)
                 </span>

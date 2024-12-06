@@ -41,7 +41,7 @@ const DashboardCards = (props: Props) => {
             </div>
             {/* 2. second half of the dashboard */}
             <div className='flex w-1/2 gap-4'>
-                <div className='w-2/3'>
+                <div className='w-full'>
                     <TrendingCoins data={data} />
                 </div>
 
