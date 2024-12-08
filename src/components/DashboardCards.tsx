@@ -43,10 +43,10 @@ const DashboardCards = (props: Props) => {
                     <TrendingCoins data={data} />
                 </div>
                 <div className="flex flex-col w-1/5 gap-4 h-[280px]">
-                    <div className="w-full">
+                    <div className="w-full h-full">
                         <FearGreedIndex />
                     </div>
-                    <div className="w-full">
+                    <div className="w-full h-full">
                         <DominanceCard data={data} />
                     </div>
                 </div>

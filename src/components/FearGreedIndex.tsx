@@ -32,12 +32,12 @@ const FearGreedIndex = () => {
     );
 
     return (
-        <div className="bg-[#1A1D23] p-4 w-full h-full rounded-xl overflow-hidden">
+        <div className="bg-[#0f1d30] p-4 w-full h-[150px] rounded-xl ">
             {/* Header */}
-            <h2 className="text-xs">Fear & Greed Index</h2>
+            <h2 className="flex justify-center text-[11px] font-bold font-mono">Fear & Greed</h2>
 
             {/* Gauge Section - restructured for better containment */}
-            <div className="relative h-[90px]">
+            <div className="relative h-[100px]">
                 {/* SVG Gauge - adjusted viewBox and positioning */}
                 <svg className="absolute top-0 left-0 w-full" height="70" viewBox="0 0 200 100">
                     <defs>
@@ -72,8 +72,8 @@ const FearGreedIndex = () => {
                 </svg>
 
                 {/* Value display - repositioned */}
-                <div className='absolute bottom-[-5px] left-1/2 transform -translate-x-1/2 flex flex-col items-center'>
-                    <div className="text-green-400 text-xs">
+                <div className='absolute bottom-[-5px] left-1/2 transform w-full -translate-x-1/2 flex flex-col items-center'>
+                    <div className="text-green-400 text-[8px]">
                         {indexData.value_classification}
                     </div>
                     <div className="font-bold text-green-400 text-md">
@@ -82,7 +82,7 @@ const FearGreedIndex = () => {
                 </div>
 
                 {/* Question Mark / Time Stamp */}
-                <div className="absolute bottom-[-10px] right-[-5px]">
+                <div className="absolute bottom-[-15px] right-[-5px]">
                     <div className="relative inline-block group">
                         <CircleHelp size={12} className="text-gray-400" />
                         <div className="absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 right-6 top-1/2 -translate-y-1/2 bg-white border border-gray-200 rounded-md p-2 shadow-sm transition-all duration-200 z-20 whitespace-nowrap">

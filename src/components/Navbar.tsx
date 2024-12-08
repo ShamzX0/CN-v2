@@ -10,7 +10,7 @@ const Navbar = () => {
             <div className='flex gap-3 items-center'>
                 <Image src={cnlogo} alt='CryptoNewbieCap logo' width={50} height={20} />
                 <h1 className='font-extrabold text-lg font-mono'>
-                    Crypto<span className='text-[#00FFFF]'>N</span>ewbieCap
+                    Crypto<span className='text-[#00FFFF]'>N</span>ewbie
                 </h1>
             </div>
 

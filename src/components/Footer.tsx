@@ -12,7 +12,7 @@ const Footer = () => {
                 <div className='flex gap-3 items-center'>
                     <Image src={cnlogo} alt='CryptoNewbieCap logo' width={30} height={10} />
                     <h1 className='font-extrabold text-sm font-mono'>
-                        Crypto<span className='text-[#00FFFF]'>N</span>ewbieCap
+                        Crypto<span className='text-[#00FFFF]'>N</span>ewbie
                     </h1>
                 </div>
                 {/* Bottom bar */}
