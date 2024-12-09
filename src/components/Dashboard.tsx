@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { fetchCoinGeckoData } from '@/lib/utils.api';
 import Overallstats from './Overallstats';
 import DashboardCards from './DashboardCards';
+import MainHeader from './MainHeader';
 
 const Dashboard = () => {
     const [data, setData] = useState<any>(null);
@@ -40,6 +41,7 @@ const Dashboard = () => {
     return (
         <main className="rounded-xl min-h-screen min-w-screen">
             <Overallstats data={data} />
+            <MainHeader />
             <DashboardCards data={data} />
         </main>
     );
