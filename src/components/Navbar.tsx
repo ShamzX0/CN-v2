@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-import cnlogo from '@/app/images/cnlogo.ico'
 import CryptoNewbie from '@/app/images/CryptoNewbie.png'
 import { Search } from 'lucide-react'
 
@@ -10,9 +9,6 @@ const Navbar = () => {
             {/* Logo and Brand Name */}
             <div className='flex gap-3 items-center'>
                 <Image src={CryptoNewbie} alt='CryptoNewbieCap logo' width={150} />
-                {/* <h1 className='font-extrabold text-lg font-mono'>
-                    Crypto<span className='text-[#00FFFF]'>N</span>ewbie
-                </h1> */}
             </div>
 
             {/* Navigation */}

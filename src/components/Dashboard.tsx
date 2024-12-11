@@ -10,14 +10,12 @@ const Dashboard = () => {
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-
-    console.log(data, 'ALL DATA')
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
                 const receivedData = await fetchCoinGeckoData();
+                console.log(receivedData, '============data==========')
 
                 if (receivedData) {
                     setData(receivedData);
