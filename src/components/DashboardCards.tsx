@@ -37,7 +37,6 @@ const DashboardCards = (props: Props) => {
                     />
                 </div>
             </div>
-            {/* Right half - needs fixing */}
             <div className='flex w-1/2 gap-4 h-[280px]'>
                 <div className='w-4/5'>
                     <TrendingCoins data={data} />

@@ -1,18 +1,19 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
-
-module.exports = nextConfig
-
-module.exports = {
+const nextConfig = {
     images: {
-        domains: ['assets.coingecko.com', 'coin-images.coingecko.com', 'cdn.moralis.io', 'cryptologos.cc'],
+        domains: [
+            'assets.coingecko.com',
+            'coin-images.coingecko.com',
+            'static.coingecko.com', // Added this domain
+            'cdn.moralis.io',
+            'cryptologos.cc'
+        ],
         remotePatterns: [
             {
                 protocol: 'https',
                 hostname: 'alternative.me',
                 port: '',
                 pathname: '/crypto/fear-and-greed-index.png',
-
             },
         ],
     },
@@ -21,7 +22,6 @@ module.exports = {
         config.resolve.fallback = { fs: false, net: false, tls: false };
         return config;
     },
-
 };
 
-
+module.exports = nextConfig;

@@ -6,7 +6,6 @@ import NewsCard from './NewsCard';
 
 const MainHeader = () => {
     const [cryptoNews, setCryptoNews] = useState<CryptopanicNews[]>([]);
-    console.log(cryptoNews, 'moje crypto news data')
 
     useEffect(() => {
         const fetchNews = async () => {
@@ -39,8 +38,8 @@ const MainHeader = () => {
                     </p>
                 </div>
             </div>
-            <div className='flex flex-col w-1/3 h-[300px] relative bg-[#1a1f2e] rounded-xl neon-card '>
-                <h1 className="ml-7 text-base font-bold font-mono mt-4 font-unbounded ">Headlines of the day</h1>
+            <div className='flex flex-col w-1/3 h-[300px] justify-center items-center relative bg-[#1a1f2e] rounded-xl neon-card '>
+                <h2 className="text-base font-bold font-mono font-unbounded neon-writing m-[-10px]">Headlines of the day</h2>
                 <div className="w-full p-2">
                     {cryptoNews.map((news, index) => (
                         <NewsCard key={news.id} news={news} index={index} />

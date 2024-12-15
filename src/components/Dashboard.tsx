@@ -4,6 +4,7 @@ import { fetchCoinGeckoData } from '@/lib/utils.api';
 import Overallstats from './Overallstats';
 import DashboardCards from './DashboardCards';
 import MainHeader from './MainHeader';
+import CryptoTable from './CryptoTable';
 
 const Dashboard = () => {
     const [data, setData] = useState<any>(null);
@@ -15,7 +16,6 @@ const Dashboard = () => {
             try {
                 setIsLoading(true);
                 const receivedData = await fetchCoinGeckoData();
-                console.log(receivedData, '============data==========')
 
                 if (receivedData) {
                     setData(receivedData);
@@ -41,6 +41,7 @@ const Dashboard = () => {
             <Overallstats data={data} />
             <MainHeader />
             <DashboardCards data={data} />
+            <CryptoTable data={data} />
         </main>
     );
 };

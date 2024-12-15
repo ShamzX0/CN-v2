@@ -28,7 +28,7 @@ const NewsCard = ({ news, index }: { news: CryptopanicNews; index: number }) => 
             <div className="flex items-start">
                 <div className="flex-grow">
                     <div className="flex items-center gap-2 text-[#f4f4f4] mb-1">
-                        <span className="bg-[#1a2842] text-md px-2 py-0.5 rounded">
+                        <span className="bg-[#1a2842] text-md px-2 rounded">
                             {news.domain}
                         </span>
                         <div className="flex items-center gap-1">
