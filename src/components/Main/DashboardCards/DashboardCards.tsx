@@ -1,10 +1,10 @@
 import React from 'react'
-import TrendingNFTs from './TrendingNfts'
-import MarketCapCard from './MarketCapCard'
-import VolumeCard from './VolumeCard'
-import TrendingCoins from './TrendingCoins'
-import FearGreedIndex from './FearGreedIndex'
-import DominanceCard from './DominanceCard'
+import TrendingNFTs from './Card/TrendingNfts'
+import MarketCapCard from './Card/MarketCapCard'
+import VolumeCard from './Card/VolumeCard'
+import TrendingCoins from './Card/TrendingCoins'
+import FearGreedIndex from './Card/FearGreedIndex'
+import DominanceCard from './Card/DominanceCard'
 
 interface Props {
     data: any

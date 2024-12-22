@@ -4,7 +4,7 @@ import { CryptopanicNews } from '@/lib/types';
 import NewsCard from './NewsCard';
 
 
-const MainHeader = () => {
+const Intro = () => {
     const [cryptoNews, setCryptoNews] = useState<CryptopanicNews[]>([]);
 
     useEffect(() => {
@@ -50,4 +50,4 @@ const MainHeader = () => {
     );
 };
 
-export default MainHeader;
+export default Intro;

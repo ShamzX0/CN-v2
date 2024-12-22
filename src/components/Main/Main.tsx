@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { fetchCoinGeckoData } from '@/lib/utils.api';
-import Overallstats from './Overallstats';
-import DashboardCards from './DashboardCards';
-import MainHeader from './MainHeader';
-import CryptoTable from './CryptoTable';
+import DashboardCards from './DashboardCards/DashboardCards';
+import CryptoTable from './Table/CryptoTable';
+import RunningTab from './RunningTab/RunningTab';
+import Intro from './Intro/Intro';
 
-const Dashboard = () => {
+const Main = () => {
     const [data, setData] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -38,12 +38,14 @@ const Dashboard = () => {
 
     return (
         <main className="rounded-xl min-h-screen min-w-screen">
-            <Overallstats data={data} />
-            <MainHeader />
-            <DashboardCards data={data} />
+            <div className='mb-10'>
+                <RunningTab data={data} />
+                <Intro />
+                <DashboardCards data={data} />
+            </div>
             <CryptoTable data={data} />
         </main>
     );
 };
 
-export default Dashboard;
+export default Main;

@@ -12,16 +12,18 @@ export const fetchCoinGeckoData = async () => {
     };
 
     try {
-        const [globalData, trendingCoins, bitcoin] = await Promise.all([
+        const [globalData, trendingCoins, bitcoin, tableData] = await Promise.all([
             fetch('https://api.coingecko.com/api/v3/global', { headers }).then(res => res.json()),
             fetch('https://api.coingecko.com/api/v3/search/trending', { headers }).then(res => res.json()),
-            fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true', { headers }).then(res => res.json())
+            fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true', { headers }).then(res => res.json()),
+            fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d&locale=en', { headers }).then(res => res.json())
         ]);
 
         return {
             globalData,
             trendingCoins,
-            bitcoinData: bitcoin
+            bitcoinData: bitcoin,
+            tableData
         };
     } catch (error) {
         console.error('Error:', error);

@@ -1,11 +1,11 @@
-import formatLargeNumber from '@/helper/numberHelper';
+import formatLargeNumber from '@/helpers/numberHelper';
 import React from 'react';
-import styles from './Overallstats.module.css';
+import styles from './RunningTab.module.css';
 interface Props {
     data: any
 }
 
-const Overallstats = (props: Props) => {
+const RunningTab = (props: Props) => {
     const { data } = props;
 
     const btcMCchange = data?.bitcoinData?.bitcoin?.usd_24h_change;
@@ -78,4 +78,4 @@ const Overallstats = (props: Props) => {
     );
 };
 
-export default Overallstats;
+export default RunningTab;
