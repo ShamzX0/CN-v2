@@ -43,7 +43,7 @@ export const getFearGreedIndex = async () => {
 };
 export const fetchCryptoPanicNews = async () => {
     const CRYPTOPANIC_API_KEY = process.env.NEXT_PUBLIC_CRYPTOPANIC_API_KEY; // Ensure it's loaded here
-    const url = 'https://cryptopanic.com/api/v1/posts/?auth_token=7e0fc2f35594ecd54980cd0bcf47be01a561eb80&public=true';
+    const url = 'https://cryptopanic.com/api/v1/posts/?auth_token=add107fcd8027e1359adcba401377ac5174e859a&public=true';
     // const params = new URLSearchParams({
     //   auth_token: CRYPTOPANIC_API_KEY || '',
     //   public: 'true',
