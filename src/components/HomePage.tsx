@@ -6,7 +6,7 @@ import Footer from "./Main/Footer/Footer";
 const HomePage = () => {
 
     return (
-        <div className='w-[100vw] py-3 px-5 mx-auto'>
+        <div className='w-[100vw] px-2 mx-auto'>
             <Navbar />
             <Main />
             <Footer />

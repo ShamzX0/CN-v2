@@ -2,14 +2,14 @@ import Image from 'next/image'
 import React from 'react'
 import CryptoNewbie from '../../../app/images/CryptoNewbie.png'
 import NavLinks from '../Navigation/NavLinks'
-import { Search } from 'lucide-react'
+// import { Search } from 'lucide-react'
 import Link from 'next/link'
 
 
 
 const Navbar = () => {
     return (
-        <nav className='flex items-center justify-between py-3 px-4 border-b border-opacity-30 border-[#F4F4F4]'>
+        <nav className='flex items-center justify-between py-3 px-12 border-b border-opacity-30 border-[#F4F4F4]'>
             {/* Logo, Brand Name, and Navigation */}
             <div className='flex items-center space-x-8'>
                 <div className='flex gap-3'>
@@ -20,7 +20,7 @@ const Navbar = () => {
             </div>
 
             {/* Launch App Button */}
-            <Link href="#" className='neon-card border-opacity-30 text-[#f4f4f4] text-opacity-80 hover:text-[#f4f4f4] py-2 px-4 rounded font-unbounded font-normal transition duration-300 ease-in-out hover:[box-shadow:0_0_20px_#00d9ff,0_0_10px_#00d9ff,0_0_20px_#00d9ff]'>Launch App</Link>
+            <Link href="#" className='neon-card border-opacity-30 text-white/80 text-opacity-80 hover:text-[#f4f4f4] py-2 px-4 rounded font-unbounded font-normal transition duration-300 ease-in-out hover:[box-shadow:0_0_20px_#00d9ff,0_0_10px_#00d9ff,0_0_20px_#00d9ff]'>Launch App</Link>
 
             {/* Search Bar */}
             {/* <div className='relative flex items-center bg-[#272e3e] rounded-lg px-4 py-2 group'>
