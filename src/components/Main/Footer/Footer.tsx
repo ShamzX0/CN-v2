@@ -1,5 +1,4 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import cnlogo from '@/app/images/cnlogo.ico'
 

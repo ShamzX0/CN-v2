@@ -39,7 +39,7 @@ const Intro = () => {
                 </div>
             </div>
             <div className='flex flex-col w-1/3 h-[300px] justify-center items-center relative bg-[#1a1f2e] rounded-xl neon-card '>
-                <h2 className="text-base font-bold font-mono font-unbounded neon-writing m-[-10px]">Headlines of the day</h2>
+                <h2 className="text-base font-bold font-unbounded neon-writing m-[-10px]">News of the day</h2>
                 <div className="w-full p-2">
                     {cryptoNews.map((news, index) => (
                         <NewsCard key={news.id} news={news} index={index} />
