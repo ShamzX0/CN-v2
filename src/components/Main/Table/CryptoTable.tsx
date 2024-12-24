@@ -1,25 +1,13 @@
 import React from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
-
-interface CryptoData {
-    id: string;
-    name: string;
-    symbol: string;
-    image: string;
-    current_price: number;
-    price_change_percentage_24h: number;
-    market_cap: number;
-    total_volume: number;
-}
+import { CryptoData } from '@/lib/types';
 
 interface Props {
-    data: any
+    tableCoins: CryptoData
 }
 
 const CryptoTable = (props: Props) => {
 
-    const { data } = props
-    console.log(data, 'DATA INFORMATION')
 
     const formatPrice = (price: number): string => {
         return new Intl.NumberFormat('en-US', {

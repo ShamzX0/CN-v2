@@ -10,7 +10,7 @@ const Main = () => {
     const [data, setData] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-
+    // PRVNI API
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -32,6 +32,7 @@ const Main = () => {
         fetchData();
     }, []);
 
+
     if (isLoading) return <div>Loading..</div>;
     if (error) return <div>Error: {error}</div>;
     if (!data) return <div>No data available</div>;
@@ -43,7 +44,7 @@ const Main = () => {
                 <Intro />
                 <DashboardCards data={data} />
             </div>
-            <CryptoTable data={data} />
+            <CryptoTable tableCoins={data.tableCoins} />
         </main>
     );
 };
