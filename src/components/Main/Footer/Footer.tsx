@@ -14,8 +14,10 @@ const Footer = () => {
                         Crypto<span className='text-[#00FFFF]'>N</span>ewbie
                     </h1>
                 </div>
+
                 {/* Divider */}
                 <div className='border-[1px] border-transparent border-[#00d9ff] neon-card mb-2 mt-7' />
+
                 {/* Bottom bar */}
                 <div className="mt-3 pt-3">
                     <div className="flex flex-col md:flex-row justify-between items-center">
