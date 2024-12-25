@@ -10,7 +10,7 @@ const Main = () => {
     const [data, setData] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    // PRVNI API
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -39,12 +39,13 @@ const Main = () => {
 
     return (
         <main className="rounded-xl min-h-screen min-w-screen">
-            <div className='mb-10'>
+            <div>
                 <RunningTab data={data} />
                 <Intro />
                 <DashboardCards data={data} />
             </div>
-            <CryptoTable tableCoins={data.tableCoins} />
+            <div className='border-[1.3px] opacity-80 border-[#00d9ff] neon-card my-4 border-transparent' />
+            <CryptoTable tableCoins={data.tableData} />
         </main>
     );
 };

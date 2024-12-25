@@ -9,6 +9,11 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
+                hostname: 'static.coingecko.com',
+                pathname: '/**',
+            },
+            {
+                protocol: 'https',
                 hostname: 'cdn.moralis.io',
                 pathname: '/**',
             },

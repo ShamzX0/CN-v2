@@ -35,6 +35,7 @@ interface Sparkline {
 }
 
 interface CryptoData {
+    map(arg0: (coin: CryptoData, index: number) => import("react").JSX.Element): import("react").ReactNode;
     id: string;
     symbol: string;
     name: string;

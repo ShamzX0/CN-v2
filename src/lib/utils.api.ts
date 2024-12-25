@@ -13,7 +13,7 @@ export const fetchCoinGeckoData = async () => {
             fetch('https://api.coingecko.com/api/v3/global', { headers }).then(res => res.json()),
             fetch('https://api.coingecko.com/api/v3/search/trending', { headers }).then(res => res.json()),
             fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true', { headers }).then(res => res.json()),
-            fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d&locale=en', { headers }).then(res => res.json())
+            fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=1h,24h,7d&locale=en', { headers }).then(res => res.json())
         ]);
         console.log(tableData,'TABLE DATA')
 
@@ -64,7 +64,6 @@ export const fetchCryptoPanicNews = async () => {
       }
   
       const data = await response.json();
-      console.log('API response ======:', data.results);
 
       return data.results as CryptopanicNewsData
     } catch (error) {

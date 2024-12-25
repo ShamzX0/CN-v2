@@ -53,6 +53,7 @@ const TrendingCoins = (props: Props) => {
                     <tbody>
                         {trendingCoins.slice(0, 5).map((coin: { item: any }, index: number) => {
                             const { item } = coin;
+
                             return (
                                 <tr
                                     key={item.id}
