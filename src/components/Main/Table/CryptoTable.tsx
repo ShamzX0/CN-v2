@@ -34,7 +34,7 @@ const CryptoTable = (props: Props) => {
     };
 
     return (
-        <div className="w-full overflow-x-auto rounded-lg p-4">
+        <div className="w-full overflow-x-auto rounded-lg pl-2 pr-2 pt-1">
             <table className="w-full">
                 <thead>
                     <tr className="border-b border-gray-700">

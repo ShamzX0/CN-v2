@@ -25,7 +25,7 @@ const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
             const x = (width / steps) * i;
             const progress = i / steps;
             const curve = Math.sin(progress * Math.PI) * amplitude;
-            const noise = Math.random() * 2 - 1;
+            const noise = Math.random() * 7 - 5;
 
             const trend = changePercent > 0 ?
                 height - (height * 0.6) * progress :
