@@ -34,7 +34,7 @@ const CryptoTable = (props: Props) => {
     };
 
     return (
-        <div className="w-full overflow-x-auto rounded-lg bg-[#0f1d30] p-4">
+        <div className="w-full overflow-x-auto rounded-lg p-4">
             <table className="w-full">
                 <thead>
                     <tr className="border-b border-gray-700">
@@ -46,7 +46,7 @@ const CryptoTable = (props: Props) => {
                         <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">Market Cap</th>
                         <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">Volume(24h)</th>
                         <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">Price</th>
-                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">Chart(7d)</th>
+                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300 justify-center mr-[-20px] flex">Chart(7d)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,9 +63,9 @@ const CryptoTable = (props: Props) => {
                                 key={coin.id}
                                 className="border-b border-gray-700 hover:bg-[#1a2842] transition-colors duration-200"
                             >
-                                <td className="px-4 py-4 text-sm text-gray-300">{index + 1}</td>
+                                <td className="px-4 text-sm text-gray-300">{index + 1}</td>
                                 {/* Token - image */}
-                                <td className="px-4 py-4">
+                                <td className="px-4">
                                     <div className="flex items-center gap-2">
                                         <Image
                                             src={coin.image}
@@ -82,7 +82,7 @@ const CryptoTable = (props: Props) => {
                                     </div>
                                 </td>
                                 {/* 1h Volume */}
-                                <td className="px-4 py-4 text-right text-sm">
+                                <td className="px-4 text-right text-sm">
                                     <div className="flex items-center justify-end gap-1">
                                         {coin.price_change_percentage_24h > 0 ? (
                                             <>
@@ -102,7 +102,7 @@ const CryptoTable = (props: Props) => {
                                     </div>
                                 </td>
                                 {/* 24h Volume */}
-                                <td className="px-4 py-4 text-right text-sm">
+                                <td className="px-4 text-right text-sm">
                                     <div className="flex items-center justify-end gap-1">
                                         {coin.price_change_percentage_24h > 0 ? (
                                             <>
@@ -122,7 +122,7 @@ const CryptoTable = (props: Props) => {
                                     </div>
                                 </td>
                                 {/* 7d Volume */}
-                                <td className="px-4 py-4 text-right text-sm">
+                                <td className="px-4 text-right text-sm">
                                     <div className="flex items-center justify-end gap-1">
                                         {coin.price_change_percentage_7d_in_currency > 0 ? (
                                             <>
@@ -142,19 +142,19 @@ const CryptoTable = (props: Props) => {
                                     </div>
                                 </td>
                                 {/* Market Cap */}
-                                <td className="px-4 py-4 text-right text-sm text-gray-200">
+                                <td className="px-4 text-right text-sm text-gray-200">
                                     {formatMarketCap(coin.market_cap)}
                                 </td>
                                 {/* Volume 24h */}
-                                <td className="px-4 py-4 text-right text-sm text-gray-200">
+                                <td className="px-4 text-right text-sm text-gray-200">
                                     {formatMarketCap(coin.total_volume)}
                                 </td>
                                 {/* Current Price */}
-                                <td className="px-4 py-4 text-right text-sm text-gray-200">
+                                <td className="px-4 text-right text-sm text-gray-200">
                                     {formatMarketCap(coin.current_price)}
                                 </td>
                                 {/* Sparkline */}
-                                <td className="px-4 py-4 text-right text-sm text-gray-200">
+                                <td className='flex justify-end'>
                                     {sparklineData ? (
                                         <Sparkline data={sparklineData} color={sparklineColor} />
                                     ) : (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { ChartOptions, ChartData } from 'chart.js';
 import {
     Chart as ChartJS,
     LineElement,
@@ -16,7 +17,6 @@ interface SparklineProps {
 }
 
 const Sparkline: React.FC<SparklineProps> = ({ data, color = 'rgba(75,192,192,1)' }) => {
-    // Calculate the min and max values
     const minValue = Math.min(...data);
     const maxValue = Math.max(...data);
     const valueRange = maxValue - minValue;
@@ -29,30 +29,32 @@ const Sparkline: React.FC<SparklineProps> = ({ data, color = 'rgba(75,192,192,1)
                 borderColor: color,
                 borderWidth: 1.4,
                 pointRadius: 0,
-                tension: 0,  // Remove smoothing for sharper lines
+                tension: 0,
                 fill: false,
             },
         ],
     };
 
-    const options = {
+    const options: ChartOptions<'line'> = {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         scales: {
             x: {
                 display: false,
+                type: 'linear' as const, // Use 'as const' to assert the type
             },
             y: {
                 display: false,
                 type: 'linear' as const,
-                // Set a very tight range around the actual data
                 min: minValue - (valueRange * 0.2),
                 max: maxValue + (valueRange * 0.2),
-                grace: '2%'
+                grace: '2%',
             },
         },
         plugins: {
-            legend: { display: false },
+            legend: {
+                display: false,
+            },
         },
         animation: {
             duration: 0
@@ -60,7 +62,7 @@ const Sparkline: React.FC<SparklineProps> = ({ data, color = 'rgba(75,192,192,1)
     };
 
     return (
-        <div style={{ width: '100%', height: '40px', minWidth: '200px' }}>
+        <div style={{ width: '170px', height: '70px' }}>
             <Line data={chartData} options={options} />
         </div>
     );

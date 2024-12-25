@@ -44,7 +44,8 @@ const Main = () => {
                 <Intro />
                 <DashboardCards data={data} />
             </div>
-            <div className='border-[1.3px] opacity-80 border-[#00d9ff] neon-card my-4 border-transparent' />
+            <div className='border-[1px] border-transparent border-[#00d9ff] neon-card mb-2 mt-7' />
+            {/* <div className='border-[0.5px] opacity-30 my-2 ' /> */}
             <CryptoTable tableCoins={data.tableData} />
         </main>
     );
