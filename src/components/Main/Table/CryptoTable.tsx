@@ -12,13 +12,13 @@ const CryptoTable = (props: Props) => {
 
     const { tableCoins } = props
 
-    const formatPrice = (price: number): string => {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            maximumFractionDigits: 0
-        }).format(price);
-    };
+    // const formatPrice = (price: number): string => {
+    //     return new Intl.NumberFormat('en-US', {
+    //         style: 'currency',
+    //         currency: 'USD',
+    //         maximumFractionDigits: 0
+    //     }).format(price);
+    // };
 
     const formatMarketCap = (marketCap: number): string => {
         return new Intl.NumberFormat('en-US', {
