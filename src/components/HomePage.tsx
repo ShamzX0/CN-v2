@@ -6,7 +6,7 @@ import Footer from "./Main/Footer/Footer";
 const HomePage = () => {
 
     return (
-        <div className='w-[100vw] px-2 mx-auto'>
+        <div className='max-w-[1390px] mx-auto'>
             <Navbar />
             <Main />
             <Footer />

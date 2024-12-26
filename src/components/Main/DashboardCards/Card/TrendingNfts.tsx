@@ -22,7 +22,7 @@ const TrendingNFTs = (props: Props) => {
     return (
         <div className="flex">
             {/* Trending NFTs CARD */}
-            <div className="bg-[#0f1d30] rounded-2xl px-6 w-full pt-2">
+            <div className="bg-[#101e36] rounded-2xl px-6 w-full pt-2">
                 <div className="flex flex-row justify-between mb-5 mr-2">
                     {/* header + indicators*/}
                     <h1 className="flex text-base font-bold font-mono border-b-[1px] border-[#00FFFF]">Trending NFTs</h1>

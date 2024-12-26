@@ -38,15 +38,15 @@ const Main = () => {
     if (!data) return <div>No data available</div>;
 
     return (
-        <main className="rounded-xl min-h-screen min-w-screen">
+        <main className="rounded-xl min-h-screen">
             <div>
                 <RunningTab data={data} />
                 <Intro />
                 <DashboardCards data={data} />
             </div>
             {/* Divider */}
-            <div className='border-b-[1.5px] border-transparent border-[#00d9ff] neon-card mt-4' />
-            {/* <div className='border-[0.5px] opacity-30 my-2 ' /> */}
+            {/* <div className='border-b-[1.5px] border-transparent border-[#00d9ff] neon-card mt-4' /> */}
+            <div className='border-[0.5px] opacity-20 my-2 ' />
             <CryptoTable tableCoins={data.tableData} />
         </main>
     );

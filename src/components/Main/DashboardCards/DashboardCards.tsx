@@ -22,7 +22,7 @@ const DashboardCards = (props: Props) => {
     return (
         <div className='flex flex-row w-full'>
             {/* Left half - this looks fine */}
-            <div className='flex w-1/2 gap-4 h-[280px]'>
+            <div className='flex w-1/2 gap-4 mr-2 h-[280px]'>
                 <div className='w-2/3'>
                     <TrendingNFTs data={data} />
                 </div>

@@ -29,7 +29,7 @@ const MarketCapCard: React.FC<Props> = ({ marketCap, changePercent }) => {
 
             const trend = changePercent > 0 ?
                 height - (height * 0.6) * progress :
-                (height * 0.4) + (height * 0.6) * progress;
+                (height * 0.3) + (height * 0.2) * progress;
 
             const y = trend + curve + noise;
             points.push(`${x},${y}`);
@@ -39,7 +39,7 @@ const MarketCapCard: React.FC<Props> = ({ marketCap, changePercent }) => {
     };
 
     return (
-        <div className="bg-[#0f1d30] p-2 w-fit h-full rounded-2xl">
+        <div className="bg-[#101e36] p-2 w-fit h-full rounded-2xl">
             <div className="flex items-center justify-between mb-2">
                 <h2 className="text-xs font-bold font-mono tracking-tighter">Total Market Cap</h2>
                 <div className="text-xs font-bold">

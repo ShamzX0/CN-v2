@@ -25,11 +25,11 @@ const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
             const x = (width / steps) * i;
             const progress = i / steps;
             const curve = Math.sin(progress * Math.PI) * amplitude;
-            const noise = Math.random() * 7 - 5;
+            const noise = Math.random() * 7 - 2;
 
             const trend = changePercent > 0 ?
                 height - (height * 0.6) * progress :
-                (height * 0.4) + (height * 0.6) * progress;
+                (height * 0.2) + (height * 0.2) * progress;
 
             const y = trend + curve + noise;
             points.push(`${x},${y}`);
@@ -39,7 +39,7 @@ const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
     };
 
     return (
-        <div className="bg-[#0f1d30] p-2 w-fit h-full rounded-2xl">
+        <div className="bg-[#101e36] p-2 w-fit h-full rounded-2xl">
             <div className="flex items-center justify-between mb-2">
                 <h2 className="text-xs font-bold font-mono tracking-tighter">Volume 24h</h2>
                 <div className="text-xs font-bold">

@@ -22,7 +22,7 @@ const TrendingCoins = (props: Props) => {
 
     return (
         <div className="flex justify-center">
-            <div className="bg-[#0f1d30] rounded-2xl px-6 w-full pt-2">
+            <div className="bg-[#101e36] rounded-2xl px-6 w-full pt-2">
                 {/* Single Row Header */}
                 <div className="flex w-full items-center mb-4">
                     {/* Title column - matches width of coin info column */}

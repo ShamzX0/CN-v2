@@ -46,7 +46,7 @@ const CryptoTable = (props: Props) => {
                         <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">Market Cap</th>
                         <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">Volume(24h)</th>
                         <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">Price</th>
-                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300 justify-center mr-[-20px] flex">Chart(7d)</th>
+                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300 ">Chart(7d)</th>
                     </tr>
                 </thead>
                 <tbody>
