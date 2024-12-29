@@ -5,27 +5,28 @@ import Image from 'next/image';
 import Sparkline from './Sparkline/Sparkline';
 
 interface Props {
-    tableCoins: CryptoData
+    tableCoins: CryptoData[]
 }
 
 const CryptoTable = (props: Props) => {
 
     const { tableCoins } = props
 
-    // const formatPrice = (price: number): string => {
-    //     return new Intl.NumberFormat('en-US', {
-    //         style: 'currency',
-    //         currency: 'USD',
-    //         maximumFractionDigits: 0
-    //     }).format(price);
-    // };
-
-    const formatMarketCap = (marketCap: number): string => {
+    const formatNumberFractions = (marketCap: number): string => {
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
             notation: 'standard',
             maximumFractionDigits: 0
+        }).format(marketCap);
+    };
+
+    const formatPrice = (marketCap: number): string => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            notation: 'standard',
+            maximumFractionDigits: 2
         }).format(marketCap);
     };
 
@@ -143,15 +144,15 @@ const CryptoTable = (props: Props) => {
                                 </td>
                                 {/* Market Cap */}
                                 <td className="px-4 text-right text-sm text-gray-200">
-                                    {formatMarketCap(coin.market_cap)}
+                                    {formatNumberFractions(coin.market_cap)}
                                 </td>
                                 {/* Volume 24h */}
                                 <td className="px-4 text-right text-sm text-gray-200">
-                                    {formatMarketCap(coin.total_volume)}
+                                    {formatNumberFractions(coin.total_volume)}
                                 </td>
                                 {/* Current Price */}
                                 <td className="px-4 text-right text-sm text-gray-200">
-                                    {formatMarketCap(coin.current_price)}
+                                    {formatPrice(coin.current_price)}
                                 </td>
                                 {/* Sparkline */}
                                 <td className='flex justify-end'>
