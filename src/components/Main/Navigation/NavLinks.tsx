@@ -4,15 +4,11 @@ import React from 'react'
 const navlinks = [
     {
         name: 'Home',
-        href: '#'
+        href: '/'
     },
     {
-        name: 'News',
-        href: '#'
-    },
-    {
-        name: 'Articles',
-        href: '#'
+        name: 'Guide',
+        href: '/guide'
     },
 
 ]
