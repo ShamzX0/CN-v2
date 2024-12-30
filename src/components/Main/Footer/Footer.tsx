@@ -6,8 +6,8 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="text-gray-300">
-            <div className="max-w-6xl mx-auto px-4 py-4">
+        <footer className="text-gray-300 bg-black">
+            <div className="max-w-7xl mx-auto px-4 py-4">
                 <div className='flex gap-3 items-center'>
                     <Image src={cnlogo} alt='CryptoNewbieCap logo' width={30} height={10} />
                     <h1 className='font-extrabold text-sm font-mono'>

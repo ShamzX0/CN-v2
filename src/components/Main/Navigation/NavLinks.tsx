@@ -1,31 +1,39 @@
-import Link from 'next/link'
-import React from 'react'
+'use client';
 
-const navlinks = [
-    {
-        name: 'Home',
-        href: '/'
-    },
-    {
-        name: 'Guide',
-        href: '/guide'
-    },
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-]
+const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'Guides', href: '/guide' },
+    { name: 'Wallets', href: '/wallets' },
+];
 
 const NavLinks = () => {
-    return (
-        <div className='space-x-8'>
-            <Link href="#" className='hover:text-[#00FFFF] border-b-[1.2px] border-[#00FFFF] hover:border-[#f4f4f4]'>Connect wallet</Link>
-            {
-                navlinks.map((oneLink, index) => {
-                    return (
-                        <Link href={oneLink.href} className='text-white hover:text-[#00FFFF]' key={index}>{oneLink.name}</Link>
-                    )
-                })
-            }
-        </div>
-    )
-}
+    const pathname = usePathname();
 
-export default NavLinks
+    return (
+        <div className="space-x-8">
+            <Link href="#" className="hover:text-[#00FFFF] border-b-[1.2px] opacity-70 hover:border-[#f4f4f4] hover:opacity-100">
+                Connect Wallet
+            </Link>
+            {navLinks.map((oneLink, index) => {
+                const isActive = pathname === oneLink.href; // Check if the current path matches the link
+
+                return (
+                    <Link
+                        key={index}
+                        href={oneLink.href}
+                        className={`text-white hover:text-[#00FFFF] ${isActive ? 'text-[#00FFFF] font-bold border-b-[1px] border-[#00FFFF]' : ''
+                            }`}
+                    >
+                        {oneLink.name}
+                    </Link>
+                );
+            })}
+        </div>
+    );
+};
+
+export default NavLinks;
