@@ -20,7 +20,7 @@ const DashboardCards = (props: Props) => {
     const volumeChangePercent = ((volume - (volume / (1 + marketCapChangePercent / 100))) / (volume / (1 + marketCapChangePercent / 100))) * 100 || 0;
 
     return (
-        <div className='flex flex-row w-full'>
+        <div className='flex flex-row w-full h-[280px] overflow-hidden'>
             {/* Left half - this looks fine */}
             <div className='flex w-1/2 gap-4 mr-2 h-[280px]'>
                 <div className='w-2/3'>

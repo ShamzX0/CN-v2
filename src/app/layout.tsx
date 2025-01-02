@@ -19,9 +19,13 @@ export default function RootLayout({
       <body>
         <Navbar />
 
-        {children}</body>
 
-      <Footer />
+        {children}
+
+        <Footer />
+      </body>
+
+
     </html>
   )
 }

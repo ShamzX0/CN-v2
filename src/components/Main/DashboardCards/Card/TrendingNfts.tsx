@@ -1,6 +1,6 @@
-import { DollarSign, Percent } from "lucide-react";
+import { DollarSign, Percent, Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
-import React from "react"
+import { useState } from "react";
 
 interface Props {
     data: any
@@ -8,7 +8,10 @@ interface Props {
 
 const TrendingNFTs = (props: Props) => {
     const { data } = props;
-    const trendingNfts = data?.trendingCoins.nfts
+    const trendingNfts = data?.trendingCoins.nfts;
+
+    // Track which images have failed to load
+    const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
     const formatPriceChange = (priceChange: number) => {
         const isPositive = priceChange > 0;
@@ -19,12 +22,39 @@ const TrendingNFTs = (props: Props) => {
         );
     };
 
+    const handleImageError = (nftId: string) => {
+        setFailedImages(prev => ({
+            ...prev,
+            [nftId]: true
+        }));
+    };
+
+    const NFTImage = ({ nft }: { nft: any }) => {
+        if (failedImages[nft.id]) {
+            return (
+                <div className="flex items-center justify-center w-5 h-5 rounded-full bg-gray-800">
+                    <ImageIcon size={20} className="text-gray-400" />
+                </div>
+            );
+        }
+
+        return (
+            <Image
+                src={nft.thumb}
+                alt={nft.name}
+                className="rounded-full"
+                width={20}
+                height={20}
+                onError={() => handleImageError(nft.id)}
+                style={{ minWidth: '20px', minHeight: '20px' }}
+            />
+        );
+    };
+
     return (
-        <div className="flex">
-            {/* Trending NFTs CARD */}
+        <div className="">
             <div className="bg-[#101e36] rounded-2xl px-6 w-full pt-2">
                 <div className="flex flex-row justify-between mb-5 mr-2">
-                    {/* header + indicators*/}
                     <h1 className="flex text-base font-bold font-mono border-b-[1px] border-[#00FFFF]">Trending NFTs</h1>
                     <div className="flex flex-row items-center space-x-2">
                         <p className="text-[#00FFFF] border-[0.3px] rounded-full"><DollarSign size={13} /></p>
@@ -40,21 +70,14 @@ const TrendingNFTs = (props: Props) => {
                         <div key={nft.id} className="flex items-center py-[4px] justify-between hover:bg-[#1a2842] rounded-lg">
                             <div className="flex items-center gap-3">
                                 <div className="text-sm">
-                                    <span className="text-xs"></span>{index + 1}.
+                                    <span className="text-xs">{index + 1}.</span>
                                 </div>
-                                <Image
-                                    src={nft.thumb}
-                                    alt={nft.name}
-                                    className="rounded-full"
-                                    width={20}
-                                    height={6}
-                                />
+                                <NFTImage nft={nft} />
                                 <div className="flex flex-col">
                                     <span className="text-[12px]">{nft.name}</span>
                                     <span className="text-xs text-gray-400">{nft.symbol}</span>
                                 </div>
                             </div>
-                            {/* Floor Price & 24h Change */}
                             <div className="flex items-center flex-col">
                                 <span className="text-[14px]">{nft.data.floor_price}</span>
                                 <div className="flex text-[11px] gap-2">

@@ -1,6 +1,6 @@
-import { ChartNoAxesCombined, DollarSign, Percent } from "lucide-react";
+import { ChartNoAxesCombined, DollarSign, ImageIcon, Percent } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 interface Props {
     data: any;
@@ -9,6 +9,9 @@ interface Props {
 const TrendingCoins = (props: Props) => {
     const { data } = props;
     const trendingCoins = data?.trendingCoins?.coins || [];
+
+    // Track which images have failed to load
+    const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
     const formatPriceChangeWithArrow = (priceChange: number) => {
         const isPositive = priceChange > 0;
@@ -20,29 +23,51 @@ const TrendingCoins = (props: Props) => {
         );
     };
 
+    const handleImageError = (coinId: string) => {
+        setFailedImages(prev => ({
+            ...prev,
+            [coinId]: true
+        }));
+    };
+
+    const CoinImage = ({ coin }: { coin: any }) => {
+        if (failedImages[coin.item.id]) {
+            return (
+                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-800">
+                    <ImageIcon size={20} className="text-gray-400" />
+                </div>
+            );
+        }
+
+        return (
+            <Image
+                src={coin.item.thumb}
+                alt={coin.item.name}
+                className="rounded-full"
+                width={24}
+                height={24}
+                onError={() => handleImageError(coin.item.id)}
+                style={{ minWidth: '24px', minHeight: '24px' }}
+            />
+        );
+    };
+
     return (
         <div className="flex justify-center">
             <div className="bg-[#101e36] rounded-2xl px-6 w-full pt-2">
                 {/* Single Row Header */}
                 <div className="flex w-full items-center mb-4">
-                    {/* Title column - matches width of coin info column */}
                     <div className="w-2/5">
                         <h1 className="text-base font-bold font-mono border-b-[1px] border-[#00FFFF] inline-block">
                             Trending Coins
                         </h1>
                     </div>
-
-                    {/* Price column header */}
                     <div className="w-1/5 flex justify-end pr-4">
                         <DollarSign className="text-[#00FFFF] mr-2 border-[0.3px] rounded-full" size={15} />
                     </div>
-
-                    {/* Percentage column header */}
                     <div className="w-1/5 flex justify-end pr-4">
                         <Percent className="text-[#00FFFF] mr-5 border-[0.3px] rounded-full" size={15} />
                     </div>
-
-                    {/* Chart column header */}
                     <div className="w-1/5 flex justify-end pr-2">
                         <ChartNoAxesCombined className="text-[#00FFFF] mr-[33px] border-[0.3px] rounded-full" size={15} />
                     </div>
@@ -59,17 +84,10 @@ const TrendingCoins = (props: Props) => {
                                     key={item.id}
                                     className="hover:bg-[#1a2842] rounded-lg"
                                 >
-                                    {/* Rank + Image + Name Column */}
                                     <td className="py-[7px] w-2/5">
                                         <div className="flex items-center gap-2">
                                             <span className="text-sm min-w-[20px]">{index + 1}.</span>
-                                            <Image
-                                                src={item.thumb}
-                                                alt={item.name}
-                                                className="rounded-full"
-                                                width={24}
-                                                height={24}
-                                            />
+                                            <CoinImage coin={coin} />
                                             <div className="flex flex-col min-w-[50px]">
                                                 <span className="text-[10px]">{item.name}</span>
                                                 <div className='flex'>
@@ -83,18 +101,14 @@ const TrendingCoins = (props: Props) => {
                                             </div>
                                         </div>
                                     </td>
-
-                                    {/* Price Column */}
                                     <td className="py-2 text-right w-1/5 pr-4">
                                         <span className="text-xs">${item.data.price.toFixed(2)}</span>
                                     </td>
-
-                                    {/* Price Change Column */}
                                     <td className="py-2 text-right w-1/5 pr-4">
-                                        <span className="text-xs">{formatPriceChangeWithArrow(item.data.price_change_percentage_24h.usd)}</span>
+                                        <span className="text-xs">
+                                            {formatPriceChangeWithArrow(item.data.price_change_percentage_24h.usd)}
+                                        </span>
                                     </td>
-
-                                    {/* Sparkline Column */}
                                     <td className="py-2 text-right w-1/5 pr-2">
                                         <img
                                             src={item.data.sparkline}
@@ -108,7 +122,7 @@ const TrendingCoins = (props: Props) => {
                     </tbody>
                 </table>
             </div>
-        </div >
+        </div>
     );
 };
 
