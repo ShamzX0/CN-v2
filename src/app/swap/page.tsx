@@ -53,9 +53,7 @@ const page = () => {
         //     </div>
         // </div>
 
-        <div className='flex min-h-[70vh] items-center justify-center'>
-            <Swap />
-        </div>
+        <Swap />
 
     )
 }
