@@ -4,7 +4,7 @@ import Main from "./Main/Main";
 const HomePage = () => {
 
     return (
-        <div className='max-w-[1390px] mx-auto'>
+        <div className='max-w-[1490px] mx-auto'>
             <Main />
         </div>
     )

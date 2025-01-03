@@ -95,3 +95,4 @@ export const fetchCoinGeckoData = async (): Promise<ICoinGeckoResponse | null> =
         return null;
     }
 };
+

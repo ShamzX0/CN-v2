@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import cnlogo from '@/app/images/cnlogo.ico'
+import cnlogo from '../../../../public/images/CNlogoMini.png'
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -12,7 +12,7 @@ const Footer = () => {
                     <Image src={cnlogo} alt='CryptoNewbieCap logo' width={30} height={10} />
                     <h1 className='font-extrabold text-sm font-mono'>
 
-                        Cryptooooooooooo<span className='text-[#00FFFF]'>N</span>ewbie
+                        Crypto<span className='text-[#00FFFF]'>N</span>ewbie
                     </h1>
                 </div>
 

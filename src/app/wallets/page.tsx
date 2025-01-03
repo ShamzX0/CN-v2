@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import walletImg from '../images/wallet1.jpeg'
-import LedgerNanoX from '../images/LedgerNanoXFinal.jpeg'
-import BitBox from '../images/BitBox.jpeg'
-import TrezorOne from '../images/TrezorOne.jpeg'
+import walletImg from '../../../public/images/wallet1.jpeg'
+import LedgerNanoX from '../../../public/images/LedgerNanoXFinal.jpeg'
+import BitBox from '../../../public/images/BitBox.jpeg'
+import TrezorOne from '../../../public/images/TrezorOne.jpeg'
 import Link from 'next/link'
 
 

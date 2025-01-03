@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Navbar from '@/components/Main/Navigation/Navbar'
 import Footer from '@/components/Main/Footer/Footer'
+import { ConfigProvider } from 'antd'
 
 
 export const metadata: Metadata = {
@@ -16,16 +17,28 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Navbar />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: '#00b96b',
+            colorBgContainer: '#2D2F36',
+          },
+          components: {
+            InputNumber: {
+              activeBg: '#2D2F36'
+            }
+          }
 
-
-        {children}
-
-        <Footer />
-      </body>
-
-
+        }}
+      >
+        <body className="min-h-screen flex flex-col">
+          <Navbar />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+        </body>
+      </ConfigProvider>
     </html>
   )
 }

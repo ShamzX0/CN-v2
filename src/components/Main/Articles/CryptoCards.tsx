@@ -1,9 +1,9 @@
 import Image from "next/image"
-import BitcoinImg from '../../../app/images/BitcoinImg.jpeg';
-import ethImage from '../../../app/images/ethImg.png';
-import adaImage from '../../../app/images/adaImg.png'
-import avaxImage from '../../../app/images/avaxImgResized.png'
-import { ChevronDown, ChevronUp, icons } from 'lucide-react';
+import BitcoinImg from '../../../../public/images/BitcoinImg.jpeg';
+import ethImage from '../../../../public/images/ethImg.png';
+import adaImage from '../../../../public/images/adaImg.png'
+import avaxImage from '../../../../public/images/avaxImgResized.png'
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from "react";
 
 const info = [

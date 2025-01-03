@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import CryptoNewbie from '../../../app/images/CryptoNewbie.png'
+import CryptoNewbie from '../../../../public/images/CryptoNewbie.png'
 import NavLinks from '../Navigation/NavLinks'
 // import { Search } from 'lucide-react'
 import Link from 'next/link'
@@ -20,7 +20,7 @@ const Navbar = () => {
             </div>
 
             {/* Launch App Button */}
-            <Link href="#" className='neon-card border-opacity-30 text-white/80 text-opacity-80 hover:text-[#f4f4f4] py-2 px-4 rounded font-unbounded font-light transition duration-300 ease-in-out hover:[box-shadow:0_0_20px_#00d9ff,0_0_10px_#00d9ff,0_0_20px_#00d9ff]'>Launch App</Link>
+            <Link href="/swap" className='neon-card border-opacity-30 text-white/80 text-opacity-80 hover:text-[#f4f4f4] py-2 px-4 rounded font-unbounded font-light transition duration-300 ease-in-out hover:[box-shadow:0_0_20px_#00d9ff,0_0_10px_#00d9ff,0_0_20px_#00d9ff]'>Launch App</Link>
 
             {/* Search Bar */}
             {/* <div className='relative flex items-center bg-[#272e3e] rounded-lg px-4 py-2 group'>

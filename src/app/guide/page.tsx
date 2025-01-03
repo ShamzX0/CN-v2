@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import btcImage from '../images/btcImg.jpeg';
-import BitcoinImg from '../images/BitcoinImg.jpeg';
+import btcImage from '../../../public/images/btcImg.jpeg'
+import BitcoinImg from '../../../../public/images/images/BitcoinImg.jpeg';
 import ethImage from '../images/ethImg.png';
 import adaImg from '../images/adaImg.png';
 import avaxImgResized from '../images/avaxImgResized.png';

@@ -6,6 +6,7 @@ import CryptoTable from './Table/CryptoTable';
 import RunningTab from './RunningTab/RunningTab';
 import Intro from './Intro/Intro';
 import { CryptoData } from '@/lib/types';
+import { CoinDummyData, dummyData } from '@/helpers/dummyData';
 
 interface ApiResponse {
     globalData: number;
@@ -19,7 +20,7 @@ const Main = () => {
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [page, setPage] = useState<number>(1);
-    const [allTableData, setAllTableData] = useState<CryptoData[]>([]);
+    const [allTableData, setAllTableData] = useState<CryptoData[] | CoinDummyData[]>([]);
     const [isLoadingMore, setIsLoadingMore] = useState(false);
 
     // Initial data fetch
@@ -31,6 +32,7 @@ const Main = () => {
 
                 if (receivedData) {
                     setData(receivedData);
+                    if (!receivedData.tableData) setAllTableData(dummyData)
                     setAllTableData(receivedData.tableData);
                 } else {
                     setError('Failed to fetch data');

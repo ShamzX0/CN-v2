@@ -1,3 +1,4 @@
+import { dummyData } from "@/helpers/dummyData";
 import { CryptopanicNewsData } from "./types";
 
 const API_KEY = process.env.NEXT_PUBLIC_COINGECKO_API_KEY;
@@ -15,7 +16,6 @@ export const fetchCoinGeckoData = async (page: number) => {
             fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true', { headers }).then(res => res.json()),
             fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=${page}&sparkline=true&price_change_percentage=1h,24h,7d&locale=en`, { headers }).then(res => res.json())
         ]);
-        console.log(tableData,'TABLE DATA')
 
         return {
             globalData,
