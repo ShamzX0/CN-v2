@@ -73,14 +73,14 @@ const page = ({ }) => {
                 <p className="py-6 mb-6">The Ledger Nano X is an advanced hardware wallet created by Ledger, a prominent company renowned for its expertise in providing secure solutions for cryptocurrency storage. Built as the successor to the Ledger Nano S, the Ledger Nano X aims to offer an enhanced and user-friendly experience for managing various cryptocurrencies. At its core, the Ledger Nano X serves as a physical device that securely stores private keys, which are essential for accessing and managing your cryptocurrency assets. By storing the private keys offline in a secure element within the device, it provides a robust defense against potential online threats like malware, viruses, and hacking attempts. This offline storage, also known as cold storage or hardware wallet, ensures that your private keys are kept safe and away from potential vulnerabilities that may exist in internet-connected devices. With its focus on security, the Ledger Nano X is regarded as one of the most reliable solutions for individuals looking to safeguard their cryptocurrency investments.
 
                     <br /> <br /> <br /> <br />
-                    <p className='neon-writing text-green-500'>Positives</p>
+                    <p className='flex justify-center neon-writing text-[25px] text-green-500'>Positives</p>
                     Ledger is the most popular hardware wallet provider. The wallet allows you to store many different cryptocurrencies. The Ledger Nano X supports a wide range of cryptocurrencies, including major coins like Bitcoin (BTC), Ethereum (ETH), and Litecoin (LTC), as well as numerous altcoins and ERC-20 tokens. Its versatility makes it suitable for users with diverse cryptocurrency portfolios..There is a lot of community support in the form of software integration that uses a ledger to directly transact. These include many new decentralized exchanges. The device is constantly updated with new software.<br />
                     The Ledger Live software, which is used to manage the Ledger Nano X, provides a user-friendly interface that simplifies the process of managing cryptocurrencies. The software is intuitive and includes features like portfolio tracking, transaction history, and easy account management.
 
 
                     <br />
                     <br />
-                    <p className='neon-writing text-red-400'>Negatives</p>
+                    <p className='flex justify-center neon-writing text-[25px] text-red-400'>Negatives</p>
 
                     Interference layout makes it so that setting up or rebooting your wallet takes a considerable amount of time. The added mobile support is great but its main improvement, Bluetooth functionality, is far from being smooth. Many software updates affect user experience: often introducing lag & wallets that are not always immediately compatible. Only company to incorporate Bluetooth connectivity. While security concerns have not been substantiated, Bluetooth is looked on by the industry with suspicion as possibly introducing another attack vector.<br />
                     The Ledger Nano X is generally more expensive than other hardware wallets on the market. The additional cost is due to its advanced features and wireless connectivity. If you&apos;re on a tight budget, you might find the price of the Ledger Nano X to be a disadvantage.
@@ -108,7 +108,7 @@ const page = ({ }) => {
                     It is good to note that the Trezor One supports slightly fewer assets than the premium Trezor Model T, which supports over 1,400, but still has many of the major coins covered. Take a look at the Trezor One Supported Coins page for a full list. Cardano is one notable exclusion that is supported on the Model T but not the Trezor One.
                     <br /> <br /> <br /> <br />
 
-                    <p className='neon-writing text-green-500'>Positives</p>
+                    <p className='flex justify-center neon-writing text-[25px] text-green-500'>Positives</p>
 
                     Supports many cryptocurrencies. Allows conversion to fiat currency. In the wallet, exchanges have many functionalities including atomic swap and fiat exchange.
                     <br /> Trezor One is known for its high level of security. It stores private keys offline in the device, which means they are not exposed to potential online threats such as malware or hacking attempts. The device also requires physical confirmation for transactions, providing an additional layer of security.
@@ -116,7 +116,7 @@ const page = ({ }) => {
 
                     <br />
                     <br />
-                    <p className='neon-writing text-red-400'>Negatives</p>
+                    <p className='flex justify-center neon-writing text-[25px] text-red-400'>Negatives</p>
                     Trezor One has limited memory capacity, which means it can only store a certain number of wallets or accounts at a time. If you have a significant number of different cryptocurrencies or accounts, you may find the storage capacity to be restrictive.<br />
                     Single-factor authentication: Trezor One primarily relies on a PIN code for device authentication. While this provides a basic level of security, it does not offer the additional layer of protection provided by more advanced authentication methods like biometrics or passphrase options.
 
@@ -137,12 +137,12 @@ const page = ({ }) => {
                     The BitBox02 hardware wallet is a meticulously crafted device developed by Shift Cryptosecurity, a Swiss-based company renowned for its unwavering commitment to providing top-notch cryptocurrency security solutions. Built with a strong emphasis on both security and user experience, the BitBox02 aims to offer individuals a reliable and convenient means of safeguarding their digital assets.<br /> By utilizing cutting-edge encryption and incorporating robust security measures, this hardware wallet ensures that users&apos; private keys are stored offline in a secure chip, shielding them from potential online threats such as malware, phishing attacks, and hacking attempts.
                     <br /> <br />
 
-                    <p className='neon-writing text-green-500'>Positives</p>
+                    <p className='flex justify-center neon-writing text-[25px] text-green-500'>Positives</p>
 
                     he BitBox02 prioritizes security and employs various measures to keep your private keys safe. It features offline storage, a secure chip, and a tamper-resistant design, providing robust protection against potential attacks and unauthorized access to your cryptocurrencies.<br /><br />
                     BitBox02 operates on open-source software, allowing for transparency and community auditing. This ensures that the codebase is continually reviewed for security vulnerabilities, giving users greater confidence in the wallet&apos;s integrity, designed with a user-friendly interface, making it accessible for both beginners and experienced cryptocurrency users. The device incorporates a clear OLED screen and a touch button for easy navigation and transaction verification.<br />
 
-                    <p className='neon-writing text-red-400'>Negatives</p>
+                    <p className='flex justify-center neon-writing text-[25px] text-red-400'>Negatives</p>
 
 
                     While the BitBox02 supports a range of major cryptocurrencies, it may not have support for some of the less popular or newer coins. If you hold a specific cryptocurrency that is not supported by the BitBox02, you may need to consider alternative hardware wallets.<br />The BitBox02 is positioned in the higher price range compared to some other hardware wallets on the market. While it offers robust security and user-friendly features, the higher cost may be a consideration for budget-conscious users.

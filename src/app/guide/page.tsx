@@ -3,10 +3,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import btcImage from '../../../public/images/btcImg.jpeg'
-import BitcoinImg from '../../../../public/images/images/BitcoinImg.jpeg';
-import ethImage from '../images/ethImg.png';
-import adaImg from '../images/adaImg.png';
-import avaxImgResized from '../images/avaxImgResized.png';
 import CryptoCards from '@/components/Main/Articles/CryptoCards';
 
 
@@ -52,11 +48,11 @@ const Page = () => {
                     knowledge, you&apos;ll be empowered to contemplate which specific cryptocurrency or blockchain aligns best
                     with your interests and goals.
                 </p>
-                <h5 className="mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-4xl lg:text-4xl text-white">
-                    <span className="underline underline-offset-3 decoration-8 decoration-[#1d7272]">
+                <div className="text-4xl font-extrabold leading-none tracking-tight md:text-4xl lg:text-4xl text-white">
+                    <h5 className=" underline mt-12 underline-offset-3 decoration-8 decoration-[#1d7272]">
                         Brief Introduction
-                    </span>
-                </h5>
+                    </h5>
+                </div>
 
                 {/* Subsections */}
                 <p className="py-6">

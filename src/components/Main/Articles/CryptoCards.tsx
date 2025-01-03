@@ -56,7 +56,7 @@ export default function CryptoCards() {
                             className={`mt-10 mb-5 rounded-2xl p-7 transition-all duration-500 ${isExpanded ? 'neon-card' : ""}`}
                             onClick={() => { setExpandedCard(isExpanded ? null : index) }}
                         >
-                            <header className="flex items-baseline">
+                            <header className="flex items-center gap-1">
                                 <Image src={oneCrypto.imageSrc} width={40} height={5} alt={oneCrypto.name} />
                                 <h5 className={`mb-1 text-2xl font-extrabold leading-none tracking-tight md:text-2xl lg:text-3xl text-[${oneCrypto.color}] border-l-4 border-transparent md:pl-1`}>
                                     {oneCrypto.name}
