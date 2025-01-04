@@ -47,8 +47,6 @@ export const fetchCryptoPanicNews = async () => {
     //   public: 'true',
     // });
   
-    console.log(CRYPTOPANIC_API_KEY, 'from utils.api.ts'); // Debug
-  
     try {
     //   const response = await fetch(`${url}`, {
     //     method: 'GET',

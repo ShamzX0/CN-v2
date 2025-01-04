@@ -7,6 +7,10 @@ import RunningTab from './RunningTab/RunningTab';
 import Intro from './Intro/Intro';
 import { CryptoData } from '@/lib/types';
 import { CoinDummyData, dummyData } from '@/helpers/dummyData';
+import useTableCoins from '@/hooks/useTableCoins';
+import useBitcoin from '@/hooks/useBitcoin';
+import useGlobalData from '@/hooks/useGlobalData';
+import useTrendingData from '@/hooks/useTrendingCoins';
 
 interface ApiResponse {
     globalData: number;
@@ -23,29 +27,37 @@ const Main = () => {
     const [allTableData, setAllTableData] = useState<CryptoData[] | CoinDummyData[]>([]);
     const [isLoadingMore, setIsLoadingMore] = useState(false);
 
+    // SWR FETCHING HOOK
+    const { data: tableCoins } = useTableCoins()
+    const { data: bitcoinData } = useBitcoin()
+    const { data: globalData } = useGlobalData()
+    const { data: trendingData } = useTrendingData()
+
+    console.log(trendingData, 'getTrendingDatagetTrendingDatagetTrendingDatagetTrendingDatagetTrendingDatagetTrendingData')
+
     // Initial data fetch
-    useEffect(() => {
-        const fetchInitialData = async () => {
-            try {
-                setIsLoading(true);
-                const receivedData = await fetchCoinGeckoData(1);
+    // useEffect(() => {
+    //     const fetchInitialData = async () => {
+    //         try {
+    //             setIsLoading(true);
+    //             const receivedData = await fetchCoinGeckoData(1);
 
-                if (receivedData) {
-                    setData(receivedData);
-                    if (!receivedData.tableData) setAllTableData(dummyData)
-                    setAllTableData(receivedData.tableData);
-                } else {
-                    setError('Failed to fetch data');
-                }
-            } catch (err) {
-                setError(err instanceof Error ? err.message : 'An error occurred');
-            } finally {
-                setIsLoading(false);
-            }
-        };
+    //             if (receivedData) {
+    //                 setData(receivedData);
+    //                 if (receivedData.tableData.length === 0) setAllTableData(dummyData)
+    //                 setAllTableData(receivedData.tableData);
+    //             } else {
+    //                 setError('Failed to fetch data');
+    //             }
+    //         } catch (err) {
+    //             setError(err instanceof Error ? err.message : 'An error occurred');
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     };
 
-        fetchInitialData();
-    }, []);
+    //     fetchInitialData();
+    // }, []);
 
     // Function to check if we're at the bottom
     const isAtBottom = () => {
@@ -119,7 +131,7 @@ const Main = () => {
                 <DashboardCards data={data} />
             </div>
             <div className='border-[0.5px] opacity-20 my-2' />
-            <CryptoTable tableCoins={allTableData} />
+            {/* <CryptoTable tableCoins={allTableData} /> */}
             {isLoadingMore && (
                 <div className="flex justify-center p-4">
                     <div className="animate-spin h-8 w-8 border-4 border-blue-500 rounded-full border-t-transparent"></div>
