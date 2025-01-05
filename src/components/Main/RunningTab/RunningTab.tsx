@@ -2,20 +2,21 @@ import formatLargeNumber from '@/helpers/numberHelper';
 import React from 'react';
 
 interface Props {
-    data: any
+    btcData: BitcoinPriceResponse
+    globalData: any
 }
 
 const RunningTab = (props: Props) => {
-    const { data } = props;
+    const { btcData, globalData } = props;
 
-    const btcMCchange = data?.bitcoinData?.bitcoin?.usd_24h_change;
-    const marketCap = data?.globalData?.data?.total_market_cap?.usd;
-    const activeCrypto = data?.globalData?.data?.active_cryptocurrencies;
-    const totalTradingPairs = data?.globalData?.data?.markets;
-    const totalMCchange = data?.globalData?.data?.market_cap_change_percentage_24h_usd;
-    const btcDominance = data?.globalData?.data?.market_cap_percentage?.btc;
-    const ethDominance = data?.globalData?.data?.market_cap_percentage?.eth;
-    const solDominance = data?.globalData?.data?.market_cap_percentage?.sol;
+    const btcMCchange = btcData?.bitcoin?.usd_24h_change;
+    const marketCap = globalData?.total_market_cap?.usd;
+    const activeCrypto = globalData?.active_cryptocurrencies;
+    const totalTradingPairs = globalData?.markets;
+    const totalMCchange = globalData?.market_cap_change_percentage_24h_usd;
+    const btcDominance = globalData?.market_cap_percentage?.btc;
+    const ethDominance = globalData?.market_cap_percentage?.eth;
+    const solDominance = globalData?.market_cap_percentage?.sol;
 
     const StatsContent = () => (
         <div className="flex items-center gap-6 text-[8px] text-gray-300 py-2 px-4 whitespace-nowrap">

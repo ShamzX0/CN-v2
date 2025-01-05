@@ -1,21 +1,12 @@
 import React from 'react';
 
 interface Props {
-    data: {
-        globalData?: {
-            data?: {
-                market_cap_percentage?: {
-                    btc: number;
-                    eth: number;
-                }
-            }
-        }
-    }
+    globalData: any
 }
 
-const DominanceCard: React.FC<Props> = ({ data }) => {
-    const btcDominance = data?.globalData?.data?.market_cap_percentage?.btc;
-    const ethDominance = data?.globalData?.data?.market_cap_percentage?.eth;
+const DominanceCard: React.FC<Props> = ({ globalData }) => {
+    const btcDominance = globalData?.market_cap_percentage?.btc;
+    const ethDominance = globalData?.market_cap_percentage?.eth;
 
     return (
         <div className="flex flex-col justify-center items-center bg-[#101e36] p-2 w-full h-full rounded-xl">

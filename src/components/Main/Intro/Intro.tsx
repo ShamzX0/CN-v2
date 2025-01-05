@@ -1,28 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { fetchCryptoPanicNews } from '@/lib/utils.api';
-import { CryptopanicNews } from '@/lib/types';
+import React from 'react';
 import NewsCard from './NewsCard';
+import useNews from '@/hooks/useNews';
 
 
 const Intro = () => {
-    const [cryptoNews, setCryptoNews] = useState<CryptopanicNews[]>([]);
+    const { data: newsFeed, isLoading: isNewsFeedLoading } = useNews()
 
-    useEffect(() => {
-        const fetchNews = async () => {
-            try {
-                const news = await fetchCryptoPanicNews();
-                if (news) {
-                    setCryptoNews(news);
-                } else {
-                    console.error('Crypto news data is null or undefined');
-                }
-            } catch (error) {
-                console.error('Error fetching crypto news:', error);
-            }
-        };
+    if (isNewsFeedLoading) return <div className='text-center w-full'>Loading..</div>;
 
-        fetchNews();
-    }, []);
 
     return (
         <div className='flex w-full'>
@@ -41,7 +26,8 @@ const Intro = () => {
             <div className='flex flex-col w-1/3 h-[300px] justify-center items-center relative bg-[#1a1f2e] rounded-xl neon-card '>
                 <h2 className="text-base font-bold font-unbounded neon-writing m-[-10px]">News of the day</h2>
                 <div className="w-full p-2">
-                    {cryptoNews.map((news, index) => (
+
+                    {newsFeed.results.map((news, index) => (
                         <NewsCard key={news.id} news={news} index={index} />
                     ))}
                 </div>

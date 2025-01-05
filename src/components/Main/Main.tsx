@@ -1,39 +1,18 @@
 'use client'
 import { useEffect, useState, useCallback } from 'react';
-import { fetchCoinGeckoData } from '@/lib/utils.api';
 import DashboardCards from './DashboardCards/DashboardCards';
 import CryptoTable from './Table/CryptoTable';
 import RunningTab from './RunningTab/RunningTab';
 import Intro from './Intro/Intro';
-import { CryptoData } from '@/lib/types';
-import { CoinDummyData, dummyData } from '@/helpers/dummyData';
-import useTableCoins from '@/hooks/useTableCoins';
 import useBitcoin from '@/hooks/useBitcoin';
 import useGlobalData from '@/hooks/useGlobalData';
-import useTrendingData from '@/hooks/useTrendingCoins';
-
-interface ApiResponse {
-    globalData: number;
-    trendingCoins: number;
-    bitcoinData: number;
-    tableData: CryptoData[];
-}
 
 const Main = () => {
-    const [data, setData] = useState<ApiResponse | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
     const [page, setPage] = useState<number>(1);
-    const [allTableData, setAllTableData] = useState<CryptoData[] | CoinDummyData[]>([]);
-    const [isLoadingMore, setIsLoadingMore] = useState(false);
 
     // SWR FETCHING HOOK
-    const { data: tableCoins } = useTableCoins()
-    const { data: bitcoinData } = useBitcoin()
-    const { data: globalData } = useGlobalData()
-    const { data: trendingData } = useTrendingData()
-
-    console.log(trendingData, 'getTrendingDatagetTrendingDatagetTrendingDatagetTrendingDatagetTrendingDatagetTrendingData')
+    const { data: bitcoinData, isLoading: isBitcoinDataLoading } = useBitcoin()
+    const { data: globalData, isLoading: isGlobalDataLoading } = useGlobalData()
 
     // Initial data fetch
     // useEffect(() => {
@@ -60,83 +39,82 @@ const Main = () => {
     // }, []);
 
     // Function to check if we're at the bottom
-    const isAtBottom = () => {
-        if (typeof window === 'undefined') return false;
+    // const isAtBottom = () => {
+    //     if (typeof window === 'undefined') return false;
 
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    //     const windowHeight = window.innerHeight;
+    //     const documentHeight = document.documentElement.scrollHeight;
+    //     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-        // Only return true if we're very close to the bottom (within 50px)
-        return windowHeight + scrollTop >= documentHeight - 100;
-    };
+    //     // Only return true if we're very close to the bottom (within 50px)
+    //     return windowHeight + scrollTop >= documentHeight - 100;
+    // };
 
     // Handle scroll event with built-in debouncing
-    const handleScroll = useCallback(async () => {
-        if (!isAtBottom() || isLoadingMore) return;
+    // const handleScroll = useCallback(async () => {
+    //     if (!isAtBottom() || isLoadingMore) return;
 
-        try {
-            setIsLoadingMore(true);
-            const nextPage = page + 1;
-            const newData = await fetchCoinGeckoData(nextPage);
+    //     try {
+    //         setIsLoadingMore(true);
+    //         const nextPage = page + 1;
+    //         const newData = await fetchCoinGeckoData(nextPage);
 
-            if (newData && newData.tableData?.length > 0) {
-                setAllTableData(prev => [...prev, ...newData.tableData]);
-                setData(prevData => ({
-                    ...prevData!,
-                    tableData: [...allTableData, ...newData.tableData]
-                }));
-                setPage(nextPage);
-            }
-        } catch (err) {
-            console.error('Error loading more:', err);
-        } finally {
-            setIsLoadingMore(false);
-        }
-    }, [page, isLoadingMore, allTableData]);
+    //         if (newData && newData.tableData?.length > 0) {
+    //             setAllTableData(prev => [...prev, ...newData.tableData]);
+    //             setData(prevData => ({
+    //                 ...prevData!,
+    //                 tableData: [...allTableData, ...newData.tableData]
+    //             }));
+    //             setPage(nextPage);
+    //         }
+    //     } catch (err) {
+    //         console.error('Error loading more:', err);
+    //     } finally {
+    //         setIsLoadingMore(false);
+    //     }
+    // }, [page, isLoadingMore, allTableData]);
 
     // Infinite Scroll
-    useEffect(() => {
-        let scrollTimeout: NodeJS.Timeout;
+    // useEffect(() => {
+    //     let scrollTimeout: NodeJS.Timeout;
 
-        const onScroll = () => {
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
-            }
+    //     const onScroll = () => {
+    //         if (scrollTimeout) {
+    //             clearTimeout(scrollTimeout);
+    //         }
 
-            scrollTimeout = setTimeout(() => {
-                handleScroll();
-            }, 500); // Adjust this delay if needed
-        };
+    //         scrollTimeout = setTimeout(() => {
+    //             handleScroll();
+    //         }, 500); // Adjust this delay if needed
+    //     };
 
-        window.addEventListener('scroll', onScroll);
+    //     window.addEventListener('scroll', onScroll);
 
-        return () => {
-            window.removeEventListener('scroll', onScroll);
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
-            }
-        };
-    }, [handleScroll]);
+    //     return () => {
+    //         window.removeEventListener('scroll', onScroll);
+    //         if (scrollTimeout) {
+    //             clearTimeout(scrollTimeout);
+    //         }
+    //     };
+    // }, [handleScroll]);
 
-    if (isLoading) return <div>Loading..</div>;
-    if (error) return <div>Error: {error}</div>;
-    if (!data) return <div>No data available</div>;
+    if (isGlobalDataLoading) return <div className='text-center w-full'>Loading..</div>;
+    // if (error) return <div>Error: {error}</div>;
 
     return (
         <main className="rounded-xl min-h-screen">
             <div>
-                <RunningTab data={data} />
+                <RunningTab btcData={bitcoinData} globalData={globalData.data} />
                 <Intro />
-                <DashboardCards data={data} />
+                <DashboardCards globalData={globalData.data} isGlobalDataLoading={isGlobalDataLoading} />
             </div>
             <div className='border-[0.5px] opacity-20 my-2' />
-            {/* <CryptoTable tableCoins={allTableData} /> */}
-            {isLoadingMore && (
+            <CryptoTable />
+            {/* {isLoadingMore && (
                 <div className="flex justify-center p-4">
                     <div className="animate-spin h-8 w-8 border-4 border-blue-500 rounded-full border-t-transparent"></div>
                 </div>
-            )}
+            )} */}
         </main>
     );
 };

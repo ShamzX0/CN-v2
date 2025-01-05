@@ -1,6 +1,6 @@
-export default async function getTrendingData(): Promise<any> {
+export default async function getFearGreed(): Promise<any> {
     try {
-      const response = await fetch('https://api.coingecko.com/api/v3/search/trending')
+      const response = await fetch('https://api.alternative.me/fng/?limit=1')
   
       return response.json()
     } catch (error) {

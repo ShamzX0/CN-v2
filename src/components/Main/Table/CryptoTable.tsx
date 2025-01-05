@@ -1,17 +1,11 @@
 import React from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
-import { CryptoData } from '@/lib/types';
 import Image from 'next/image';
 import Sparkline from './Sparkline/Sparkline';
-import { CoinDummyData } from '@/helpers/dummyData';
+import useTableCoins from '@/hooks/useTableCoins';
 
-interface Props {
-    tableCoins: CryptoData[] | CoinDummyData[]
-}
-
-const CryptoTable = (props: Props) => {
-
-    const { tableCoins } = props
+const CryptoTable = () => {
+    const { data: tableCoins, isLoading: isTableCoinsLoading } = useTableCoins()
 
     const formatNumberFractions = (marketCap: number): string => {
         return new Intl.NumberFormat('en-US', {
@@ -35,6 +29,10 @@ const CryptoTable = (props: Props) => {
         return Math.abs(percentage).toFixed(2);
     };
 
+    if (isTableCoinsLoading || !tableCoins) return <div className='text-center w-full'>Loading..</div>;
+
+    const coins = Array.isArray(tableCoins) ? tableCoins : [];
+
     return (
         <div className="w-full overflow-x-auto rounded-lg pl-2 pr-2 pt-1">
             <table className="w-full">
@@ -52,9 +50,8 @@ const CryptoTable = (props: Props) => {
                     </tr>
                 </thead>
                 <tbody>
-
-                    {tableCoins ? (
-                        tableCoins?.map((coin: CryptoData | CoinDummyData, index: number) => {
+                    {
+                        coins.map((coin: any, index: number) => {
                             const sparklineData = coin.sparkline_in_7d?.price;
                             const sparklineColor = sparklineData && sparklineData.length > 1
                                 ? sparklineData[sparklineData.length - 1] > sparklineData[0]
@@ -168,11 +165,6 @@ const CryptoTable = (props: Props) => {
                                 </tr>
                             );
                         })
-
-                    ) : (
-                        <div>Sorry.. Data not avaiable</div>
-                    )
-
                     }
                 </tbody>
             </table>

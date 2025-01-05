@@ -3,12 +3,12 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 interface Props {
-    data: any;
+    trendingData: any;
 }
 
 const TrendingCoins = (props: Props) => {
-    const { data } = props;
-    const trendingCoins = data?.trendingCoins?.coins || [];
+    const { trendingData } = props;
+    const trendingCoins = trendingData?.coins || [];
 
     // Track which images have failed to load
     const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});

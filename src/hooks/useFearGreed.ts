@@ -1,8 +1,8 @@
 import useSWR from 'swr'
-import getTrendingData from './fetch/getTrendingCoins'
+import getFearGreed from './fetch/getFearGreed'
 
-export default function useTrendingData() {
-  return useSWR('getTrendingData', () => getTrendingData(), {
+export default function useFearGreed() {
+  return useSWR('getFearGreed', () => getFearGreed(), {
     refreshInterval: 600000,
     revalidateOnFocus: false,
   })
