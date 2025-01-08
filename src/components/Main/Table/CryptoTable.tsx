@@ -39,6 +39,7 @@ const CryptoTable = () => {
                 <thead>
                     <tr className="border-b border-gray-700">
                         <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">#</th>
+
                         <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">Name</th>
                         <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">1h %</th>
                         <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">24h %</th>

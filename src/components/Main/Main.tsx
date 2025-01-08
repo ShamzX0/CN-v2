@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState, useCallback } from 'react';
+import { useState } from 'react';
 import DashboardCards from './DashboardCards/DashboardCards';
 import CryptoTable from './Table/CryptoTable';
 import RunningTab from './RunningTab/RunningTab';
@@ -98,7 +98,7 @@ const Main = () => {
     //     };
     // }, [handleScroll]);
 
-    if (isGlobalDataLoading) return <div className='text-center w-full'>Loading..</div>;
+    if (isGlobalDataLoading) return <div className='text-center w-full animate-pulse'>Loading...</div>;
     // if (error) return <div>Error: {error}</div>;
 
     return (
