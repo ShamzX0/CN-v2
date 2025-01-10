@@ -108,7 +108,7 @@ const Main = () => {
                 <Intro />
                 <DashboardCards globalData={globalData.data} isGlobalDataLoading={isGlobalDataLoading} />
             </div>
-            <div className='border-[0.5px] opacity-20 my-2' />
+            <div className='border-[0.4px] opacity-20 my-2' />
             <CryptoTable />
             {/* {isLoadingMore && (
                 <div className="flex justify-center p-4">
