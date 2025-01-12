@@ -2,6 +2,11 @@ import React from 'react';
 import NewsCard from './NewsCard';
 import useNews from '@/hooks/useNews';
 
+interface NewsItem {
+    title: string;
+    domain: string;
+    id: string;
+}
 
 const Intro = () => {
     const { data: newsFeed, isLoading: isNewsFeedLoading } = useNews()
@@ -27,10 +32,12 @@ const Intro = () => {
                 <h2 className="text-base font-bold font-unbounded neon-writing m-[-10px]">News of the day</h2>
                 <div className="w-full p-2">
 
-                    {newsFeed.results.map((news, index) => (
+
+                    {newsFeed.results.map((news: NewsItem, index: number) => (
                         <NewsCard key={news.id} news={news} index={index} />
                     ))}
                 </div>
+
             </div>
         </div>
     );
