@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import CryptoNewbie from '../../../../public/images/CryptoNewbie.png'
 import NavLinks from '../Navigation/NavLinks'
+
 // import { Search } from 'lucide-react'
 import Link from 'next/link'
 

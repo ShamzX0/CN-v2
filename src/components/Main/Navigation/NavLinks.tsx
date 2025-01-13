@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const navLinks = [
     { name: 'Home', href: '/' },
@@ -15,9 +16,9 @@ const NavLinks = () => {
 
     return (
         <div className="space-x-8">
-            <Link href="#" className="hover:text-[#00FFFF] border-b-[1.2px] opacity-70 hover:border-[#f4f4f4] hover:opacity-100">
-                Connect Wallet
-            </Link>
+            <div className='neon-card bg-red-500'>
+                <ConnectButton />
+            </div>
             {navLinks.map((oneLink, index) => {
                 const isActive = pathname === oneLink.href; // Check if the current path matches the link
 
