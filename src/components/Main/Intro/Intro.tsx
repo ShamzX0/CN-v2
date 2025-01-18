@@ -11,6 +11,7 @@ interface NewsItem {
 
 const Intro = () => {
     const { data: newsFeed, isLoading: isNewsFeedLoading } = useNews()
+    console.log("newsFeeeeeeed", newsFeed)
 
     // if (isNewsFeedLoading) return <div className='text-center w-full'>Loading..</div>;
 
@@ -30,16 +31,16 @@ const Intro = () => {
                 </div>
             </div>
             <div className='flex flex-col w-1/3 h-[300px] justify-center items-center relative bg-[#1a1f2e] rounded-xl neon-card '>
-                <h2 className="text-base font-bold font-unbounded neon-writing m-[-10px]">News of the day</h2>
+                <h2 className="text-sm font-bold font-unbounded neon-writing m-[-15px]">News of the day</h2>
                 <div className="w-full p-2">
                     {isNewsFeedLoading ? (
                         // Show 3 skeleton cards while loading
-                        Array.from({ length: 2 }).map((_, index) => (
+                        Array.from({ length: 3 }).map((_, index) => (
                             <NewsCardSkeleton key={index} />
                         ))
                     ) : (
                         // Show actual news cards when data is loaded
-                        newsFeed.results.map((news: NewsItem, index: number) => (
+                        newsFeed.map((news: NewsItem, index: number) => (
                             <NewsCard key={news.id} news={news} index={index} />
                         ))
                     )}

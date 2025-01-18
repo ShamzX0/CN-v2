@@ -9,8 +9,8 @@ const NewsCardSkeleton = () => {
                             <div className="bg-[#1a2842] h-4 w-16 rounded"></div>
                         </div>
                     </div>
-                    <div className="h-4 bg-[#1a2842] rounded w-full"></div>
-                    <div className="h-4 bg-[#1a2842] rounded w-3/4 mt-2"></div>
+                    <div className="h-2 bg-[#1a2842] rounded w-full"></div>
+                    <div className="h-2 bg-[#1a2842] rounded w-3/4 mt-2"></div>
                 </div>
                 <div className="w-4 h-4 bg-[#1a2842] rounded mt-1 flex-shrink-0"></div>
             </div>

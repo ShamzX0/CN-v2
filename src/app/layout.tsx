@@ -3,6 +3,7 @@ import './globals.css'
 import Navbar from '@/components/Main/Navigation/Navbar'
 import Footer from '@/components/Main/Footer/Footer'
 import { Providers } from '@/components/Providers'
+import { Suspense } from 'react'
 
 
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      {/* <Suspense fallback={<div>NACITAM SE...</div>}> */}
       <body className="min-h-screen flex flex-col">
         <Providers>
           <Navbar />
@@ -26,6 +28,7 @@ export default function RootLayout({
           <Footer />
         </Providers>
       </body>
+      {/* </Suspense> */}
     </html>
   )
 }
