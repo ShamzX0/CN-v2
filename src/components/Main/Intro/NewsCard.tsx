@@ -4,7 +4,7 @@ import { Clock, ExternalLink } from "lucide-react";
 const NewsCard = ({ news, index }: { news: CryptopanicNews; index: number }) => {
     if (news.domain === 'youtube.com') return null;
     if (index > 2) return null;
-    console.log(news, "MOJE NEWS");
+
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         const now = new Date();

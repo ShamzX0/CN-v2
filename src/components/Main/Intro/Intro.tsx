@@ -11,7 +11,6 @@ interface NewsItem {
 
 const Intro = () => {
     const { data: newsFeed, isLoading: isNewsFeedLoading } = useNews()
-    console.log("newsFeeeeeeed", newsFeed)
 
     // if (isNewsFeedLoading) return <div className='text-center w-full'>Loading..</div>;
 
