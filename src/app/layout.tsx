@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* <Suspense fallback={<div>NACITAM SE...</div>}> */}
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col bg-slate-950">
         <Providers>
           <Navbar />
           <main className="flex-grow">

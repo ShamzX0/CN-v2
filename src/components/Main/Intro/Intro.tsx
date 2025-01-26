@@ -16,21 +16,36 @@ const Intro = () => {
 
 
     return (
-        <div className='flex w-full'>
-            <div className='flex 4/6'>
-                <div className="flex mt-5 lg:mt-0 flex-col lg:w-3/5 justify-center lg:items-start overflow-y-hidden font-unbounded">
-                    <h1 className="text-[25px] sm:text-[35px] md:text-[45px] lg:text-[37px] text-center pt-3 lg:pt-0 mb-10 sm:pl-4 opacity-90 lg:text-left text-[#fff] neon-writing">
-                        <span className='text-xl sm:text-2xl'>THE UNIVERSE OF</span> CRYPTOCURRENCY
+        <div className="flex items-center w-full p-4">
+            {/* Left Section - Main Content */}
+            <div className="flex w-3/5">
+                <div className="flex flex-col font-unbounded w-3/5 justify-center items-start">
+                    {/* Header */}
+                    <h1 className="text-[37px] text-left text-[#fff] pt-0 mb-10 pl-4 opacity-90 neon-writing">
+                        <span className="text-2xl">THE UNIVERSE OF</span>
+                        {' '}CRYPTOCURRENCY
                     </h1>
-                    <span className='text-center lg:text-base md:pl-5 md:mt-5 mb-14 lg:mb-10 font-unbounded'>Discover - Learn - Secure</span>
 
-                    <p className="leading-normal sm:ml-5 lg:text-base md:text-xl mb-4 px-10 sm:px-0 sm:mb-8 text-center lg:text-left font-unbounded">
-                        <span>Explore beginner-friendly guides,<br /> expert hardware wallet advice, and real-time market prices.</span>
+                    {/* Tagline */}
+                    <span className="text-base pl-5 mb-10">
+                        Discover - Learn - Secure
+                    </span>
+
+                    {/* Description */}
+                    <p className="text-left text-base mb-8 ml-5">
+                        Explore beginner-friendly guides,
+                        <br />
+                        expert hardware wallet advice, and real-time market prices.
                     </p>
                 </div>
             </div>
-            <div className='flex flex-col w-1/3 h-[300px] justify-center items-center relative bg-[#1a1f2e] rounded-xl neon-card '>
-                <h2 className="text-sm font-bold font-unbounded neon-writing m-[-15px]">News of the day</h2>
+
+            {/* Right Section - News Feed */}
+            <div className="flex flex-col w-2/5 h-[300px] justify-center items-center relative bg-[#1a1f2e] rounded-xl neon-card">
+                <h2 className="text-sm font-bold font-unbounded neon-writing m-[-15px]">
+                    Headlines of the day
+                </h2>
+
                 <div className="w-full p-2">
                     {isNewsFeedLoading ? (
                         // Show 3 skeleton cards while loading
@@ -40,7 +55,11 @@ const Intro = () => {
                     ) : (
                         // Show actual news cards when data is loaded
                         newsFeed.map((news: NewsItem, index: number) => (
-                            <NewsCard key={news.id} news={news} index={index} />
+                            <NewsCard
+                                key={news.id}
+                                news={news}
+                                index={index}
+                            />
                         ))
                     )}
                 </div>
