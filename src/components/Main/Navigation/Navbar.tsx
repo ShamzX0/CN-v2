@@ -27,8 +27,10 @@ const Navbar = () => {
 
             {/* Launch App Button / Connect wallet btn */}
             <div className='flex flex-row gap-4'>
-                <div className='hover:text-[#61d9f1] hover:border-transparent rounded border-slate-600 border-[1px] transition duration-300 ease-in-out hover:[box-shadow:0_0_1px_#00d9ff,0_0_1px_#00d9ff,0_0_10px_#00d9ff]'>
-
+                <div className={`hover:text-[#61d9f1] hover:border-transparent rounded border-slate-600 border-[1px] transition duration-300 ease-in-out ${pathname === '/swap'
+                    ? '[box-shadow:0_0_1px_#00d9ff,0_0_1px_#00d9ff,0_0_10px_#00d9ff]'
+                    : 'hover:[box-shadow:0_0_1px_#00d9ff,0_0_1px_#00d9ff,0_0_10px_#00d9ff]'
+                    }`}>
                     <ConnectButton
                         chainStatus="icon"
                         accountStatus="address"
@@ -36,7 +38,7 @@ const Navbar = () => {
                     />
                 </div>
                 {pathname !== '/swap' && (
-                    <Link href="/swap" className='neon-card border-opacity-30 text-white/70 text-opacity-80 hover:text-[#61d9f1] py-2 px-4 rounded font-unbounded font-light transition duration-300 ease-in-out hover:[box-shadow:0_0_5px_#00d9ff,0_0_40px_#00d9ff,0_0_20px_#00d9ff]'>Launch App</Link>
+                    <Link href="/swap" className='neon-card border-opacity-30 text-white/80 text-opacity-80 hover:text-[#61d9f1] py-2 px-4 rounded font-unbounded font-light transition duration-300 ease-in-out hover:[box-shadow:0_0_10px_#00d9ff,0_0_40px_#00d9ff,0_0_20px_#00d9ff]'>Launch App</Link>
                 )}
             </div>
 
