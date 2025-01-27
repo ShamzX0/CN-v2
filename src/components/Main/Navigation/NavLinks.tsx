@@ -9,6 +9,7 @@ const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Guides', href: '/guide' },
     { name: 'Wallets', href: '/wallets' },
+    { name: 'DEX', href: '/swap' },
 ];
 
 const NavLinks = () => {

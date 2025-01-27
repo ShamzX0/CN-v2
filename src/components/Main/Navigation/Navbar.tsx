@@ -18,9 +18,14 @@ const Navbar = () => {
         <nav className='flex items-center justify-between py-3 px-12 border-b border-opacity-30 border-[#F4F4F4]'>
             {/* Logo, Brand Name, and Navigation */}
             <div className='flex items-center space-x-8'>
-                <div className='flex gap-3'>
-                    <Image src={CryptoNewbie} alt='CryptoNewbieCap logo' width={150} />
-                </div>
+                <Link href="/" className='hover:cursor-pointer'>
+                    <Image
+                        src={CryptoNewbie}
+                        alt="CryptoNewbieCap logo"
+                        width={150}
+                        className="cursor-pointer"
+                    />
+                </Link>
                 <div className='border rotate-90 w-[40px] opacity-30' />
                 <NavLinks />
             </div>
