@@ -23,7 +23,7 @@ const DashboardCards = (props: Props) => {
 
     if (isGlobalDataLoading) return <div className='text-center w-full'>Loading..</div>;
     return (
-        <div className='flex flex-row w-full h-[280px] overflow-hidden'>
+        <div className='flex flex-row w-full h-[300px] p-2 overflow-hidden'>
             {/* Left half - this looks fine */}
             <div className='flex w-1/2 gap-4 mr-2 h-[280px]'>
                 <div className='w-2/3'>

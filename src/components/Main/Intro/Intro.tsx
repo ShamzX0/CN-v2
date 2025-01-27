@@ -16,7 +16,7 @@ const Intro = () => {
 
 
     return (
-        <div className="flex items-center w-full p-4">
+        <div className="flex items-center w-full px-4">
             {/* Left Section - Main Content */}
             <div className="flex w-3/5">
                 <div className="flex flex-col font-unbounded w-3/5 justify-center items-start">
@@ -42,9 +42,9 @@ const Intro = () => {
 
             {/* Right Section - News Feed */}
             <div className="flex flex-col w-2/5 h-[300px] justify-center items-center relative bg-[#1a1f2e] rounded-xl neon-card">
-                <h2 className="text-sm font-bold font-unbounded neon-writing m-[-15px]">
+                <h1 className="text-base font-bold font-mono border-b-[1px] border-[#00FFFF] inline-block">
                     Headlines of the day
-                </h2>
+                </h1>
 
                 <div className="w-full p-2">
                     {isNewsFeedLoading ? (

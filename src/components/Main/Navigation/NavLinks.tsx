@@ -16,9 +16,6 @@ const NavLinks = () => {
 
     return (
         <div className="space-x-8">
-            <div className='neon-card bg-red-500'>
-                <ConnectButton />
-            </div>
             {navLinks.map((oneLink, index) => {
                 const isActive = pathname === oneLink.href; // Check if the current path matches the link
 

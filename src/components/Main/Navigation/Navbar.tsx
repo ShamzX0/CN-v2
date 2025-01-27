@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image'
 import React from 'react'
 import CryptoNewbie from '../../../../public/images/CryptoNewbie.png'
@@ -5,10 +6,14 @@ import NavLinks from '../Navigation/NavLinks'
 
 // import { Search } from 'lucide-react'
 import Link from 'next/link'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { usePathname } from 'next/navigation'
 
 
 
 const Navbar = () => {
+    const pathname = usePathname()
+
     return (
         <nav className='flex items-center justify-between py-3 px-12 border-b border-opacity-30 border-[#F4F4F4]'>
             {/* Logo, Brand Name, and Navigation */}
@@ -20,8 +25,20 @@ const Navbar = () => {
                 <NavLinks />
             </div>
 
-            {/* Launch App Button */}
-            <Link href="/swap" className='neon-card border-opacity-30 text-white/80 text-opacity-80 hover:text-[#f4f4f4] py-2 px-4 rounded font-unbounded font-light transition duration-300 ease-in-out hover:[box-shadow:0_0_20px_#00d9ff,0_0_10px_#00d9ff,0_0_20px_#00d9ff]'>Launch App</Link>
+            {/* Launch App Button / Connect wallet btn */}
+            <div className='flex flex-row gap-4'>
+                <div className='hover:text-[#61d9f1] hover:border-transparent rounded border-slate-600 border-[1px] transition duration-300 ease-in-out hover:[box-shadow:0_0_1px_#00d9ff,0_0_1px_#00d9ff,0_0_10px_#00d9ff]'>
+
+                    <ConnectButton
+                        chainStatus="icon"
+                        accountStatus="address"
+                        showBalance={false}
+                    />
+                </div>
+                {pathname !== '/swap' && (
+                    <Link href="/swap" className='neon-card border-opacity-30 text-white/70 text-opacity-80 hover:text-[#61d9f1] py-2 px-4 rounded font-unbounded font-light transition duration-300 ease-in-out hover:[box-shadow:0_0_5px_#00d9ff,0_0_40px_#00d9ff,0_0_20px_#00d9ff]'>Launch App</Link>
+                )}
+            </div>
 
             {/* Search Bar */}
             {/* <div className='relative flex items-center bg-[#272e3e] rounded-lg px-4 py-2 group'>
