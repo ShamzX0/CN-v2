@@ -53,7 +53,7 @@ export default function CryptoCards() {
                     return (
                         <div
                             key={index}
-                            className={`mt-10 mb-5 rounded-2xl p-7 transition-all duration-500 ${isExpanded ? 'neon-card' : ""}`}
+                            className={`mt-10 mb-5 rounded-2xl p-7 transition-all duration-500 hover:cursor-pointer ${isExpanded ? 'neon-card' : ""}`}
                             onClick={() => { setExpandedCard(isExpanded ? null : index) }}
                         >
                             <header className="flex items-center gap-1">
