@@ -21,8 +21,8 @@ const HeaderSection = ({ title, subtitle, imageSrc }: { title: string; subtitle:
 
 const Page = () => {
     return (
-        <div className="container w-full md:max-w-4xl mx-auto pt-26 text-[#cccbcb]">
-            <div className="w-full mt-10 px-4 md:px-6 text-l leading-normal">
+        <div className="container w-full md:max-w-4xl mx-auto py-10 text-[#cccbcb]">
+            <div className="w-full mt-10 px-4 text-l leading-normal">
                 {/* Header Section */}
                 <HeaderSection
                     title="What is Cryptocurrency?"
@@ -90,7 +90,7 @@ const Page = () => {
                 </blockquote>
 
                 {/* Footer Link */}
-                <div className="text-base md:text-sm text-gray-500 px-4 py-6">
+                <div className="text-base md:text-sm text-gray-500 px-4">
                     <Link
                         href="/"
                         className="neon-card border-opacity-30 text-white/80 hover:text-[#f4f4f4] py-2 px-4 rounded font-unbounded font-light transition duration-200 ease-in-out hover:[box-shadow:0_0_20px_#00d9ff,0_0_20px_#00d9ff,0_0_20px_#00d9ff]"

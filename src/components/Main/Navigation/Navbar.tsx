@@ -32,7 +32,7 @@ const Navbar = () => {
 
             {/* Launch App Button / Connect wallet btn */}
             <div className='flex flex-row gap-4'>
-                <div className={`hover:text-[#61d9f1] hover:border-transparent rounded border-slate-600 border-[1px] transition duration-300 ease-in-out ${pathname === '/swap'
+                <div className={`hover:text-[#61d9f1] scale-[0.9] hover:border-transparent rounded border-slate-600 border-[1px] transition duration-300 ease-in-out ${pathname === '/swap'
                     ? '[box-shadow:0_0_1px_#00d9ff,0_0_1px_#00d9ff,0_0_10px_#00d9ff]'
                     : 'hover:[box-shadow:0_0_1px_#00d9ff,0_0_1px_#00d9ff,0_0_10px_#00d9ff]'
                     }`}>

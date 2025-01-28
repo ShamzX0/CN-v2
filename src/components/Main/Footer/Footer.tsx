@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import { FaGithub, FaXTwitter } from "react-icons/fa6";
 import cnlogo from '../../../../public/images/CNlogoMini.png';
 import { FiFacebook } from 'react-icons/fi';
@@ -11,7 +10,7 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="text-gray-300 mt-[30px]">
+        <footer className="text-gray-300 mt-11">
             <div className="w-full mx-auto px-4 py-4">
                 {/* Divider */}
                 <div className="border-[1px] border-transparent border-[#00d9ff] neon-card mb-6" />
@@ -44,7 +43,7 @@ const Footer = () => {
                     <div className="">
                         <div className="flex flex-col md:flex-row justify-between items-center">
                             <p className="text-xs">
-                                © {currentYear} Company Name. All rights reserved.
+                                © {currentYear} CryptoNewbie. All rights reserved.
                             </p>
                             <div className="flex space-x-4 mt-4 md:mt-0">
                                 <a href="/privacy" className="text-xs hover:text-white transition-colors">

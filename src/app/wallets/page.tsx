@@ -8,7 +8,7 @@ import { ShieldMinus, ShieldPlus } from 'lucide-react'
 
 const WalletPage = () => {
     return (
-        <main className="container w-full max-w-4xl mx-auto py-20 text-[#cccbcb] px-6">
+        <main className="container w-full max-w-4xl mx-auto py-10 text-[#cccbcb] px-6">
             <section className="space-y-20">
                 {/* Hero Section */}
                 <div className="space-y-8">
