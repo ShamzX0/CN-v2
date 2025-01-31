@@ -18,17 +18,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <Suspense fallback={<div>NACITAM SE...</div>}> */}
-      <body className="min-h-screen flex flex-col bg-slate-950">
+      <body className="flex flex-col min-h-screen bg-slate-900">
         <Providers>
-          <Navbar />
-          <main className="flex-grow">
-            {children}
-          </main>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
         </Providers>
-        <Footer />
       </body>
-      {/* </Suspense> */}
     </html>
   )
 }

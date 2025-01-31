@@ -2,6 +2,7 @@ import React from 'react';
 import NewsCard from './NewsCard';
 import NewsCardSkeleton from './NewsCardSkeleton';
 import useNews from '@/hooks/useNews';
+import Loading from '@/components/Loading/Loading';
 
 interface NewsItem {
     title: string;
@@ -35,6 +36,10 @@ const Intro = () => {
                         expert hardware wallet advice, and real-time market prices.
                     </p>
                 </div>
+            </div>
+
+            <div>
+                <Loading />
             </div>
 
             {/* Right Section - News Feed */}
