@@ -12,9 +12,6 @@ interface NewsItem {
 const Intro = () => {
     const { data: newsFeed, isLoading: isNewsFeedLoading } = useNews()
 
-    // if (isNewsFeedLoading) return <div className='text-center w-full'>Loading..</div>;
-
-
     return (
         <div className="flex items-center w-full px-4">
             {/* Left Section - Main Content */}
@@ -41,27 +38,31 @@ const Intro = () => {
             </div>
 
             {/* Right Section - News Feed */}
-            <div className="flex flex-col w-2/5 h-[300px] justify-center items-center relative bg-[#1a1f2e] rounded-xl neon-card">
-                <h1 className="text-base font-bold font-mono border-b-[1px] border-[#00FFFF] inline-block">
-                    Headlines of the day
-                </h1>
+            <div className="flex flex-col w-2/5 h-[300px] bg-[#1a1f2e] rounded-xl neon-card">
+                {/* Header Container */}
+                <div className="flex justify-center w-full">
+                    <h1 className="text-base font-bold font-mono border-b-[1px] my-2 border-[#00FFFF] inline-block">
+                        Headlines of the day
+                    </h1>
+                </div>
 
-                <div className="w-full p-2">
-                    {isNewsFeedLoading ? (
-                        // Show 3 skeleton cards while loading
-                        Array.from({ length: 3 }).map((_, index) => (
-                            <NewsCardSkeleton key={index} />
-                        ))
-                    ) : (
-                        // Show actual news cards when data is loaded
-                        newsFeed.map((news: NewsItem, index: number) => (
-                            <NewsCard
-                                key={news.id}
-                                news={news}
-                                index={index}
-                            />
-                        ))
-                    )}
+                {/* News Feed Container - Now centered */}
+                <div className="flex-1 flex items-center">
+                    <div className="w-full p-2 ">
+                        {isNewsFeedLoading ? (
+                            Array.from({ length: 3 }).map((_, index) => (
+                                <NewsCardSkeleton key={index} />
+                            ))
+                        ) : (
+                            newsFeed.map((news: NewsItem, index: number) => (
+                                <NewsCard
+                                    key={news.id}
+                                    news={news}
+                                    index={index}
+                                />
+                            ))
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

@@ -90,7 +90,7 @@ const Page = () => {
                 </blockquote>
 
                 {/* Footer Link */}
-                <div className="text-base md:text-sm text-gray-500 px-4">
+                <div className="text-base md:text-sm mt-11 text-gray-500 px-4">
                     <Link
                         href="/"
                         className="neon-card border-opacity-30 text-white/80 hover:text-[#f4f4f4] py-2 px-4 rounded font-unbounded font-light transition duration-200 ease-in-out hover:[box-shadow:0_0_20px_#00d9ff,0_0_20px_#00d9ff,0_0_20px_#00d9ff]"
