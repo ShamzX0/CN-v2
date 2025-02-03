@@ -4,6 +4,7 @@ import Navbar from '@/components/Main/Navigation/Navbar'
 import Footer from '@/components/Main/Footer/Footer'
 import { Providers } from '@/components/Providers'
 import { Suspense } from 'react'
+import Loading from '@/components/Loading/Loading'
 
 
 export const metadata: Metadata = {
@@ -20,13 +21,19 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex flex-col min-h-screen bg-slate-900">
         <Providers>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </div>
+          <Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen">
+              <Loading />
+            </div>
+          }>
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-1">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </Suspense>
         </Providers>
       </body>
     </html>
