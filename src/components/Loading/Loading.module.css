@@ -17,6 +17,8 @@
     width: 344px;
     height: 344px;
     fill: none;
+    animation: frameTransform 4s ease-in-out infinite;
+    animation-delay: 2s; /* Initial delay before starting */
 }
 
 .animated {
@@ -34,29 +36,48 @@
     transform-origin: center;
 }
 
-.svg-frame:hover svg {
-    transform: rotate(-80deg) skew(30deg) translateX(calc(45px * var(--i))) translateY(calc(-35px * var(--i)));
+/* Modified keyframes to include deactivation */
+@keyframes frameTransform {
+    0% {
+        transform: rotate(0deg) skew(0deg) translateX(0) translateY(0);
+    }
+    50% { /* At 2 seconds (50% of 4s) */
+        transform: rotate(-80deg) skew(30deg) translateX(calc(45px * var(--i))) translateY(calc(-35px * var(--i)));
+    }
+    100% { /* At 4 seconds */
+        transform: rotate(0deg) skew(0deg) translateX(0) translateY(0);
+    }
 }
 
 .svg-frame svg #center {
-    transition: .5s;
+    transition: .3s;
     transform-origin: center;
+    animation: centerTransform 4s ease-in-out infinite;
+    animation-delay: 2s; /* Initial delay before starting */
 }
 
-.svg-frame:hover svg #center {
-    transform: rotate(-30deg) translateX(45px) translateY(-3px);
+/* Modified keyframes to include deactivation */
+@keyframes centerTransform {
+    0% {
+        transform: rotate(0deg) translateX(0) translateY(0);
+    }
+    50% { /* At 2 seconds (50% of 4s) */
+        transform: rotate(-30deg) translateX(45px) translateY(-3px);
+    }
+    100% { /* At 4 seconds */
+        transform: rotate(0deg) translateX(0) translateY(0);
+    }
 }
 
 #out2 {
     animation: rotate16 7s ease-in-out infinite alternate;
     transform-origin: center;
-    
 }   
 
 #out3 {
     animation: rotate16 3s ease-in-out infinite alternate;
     transform-origin: center;
-    stroke: #ff0;
+    stroke: #00ffff;
 }
 
 #inner3,
@@ -74,6 +95,7 @@
 .halfCircle {
     transform-origin: center;
 }
+
 @keyframes rotate16 {
     from {
         transform: rotate(0deg);
