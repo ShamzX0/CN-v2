@@ -49,7 +49,7 @@ const Swap: FC<SwapProps> = ({ }) => {
                 <div className='flex gap-4 text-2xl'>
                     <span> Whenever. </span>
                     <span> Safely. </span>
-                    <span className="text-blue-700">
+                    <span className="text-[#00FFFF]">
                         Instantly.
                     </span>
                 </div>
