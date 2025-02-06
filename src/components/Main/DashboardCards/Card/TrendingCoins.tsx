@@ -75,7 +75,7 @@ const TrendingCoins = (props: Props) => {
                 {/* Table */}
                 <table className="w-full">
                     <tbody>
-                        {trendingCoins.slice(0, 5).map((coin: { item: any }, index: number) => {
+                        {trendingCoins?.slice(0, 5).map((coin: { item: any }, index: number) => {
                             const { item } = coin;
 
                             return (
