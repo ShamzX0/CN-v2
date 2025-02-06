@@ -17,7 +17,7 @@
     width: 344px;
     height: 344px;
     fill: none;
-    animation: frameTransform 4s ease-in-out infinite;
+    animation: frameTransform 6s ease-in-out infinite;
     animation-delay: 2s; /* Initial delay before starting */
 }
 
@@ -36,15 +36,18 @@
     transform-origin: center;
 }
 
-/* Modified keyframes to include deactivation */
+/* Modified keyframes with 2-second pause at active state */
 @keyframes frameTransform {
     0% {
         transform: rotate(0deg) skew(0deg) translateX(0) translateY(0);
     }
-    50% { /* At 2 seconds (50% of 4s) */
+    33% { /* Move to active state */
         transform: rotate(-80deg) skew(30deg) translateX(calc(45px * var(--i))) translateY(calc(-35px * var(--i)));
     }
-    100% { /* At 4 seconds */
+    66% { /* Hold for 2 seconds */
+        transform: rotate(-80deg) skew(30deg) translateX(calc(45px * var(--i))) translateY(calc(-35px * var(--i)));
+    }
+    100% { /* Return to inactive */
         transform: rotate(0deg) skew(0deg) translateX(0) translateY(0);
     }
 }
@@ -52,19 +55,22 @@
 .svg-frame svg #center {
     transition: .3s;
     transform-origin: center;
-    animation: centerTransform 4s ease-in-out infinite;
+    animation: centerTransform 6s ease-in-out infinite;
     animation-delay: 2s; /* Initial delay before starting */
 }
 
-/* Modified keyframes to include deactivation */
+/* Modified keyframes with 2-second pause at active state */
 @keyframes centerTransform {
     0% {
         transform: rotate(0deg) translateX(0) translateY(0);
     }
-    50% { /* At 2 seconds (50% of 4s) */
+    33% { /* Move to active state */
         transform: rotate(-30deg) translateX(45px) translateY(-3px);
     }
-    100% { /* At 4 seconds */
+    66% { /* Hold for 2 seconds */
+        transform: rotate(-30deg) translateX(45px) translateY(-3px);
+    }
+    100% { /* Return to inactive */
         transform: rotate(0deg) translateX(0) translateY(0);
     }
 }
