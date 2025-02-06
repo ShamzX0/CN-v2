@@ -6,5 +6,6 @@ export default function useTrendingData() {
     refreshInterval: 600000,
     revalidateOnFocus: false,
     suspense: true,
+    fallbackData: [] as any,
   });
 }

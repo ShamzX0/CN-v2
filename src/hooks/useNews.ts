@@ -6,5 +6,6 @@ export default function useNews() {
     refreshInterval: 600000,
     revalidateOnFocus: false,
     suspense: true,
+    fallbackData: [] as unknown as NewsItem,
   });
 }
