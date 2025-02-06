@@ -2,16 +2,30 @@ import useFearGreed from '@/hooks/useFearGreed';
 import { CircleHelp } from 'lucide-react';
 import React from 'react';
 
-
 const FearGreedIndex = () => {
-    const { data: fearGreed } = useFearGreed()
+    const { data: fearGreed } = useFearGreed();
+
+    // Safe parsing of the value with fallback
+    const getValue = (): number => {
+        const value = fearGreed?.data[0]?.value;
+        return value ? parseInt(value, 10) : 0;
+    };
 
     const getGradientColor = (value: number) => {
         const normalizedValue = value / 100;
         return -90 + (normalizedValue * 180);
     };
 
+    // Safe timestamp formatting with fallback
+    const getFormattedTimestamp = (): string => {
+        const timestamp = fearGreed?.data[0]?.timestamp;
+        if (!timestamp) return 'N/A';
+        return new Date(timestamp * 1000).toLocaleString();
+    };
 
+    if (!fearGreed?.data?.length) {
+        return null; // or a loading state
+    }
 
     return (
         <div className="bg-[#101e36] p-4 w-full h-[150px] rounded-xl ">
@@ -43,7 +57,7 @@ const FearGreedIndex = () => {
                         y2="20"
                         stroke="white"
                         strokeWidth="2"
-                        transform={`rotate(${getGradientColor(parseInt(fearGreed?.data[0].value))}, 100, 80)`}
+                        transform={`rotate(${getGradientColor(getValue())}, 100, 80)`}
                     />
                     <circle
                         cx="100"
@@ -56,10 +70,10 @@ const FearGreedIndex = () => {
                 {/* Value display - repositioned */}
                 <div className='absolute bottom-[-5px] left-1/2 transform w-full -translate-x-1/2 flex flex-col items-center'>
                     <div className="text-green-400 text-[8px]">
-                        {fearGreed?.data[0].value_classification}
+                        {fearGreed.data[0].value_classification}
                     </div>
                     <div className="font-bold text-green-400 text-md">
-                        {fearGreed?.data[0].value}
+                        {fearGreed.data[0].value}
                     </div>
                 </div>
 
@@ -69,7 +83,7 @@ const FearGreedIndex = () => {
                         <CircleHelp size={12} className="text-gray-400" />
                         <div className="absolute invisible opacity-0 group-hover:visible group-hover:opacity-100 right-6 top-1/2 -translate-y-1/2 bg-white border border-gray-200 rounded-md p-2 shadow-sm transition-all duration-200 z-20 whitespace-nowrap">
                             <div className="text-[8px] text-gray-400">
-                                <span>Last updated: {new Date(fearGreed?.data[0].timestamp * 1000).toLocaleString()}</span>
+                                <span>Last updated: {getFormattedTimestamp()}</span>
                             </div>
                         </div>
                     </div>

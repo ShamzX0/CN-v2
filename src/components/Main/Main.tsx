@@ -98,9 +98,6 @@ const Main = () => {
     //     };
     // }, [handleScroll]);
 
-    if (isGlobalDataLoading) return <div className='text-center w-full animate-pulse'>Loading...</div>;
-    // if (error) return <div>Error: {error}</div>;
-
     return (
         <main className="rounded-xl min-h-screen">
             <div>
@@ -110,11 +107,6 @@ const Main = () => {
             </div>
             <div className='border-[0.4px] opacity-20 my-2' />
             <CryptoTable />
-            {/* {isLoadingMore && (
-                <div className="flex justify-center p-4">
-                    <div className="animate-spin h-8 w-8 border-4 border-blue-500 rounded-full border-t-transparent"></div>
-                </div>
-            )} */}
         </main>
     );
 };

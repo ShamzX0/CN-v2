@@ -31,7 +31,7 @@ const DashboardCards = (props: Props) => {
                         <div>Loading data..</div>
                     ) : (
 
-                        <TrendingNFTs trendingData={trendingData} />
+                        <TrendingNFTs trendingNfts={trendingData.nfts} />
                     )
                     }
 
@@ -49,7 +49,7 @@ const DashboardCards = (props: Props) => {
             </div>
             <div className='flex w-1/2 gap-4 h-[280px]'>
                 <div className='w-4/5'>
-                    <TrendingCoins trendingData={trendingData} />
+                    <TrendingCoins trendingCoins={trendingData.coins} />
                 </div>
                 <div className="flex flex-col w-1/5 gap-4 h-[280px]">
                     <div className="w-full h-full">

@@ -3,12 +3,11 @@ import Image from "next/image";
 import { useState } from "react";
 
 interface Props {
-    trendingData: any
+    trendingNfts: NFTs[]
 }
 
 const TrendingNFTs = (props: Props) => {
-    const { trendingData } = props;
-    const trendingNfts = trendingData?.nfts;
+    const { trendingNfts } = props;
 
     // Track which images have failed to load
     const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});

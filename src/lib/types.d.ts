@@ -43,7 +43,7 @@ interface NewsItem {
 
 interface FearGreedDataPoint {
   time_until_update: string;
-  timestamp: string;
+  timestamp: number;
   value: string;
   value_classification:
     | "Fear"
@@ -123,4 +123,83 @@ interface CoinData {
   price_change_percentage_1h_in_currency: number;
   price_change_percentage_24h_in_currency: number;
   price_change_percentage_7d_in_currency: number;
+}
+
+interface TrendingDataResponse {
+  categories: Categories[];
+  coins: Coins[];
+  nfts: NFTs[];
+}
+
+interface Categories {
+  coins_count: string;
+  data: CategoryData;
+  id: number;
+  market_cap_1h_change: number;
+  name: string;
+  slug: string;
+}
+
+interface CategoryData {
+  market_cap: number;
+  market_cap_btc: number;
+  market_cap_change_percentage_24h: MarketCapChangePercentage24h;
+  sparkline: string;
+  total_volume: number;
+  total_volume_btc: number;
+}
+
+interface MarketCapChangePercentage24h {
+  [key: string]: number;
+}
+
+interface Coins {
+  item: CoinItem;
+}
+
+interface CoinData {
+  price: number;
+  price_btc: string;
+  price_change_percentage_24h: PriceChangePercentage;
+  market_cap: string;
+  market_cap_btc: string;
+}
+
+interface CoinItem {
+  coin_id: number;
+  data: CoinData;
+  id: string;
+  large: string;
+  market_cap_rank: number;
+  name: string;
+  price_btc: number;
+  score: number;
+  slug: string;
+  small: string;
+  symbol: string;
+  thumb: string;
+}
+
+interface PriceChangePercentage {
+  [key: string]: number;
+}
+
+interface NFTs {
+  data: NFTData;
+  id: string;
+  name: string;
+  native_currency_symbol: string;
+  nft_contract_id: number;
+  symbol: string;
+  thumb: string;
+  floor_price_in_native_currency: number;
+  floor_price_24h_percentage_change: number;
+}
+
+interface NFTData {
+  floor_price: string;
+  floor_price_in_usd_24h_percentage_change: string;
+  h24_volume: string;
+  h24_average_sale_price: string;
+  sparkline: string;
 }

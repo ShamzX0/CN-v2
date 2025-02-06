@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import getTrendingData from "./fetch/getTrendingCoins";
+import getTrendingData from "./fetch/getTrendingData";
 
 export default function useTrendingData() {
   return useSWR("getTrendingData", () => getTrendingData(), {
