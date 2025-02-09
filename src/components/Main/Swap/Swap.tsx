@@ -46,10 +46,10 @@ const Swap: FC<SwapProps> = ({ }) => {
                 </span>
 
                 <p className=''>Trade many tokens on ERC-20 Ethereum Smart Chain in seconds, just by connecting your wallet.</p>
-                <div className='flex gap-4 text-2xl'>
+                <div className='flex flex-row items-center gap-4 text-2xl'>
                     <span> Whenever. </span>
                     <span> Safely. </span>
-                    <span className="text-[#00FFFF]">
+                    <span className="neon-writing2 !font-medium">
                         Instantly.
                     </span>
                 </div>

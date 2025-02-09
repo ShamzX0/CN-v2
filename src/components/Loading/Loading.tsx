@@ -49,7 +49,7 @@ const Loading = () => {
                 </svg>
 
             </div>
-            <p className='neon-writing'>Fetching Data...</p>
+            <p className='neon-writing2'>Good things come to those who wait.</p>
         </div>
     )
 }

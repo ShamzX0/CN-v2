@@ -34,6 +34,15 @@ body {
     0 0 20px #00d9ff,
     0 0 40px #00d9ff;
 }
+.neon-writing2 {
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  line-height: 20px;
+  text-shadow:
+    0 0 5px #ff9900,
+    0 0 10px #ffaa00,
+    0 0 20px #eecf07;
+}
 
 .neon-card {
   box-shadow:
