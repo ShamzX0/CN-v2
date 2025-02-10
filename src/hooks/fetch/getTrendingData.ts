@@ -5,7 +5,6 @@ export default async function getTrendingData(): Promise<TrendingDataResponse> {
     );
 
     const data = await response.json();
-    console.log(data, "RESPONSE getTrendingDatagetTrendingDatagetTrendingData");
     return data;
   } catch (error) {
     console.error("Error fetching markets data:", error);
