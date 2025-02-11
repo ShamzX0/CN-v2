@@ -37,13 +37,14 @@ interface NewsItem {
   published_at: string;
   slug: string;
   source: NewsSource;
+  title: string;
   url: string;
   votes: NewsVotes;
 }
 
 interface FearGreedDataPoint {
   time_until_update: string;
-  timestamp: number;
+  timestamp: string;
   value: string;
   value_classification:
     | "Fear"
@@ -73,14 +74,17 @@ interface GlobalData {
   total_market_cap: {
     btc: number;
     eth: number;
+    usd: number;
   };
   total_volume: {
     btc: number;
     eth: number;
+    usd: number;
   };
   market_cap_percentage: {
     btc: number;
     eth: number;
+    sol: number;
   };
   market_cap_change_percentage_24h_usd: number;
   updated_at: number;
@@ -157,7 +161,7 @@ interface Coins {
   item: CoinItem;
 }
 
-interface CoinData {
+interface OneCoinData {
   price: number;
   price_btc: string;
   price_change_percentage_24h: PriceChangePercentage;
@@ -167,7 +171,7 @@ interface CoinData {
 
 interface CoinItem {
   coin_id: number;
-  data: CoinData;
+  data: OneCoinData;
   id: string;
   large: string;
   market_cap_rank: number;
