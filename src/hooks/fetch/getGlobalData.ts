@@ -1,4 +1,4 @@
-const FALLBACK_DATA = {
+export const FALLBACK_GLOBAL_DATA = {
   active_cryptocurrencies: 17058,
   upcoming_icos: 0,
   ongoing_icos: 49,
@@ -7,14 +7,17 @@ const FALLBACK_DATA = {
   total_market_cap: {
     btc: 34141163.216,
     eth: 1209276196.036,
+    usd: 312323249678.3,
   },
   total_volume: {
     btc: 2114261.3191025313,
     eth: 74886900.28480999,
+    usd: 12324242321.3,
   },
   market_cap_percentage: {
     btc: 58.05256509393119,
     eth: 9.970363027182204,
+    sol: 1598.3,
   },
   market_cap_change_percentage_24h_usd: -2.461,
   updated_at: 1738740983,
@@ -26,9 +29,9 @@ export default async function getGlobalData(): Promise<GlobalData> {
 
     const data = await response.json();
 
-    return data;
+    return data.data;
   } catch (error) {
     console.error("Error fetching markets data:", error);
-    return FALLBACK_DATA;
+    return FALLBACK_GLOBAL_DATA;
   }
 }

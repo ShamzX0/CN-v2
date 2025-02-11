@@ -1,11 +1,11 @@
 import useSWR from "swr";
-import getBitcoin from "./fetch/getBitcoin";
+import getBitcoin, { FALLBACK_BTC_DATA } from "./fetch/getBitcoin";
 
 export default function useBitcoin() {
   return useSWR("getBitcoin", () => getBitcoin(), {
     refreshInterval: 600000,
     revalidateOnFocus: false,
     suspense: true,
-    fallbackData: [] as unknown as BitcoinPriceResponse,
+    fallbackData: FALLBACK_BTC_DATA,
   });
 }

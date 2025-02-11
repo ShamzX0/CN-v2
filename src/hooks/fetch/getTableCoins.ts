@@ -1,6 +1,6 @@
 import { dummyData } from "@/helpers/dummyData";
 
-const FALLBACK_DATA = dummyData;
+export const FALLBACK_TABLE_COINS_DATA = dummyData;
 
 export default async function getTableCoins(): Promise<CoinData[]> {
   try {
@@ -17,6 +17,6 @@ export default async function getTableCoins(): Promise<CoinData[]> {
     return data;
   } catch (error) {
     console.error("Error fetching markets data:", error);
-    return FALLBACK_DATA;
+    return FALLBACK_TABLE_COINS_DATA;
   }
 }

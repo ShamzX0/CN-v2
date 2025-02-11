@@ -1,4 +1,4 @@
-const DEFAULT_FEAR_GREED_DATA: FearGreedResponse = {
+export const DEFAULT_FEAR_GREED_DATA: FearGreedResponse = {
   name: "Fear and Greed Index",
   data: [
     {
