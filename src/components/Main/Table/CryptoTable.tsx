@@ -5,7 +5,7 @@ import Sparkline from './Sparkline/Sparkline';
 import useTableCoins from '@/hooks/useTableCoins';
 
 const CryptoTable = () => {
-    const { data: tableCoins, isLoading: isTableCoinsLoading } = useTableCoins()
+    const { data: tableCoins } = useTableCoins()
 
     const formatNumberFractions = (marketCap: number): string => {
         return new Intl.NumberFormat('en-US', {
@@ -29,17 +29,16 @@ const CryptoTable = () => {
         return Math.abs(percentage).toFixed(2);
     };
 
-    if (isTableCoinsLoading || !tableCoins) return <div className='text-center w-full'>Loading..</div>;
-
     const coins = Array.isArray(tableCoins) ? tableCoins : [];
 
     return (
-        <div className="w-full overflow-x-auto rounded-lg pl-2 pr-2 pt-1">
+        <section className="px-2 pt-1">
             <table className="w-full">
                 <thead>
+                    {/* COMMENT */}
+                    {/* this can be map function - too much repeated code */}
                     <tr className="border-b border-gray-700">
                         <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">#</th>
-
                         <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">Name</th>
                         <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">1h %</th>
                         <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">24h %</th>
@@ -169,7 +168,7 @@ const CryptoTable = () => {
                     }
                 </tbody>
             </table>
-        </div>
+        </section>
     );
 };
 

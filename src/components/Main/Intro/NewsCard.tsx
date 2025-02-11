@@ -1,7 +1,6 @@
-import { CryptopanicNews } from "../../../lib/types.d";
 import { Clock, ExternalLink } from "lucide-react";
 
-const NewsCard = ({ news, index }: { news: CryptopanicNews; index: number }) => {
+const NewsCard = ({ news, index }: { news: NewsItem; index: number }) => {
     if (news.domain === 'youtube.com') return null;
     if (index > 2) return null;
 

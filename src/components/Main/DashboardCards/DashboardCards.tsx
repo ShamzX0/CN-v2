@@ -5,36 +5,27 @@ import VolumeCard from './Card/VolumeCard'
 import TrendingCoins from './Card/TrendingCoins'
 import FearGreedIndex from './Card/FearGreedIndex'
 import DominanceCard from './Card/DominanceCard'
-import useTrendingData from '@/hooks/useTrendingCoins'
+import useTrendingData from '@/hooks/useTrendingData'
 
 interface Props {
-    globalData: any
-    isGlobalDataLoading: boolean
+    globalData: GlobalData
 }
 
 const DashboardCards = (props: Props) => {
+    const { globalData } = props
+    const { data: trendingData } = useTrendingData()
 
-    const { globalData, isGlobalDataLoading } = props
-    const { data: trendingData, isLoading: isTrendingDataLoading } = useTrendingData()
     const marketCap = globalData?.total_market_cap?.usd || 0;
     const volume = globalData?.total_volume?.usd || 0;
     const marketCapChangePercent = globalData?.market_cap_change_percentage_24h_usd || 0;
     const volumeChangePercent = ((volume - (volume / (1 + marketCapChangePercent / 100))) / (volume / (1 + marketCapChangePercent / 100))) * 100 || 0;
 
-    if (isGlobalDataLoading) return <div className='text-center w-full'>Loading..</div>;
     return (
-        <div className='flex flex-row w-full h-[300px] p-2 overflow-hidden'>
+        <section className='flex flex-row w-full h-[300px] p-2 overflow-hidden'>
             {/* Left half - this looks fine */}
             <div className='flex w-1/2 gap-4 mr-2 h-[280px]'>
                 <div className='w-2/3'>
-                    {isTrendingDataLoading ? (
-                        <div>Loading data..</div>
-                    ) : (
-
-                        <TrendingNFTs trendingNfts={trendingData.nfts} />
-                    )
-                    }
-
+                    <TrendingNFTs trendingNfts={trendingData.nfts} />
                 </div>
                 <div className="flex flex-col w-1/3 gap-4 h-[280px]">
                     <MarketCapCard
@@ -60,7 +51,7 @@ const DashboardCards = (props: Props) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 
