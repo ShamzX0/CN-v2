@@ -40,23 +40,20 @@ const Footer = () => {
                     </div>
 
                     {/* Bottom bar */}
-                    <div className="">
-                        <div className="flex flex-col md:flex-row justify-between items-center">
-                            <p className="text-xs">
-                                © {currentYear} CryptoNewbie. All rights reserved.
-                            </p>
-                            <div className="flex space-x-4 mt-4 md:mt-0">
-                                <a href="/privacy" className="text-xs hover:text-white transition-colors">
-                                    Privacy Policy
-                                </a>
-                                <a href="/terms" className="text-xs hover:text-white transition-colors">
-                                    Terms of Service
-                                </a>
-                            </div>
+                    <div className="flex flex-col md:flex-row justify-between items-center">
+                        <p className="text-xs">
+                            © {currentYear} CryptoNewbie. All rights reserved.
+                        </p>
+                        <div className="flex space-x-4 mt-4 md:mt-0">
+                            <a href="/privacy" className="text-xs hover:text-white transition-colors">
+                                Privacy Policy
+                            </a>
+                            <a href="/terms" className="text-xs hover:text-white transition-colors">
+                                Terms of Service
+                            </a>
                         </div>
                     </div>
                 </div>
-                {/* Social Media Icons */}
             </div>
         </footer>
     );

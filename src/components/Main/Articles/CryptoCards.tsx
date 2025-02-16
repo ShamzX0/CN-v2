@@ -44,7 +44,7 @@ export default function CryptoCards() {
     const [expandedCard, setExpandedCard] = useState<number | null>(0);
 
     return (
-        <div>
+        <>
             {
                 info.map((oneCrypto, index) => {
                     const isExpanded = expandedCard === index
@@ -56,13 +56,13 @@ export default function CryptoCards() {
                             className={`mt-10 mb-5 rounded-2xl p-7 transition-all duration-500 hover:cursor-pointer ${isExpanded ? 'neon-card' : ""}`}
                             onClick={() => { setExpandedCard(isExpanded ? null : index) }}
                         >
-                            <header className="flex items-center gap-1">
+                            <div className="flex items-center gap-1">
                                 <Image src={oneCrypto.imageSrc} width={40} height={5} alt={oneCrypto.name} />
                                 <h5 className={`mb-1 text-2xl font-extrabold leading-none tracking-tight md:text-2xl lg:text-3xl text-[${oneCrypto.color}] border-l-4 border-transparent md:pl-1`}>
                                     {oneCrypto.name}
                                 </h5>
                                 <span className={`text-sm italic ml-2 text-[${oneCrypto.color}]`}>({oneCrypto.symbol})</span>
-                            </header>
+                            </div>
 
                             <div className={`overflow-hidden transition-all duration-500 ${isExpanded ? 'max-h-[2000px] opacity-100' : 'max-h-[300px] opacity-90'}`}>
                                 <p className="whitespace-pre-wrap text-[15px]">{finalDescription}</p>
@@ -75,7 +75,7 @@ export default function CryptoCards() {
                     )
                 })
             }
-        </div>
+        </>
     )
 }
 

@@ -1,19 +1,12 @@
 import React from 'react';
 import NewsCard from './NewsCard';
-import NewsCardSkeleton from './NewsCardSkeleton';
 import useNews from '@/hooks/useNews';
 
-interface NewsItem {
-    title: string;
-    domain: string;
-    id: string;
-}
-
 const Intro = () => {
-    const { data: newsFeed, isLoading: isNewsFeedLoading } = useNews()
+    const { data: newsFeed } = useNews()
 
     return (
-        <div className="flex items-center w-full px-4">
+        <section className="flex items-center  px-4">
             {/* Left Section - Main Content */}
             <div className="flex w-3/5">
                 <div className="flex flex-col font-unbounded w-3/5 justify-center items-start">
@@ -49,23 +42,21 @@ const Intro = () => {
                 {/* News Feed Container - Now centered */}
                 <div className="flex-1 flex items-center">
                     <div className="w-full p-2 ">
-                        {isNewsFeedLoading ? (
-                            Array.from({ length: 3 }).map((_, index) => (
-                                <NewsCardSkeleton key={index} />
-                            ))
-                        ) : (
+                        {
                             newsFeed.map((news: NewsItem, index: number) => (
-                                <NewsCard
-                                    key={news.id}
-                                    news={news}
-                                    index={index}
-                                />
+                                <React.Fragment key={index}
+                                >
+                                    <NewsCard
+                                        news={news}
+                                        index={index}
+                                    />
+                                </React.Fragment>
                             ))
-                        )}
+                        }
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
