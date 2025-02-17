@@ -1,9 +1,10 @@
-import HomePage from '@/components/HomePage'
-export default function Home() {
-  return (
+import Main from '@/components/Main/Main'
 
-    <main>
-      <HomePage />
+export default function Home() {
+
+  return (
+    <main className="rounded-xl min-h-screen">
+      <Main />
     </main>
   )
 }
