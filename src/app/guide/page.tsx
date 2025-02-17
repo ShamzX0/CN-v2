@@ -8,20 +8,20 @@ import CryptoCards from '@/components/Main/Articles/CryptoCards';
 
 
 const HeaderSection = ({ title, subtitle, imageSrc }: { title: string; subtitle: string; imageSrc?: any }) => (
-    <div className="mb-8">
+    <section className="mb-8">
         <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-white">
             {title}
             <br />
             <span className="underline underline-offset-3 decoration-8 decoration-[#208282]">{subtitle}</span>
         </h1>
         {imageSrc && <Image src={imageSrc} alt="Header Image" width={900} height={10} className="mb-5" />}
-    </div>
+    </section>
 );
 
 
 const Page = () => {
     return (
-        <div className="container w-full md:max-w-4xl mx-auto py-10 text-[#cccbcb]">
+        <main className="container w-full md:max-w-4xl mx-auto py-10 text-[#cccbcb]">
             <div className="w-full mt-10 px-4 text-l leading-normal">
                 {/* Header Section */}
                 <HeaderSection
@@ -61,11 +61,11 @@ const Page = () => {
                     delve into the concept of cryptocurrency, its underlying technology, and its potential implications.
                 </p>
                 <div className='py-6'>
-                    <div className="border-b-2 border-[#1d7272]"></div>
+                    <div className="border-b-2 border-[#1d7272]" />
                     <h4 className="border-l-7 border-gray-500 font-medium text-lg italic my-8 neon-writing ">
                         Key Characteristics that you should know about..
                     </h4>
-                    <div className="border-b-[1px] border-[#1d7272]"></div>
+                    <div className="border-b-[1px] border-[#1d7272]" />
                 </div>
 
                 {/* Types of Cryptocurrencies */}
@@ -99,7 +99,7 @@ const Page = () => {
                     </Link>
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 

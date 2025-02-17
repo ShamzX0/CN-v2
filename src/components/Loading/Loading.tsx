@@ -3,7 +3,7 @@ import styles from './Loading.module.css'
 
 const Loading = () => {
     return (
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center justify-center h-[100vh]'>
             <div className={styles['svg-frame']}>
                 <svg style={{ '--i': 0, '--j': 0 } as React.CSSProperties}>
                     <g id={styles.out1} className={styles.animated}>

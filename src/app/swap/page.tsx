@@ -4,7 +4,7 @@ import { SettingOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from 'react'
 import Swap from '@/components/Main/Swap/Swap';
 
-const page = () => {
+const SwapPage = () => {
 
     const [slippage, setSlippage] = useState<number>(2.5)
     const [tokenOneAmount, setTokenOneAmount] = useState(null)
@@ -58,4 +58,4 @@ const page = () => {
     )
 }
 
-export default page
+export default SwapPage

@@ -54,7 +54,7 @@ const WalletPage = () => {
                 </article>
 
                 {/* Swiss Bank Section */}
-                <section className="space-y-8">
+                <article className="space-y-8">
                     <h2 className="text-4xl font-extrabold text-white">
                         <span className="underline underline-offset-3 decoration-8 decoration-[#208282]">
                             Swiss Bank in your pocket!
@@ -79,10 +79,10 @@ const WalletPage = () => {
                             in a secure location, preferably offline and away from prying eyes.
                         </p>
                     </div>
-                </section>
+                </article>
 
                 {/* Wallet Comparisons */}
-                <section className="space-y-12">
+                <article className="space-y-12">
                     <h2 className="text-4xl font-extrabold text-white">
                         A Deep Dive into the Pros & Cons of 3{' '}
                         <span className="underline underline-offset-3 decoration-8 decoration-[#208282]">
@@ -91,8 +91,8 @@ const WalletPage = () => {
                     </h2>
 
                     {/* Ledger Nano X */}
-                    <article className="space-y-10 bg-gray-800/30 rounded-xl p-8">
-                        <header className="space-y-6">
+                    <div className="space-y-10 bg-gray-800/30 rounded-xl p-8">
+                        <div className="space-y-6">
                             <h3 className="text-2xl font-bold text-white flex items-center gap-4">
                                 <span className="text-[#208282]">#1</span>
                                 <span className="border-l-4 border-[#208282] pl-4 italic">
@@ -109,7 +109,7 @@ const WalletPage = () => {
                                     className="rounded-lg"
                                 />
                             </div>
-                        </header>
+                        </div>
 
                         <div className="space-y-8 text-gray-400">
                             <p className="text-lg leading-relaxed">
@@ -145,11 +145,11 @@ const WalletPage = () => {
                                 </p>
                             </div>
                         </div>
-                    </article>
+                    </div>
 
                     {/* BitBox */}
-                    <article className="space-y-10 bg-gray-800/30 rounded-xl p-8">
-                        <header className="space-y-6">
+                    <div className="space-y-10 bg-gray-800/30 rounded-xl p-8">
+                        <div className="space-y-6">
                             <h3 className="text-2xl font-bold text-white flex items-center gap-4">
                                 <span className="text-[#208282]">#2</span>
                                 <span className="border-l-4 border-[#208282] pl-4 italic">
@@ -166,7 +166,7 @@ const WalletPage = () => {
                                     className="rounded-lg"
                                 />
                             </div>
-                        </header>
+                        </div>
 
                         <div className="space-y-8 text-gray-400">
                             <p className="text-lg leading-relaxed">
@@ -203,11 +203,11 @@ const WalletPage = () => {
                                 </p>
                             </div>
                         </div>
-                    </article>
+                    </div>
 
                     {/* Trezor One */}
-                    <article className="space-y-10 bg-gray-800/30 rounded-xl p-8">
-                        <header className="space-y-6">
+                    <div className="space-y-10 bg-gray-800/30 rounded-xl p-8">
+                        <div className="space-y-6">
                             <h3 className="text-2xl font-bold text-white flex items-center gap-4">
                                 <span className="text-[#208282]">#3</span>
                                 <span className="border-l-4 border-[#208282] pl-4 italic">
@@ -224,7 +224,7 @@ const WalletPage = () => {
                                     className="rounded-lg"
                                 />
                             </div>
-                        </header>
+                        </div>
 
                         <div className="space-y-8 text-gray-400">
                             <p className="text-lg leading-relaxed">
@@ -260,7 +260,7 @@ const WalletPage = () => {
                                 </p>
                             </div>
                         </div>
-                    </article>
+                    </div>
                     {/* PRODUCTS */}
                     <p className="font-normal mt-16 mb-10 lg:text-xl text-gray-400 border-l-4 border-[#208282] italic my-8 pl-8 md:pl-8">&quot;By equipping yourself with a hardware wallet, you&apos;re not merely joining the cryptocurrency revolution, you&apos;re securing your place in it. Safeguarding your digital assets becomes effortless, allowing you to explore the possibilities and potential of this exciting landscape with peace of mind.&quot;</p>
                     <div className='flex gap-6 flex-wrap sm:gap-4 sm:flex-nowrap lg:gap-6'>
@@ -358,7 +358,7 @@ const WalletPage = () => {
                             Home Page
                         </Link>
                     </div>
-                </section>
+                </article>
 
             </section>
         </main>
