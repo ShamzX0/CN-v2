@@ -1,8 +1,8 @@
 'use client'
 
 import { FC } from 'react'
-import React, { useState, useEffect } from "react";
-import { Input, Popover, Radio, Modal, message, RadioChangeEvent } from "antd";
+import React from "react";
+import { Input, Popover, Radio, Modal } from "antd";
 import { ArrowDown, ChevronDown, Settings, } from 'lucide-react';
 // import { useSendTransaction, useWaitForTransaction, useConnect, useAccount } from "wagmi";
 
@@ -37,7 +37,7 @@ const Swap: FC<SwapProps> = ({ }) => {
 
     return <>
         {/*SWAP CARD */}
-        <div className='flex gap-6 w-[1000px] mx-auto mt-28'>
+        <>
             <div className="flex flex-col gap-12 font-unbounded">
                 <span className="font-bold text-4xl neon-writing text-[#fff]">
                     SWAP YOUR <br />
@@ -49,7 +49,7 @@ const Swap: FC<SwapProps> = ({ }) => {
                 <div className='flex flex-row items-center gap-4 text-2xl'>
                     <span> Whenever. </span>
                     <span> Safely. </span>
-                    <span className="neon-writing2 !font-medium">
+                    <span className="text-[#31e3ef] !font-medium">
                         Instantly.
                     </span>
                 </div>
@@ -63,7 +63,7 @@ const Swap: FC<SwapProps> = ({ }) => {
                     title='Select a Token'
                     onCancel={() => { }}
                 >
-                    <div className='border-t border-[#363e54] mt-5 flex flex-col gap-2'>
+                    <div className='border-t border-[#363e54] mt-5 flex flex-col'>
                         {
                             tokenList?.map((oneToken, index) => {
                                 return <div key={index} className='flex items-center pl-5 py-2 hover:cursor-pointer overflow-auto hover:bg-[#1f1639]' onClick={() => { }}>
@@ -138,7 +138,7 @@ const Swap: FC<SwapProps> = ({ }) => {
 
                 </div>
             </div>
-        </div>
+        </>
     </>
 
 }
