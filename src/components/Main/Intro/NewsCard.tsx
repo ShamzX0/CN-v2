@@ -22,12 +22,12 @@ const NewsCard = ({ news, index }: { news: NewsItem; index: number }) => {
             href={news.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="block hover:bg-[#1a2842] transition-colors duration-200 py-1 px-3 rounded-lg"
+            className="block hover:bg-[#24385d] transition-colors duration-200 py-1 px-3 rounded-lg"
         >
             <div className="flex items-start my-[2px]">
-                <div className="flex-grow opacity-80 hover:opacity-100">
+                <div className="flex-grow opacity-90 hover:opacity-100">
                     <div className="flex items-center gap-1 text-[#f4f4f4] mb-1">
-                        <span className="bg-[#ff862a] text-xs px-2 rounded">
+                        <span className="bg-[#1d95b0] text-xs px-2 rounded">
                             {news.domain}
                         </span>
                         <div className="flex items-center gap-1">
