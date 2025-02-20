@@ -34,14 +34,14 @@ const Intro = () => {
             <div className="flex flex-col w-2/5 h-[300px] bg-[#1a1f2e] rounded-xl neon-card">
                 {/* Header Container */}
                 <div className="flex justify-center w-full">
-                    <h1 className="text-base font-bold font-mono border-b-[1px] my-2 border-[#00FFFF] inline-block">
+                    <h1 className="text-base font-bold font-mono border-b-[1px] mt-2 border-[#00FFFF] inline-block">
                         Headlines of the day
                     </h1>
                 </div>
 
-                {/* News Feed Container - Now centered */}
+                {/* News Feed Container */}
                 <div className="flex-1 flex items-center">
-                    <div className="w-full p-2 ">
+                    <div className="w-full p-2">
                         {
                             newsFeed.map((news: NewsItem, index: number) => (
                                 <React.Fragment key={index}
