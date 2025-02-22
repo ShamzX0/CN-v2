@@ -4,6 +4,7 @@ import useNews from '@/hooks/useNews';
 
 const Intro = () => {
     const { data: newsFeed } = useNews()
+    console.log(newsFeed, 'TOHLE JSOU NEWS')
 
     return (
         <section className="flex items-center  px-4">

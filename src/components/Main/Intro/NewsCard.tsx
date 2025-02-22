@@ -1,8 +1,48 @@
-import { Clock, ExternalLink } from "lucide-react";
+import { ArrowBigDown, ArrowBigUp, ArrowDown, ArrowUp, Clock, ExternalLink } from "lucide-react";
+import { useEffect, useState } from "react";
+
+interface NewsItem {
+    domain: string;
+    url: string;
+    published_at: string;
+    title: string;
+}
 
 const NewsCard = ({ news, index }: { news: NewsItem; index: number }) => {
+    const [upvotes, setUpvotes] = useState(0);
+    const [downvotes, setDownvotes] = useState(0);
+    const [hasUpvoted, setHasUpvoted] = useState(false);
+    const [hasDownvoted, setHasDownvoted] = useState(false);
+
+
     if (news.domain === 'youtube.com') return null;
     if (index > 4) return null;
+
+    const generateRandomVote = () => {
+        return Math.floor(Math.random() * (12 - 1 + 1)) + 3;
+    };
+
+    const handleUpvote = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (!hasUpvoted) {
+            setUpvotes(prev => prev + 1);
+            setHasUpvoted(true);
+        }
+    };
+
+    const handleDownvote = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (!hasDownvoted) {
+            setDownvotes(prev => prev - 1);
+            setHasDownvoted(true);
+        }
+    };
+
+
+    useEffect(() => {
+        setUpvotes(generateRandomVote());
+        setDownvotes(generateRandomVote());
+    }, []);
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -22,26 +62,45 @@ const NewsCard = ({ news, index }: { news: NewsItem; index: number }) => {
             href={news.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="block hover:bg-[#24385d] transition-colors duration-200 py-1 px-3 rounded-lg"
+            className="block hover:bg-[#24385d] transition-colors duration-200 py-[2px] px-3 rounded-lg"
         >
-            <div className="flex items-start my-[2px]">
-                <div className="flex-grow opacity-90 hover:opacity-100">
-                    <div className="flex items-center gap-1 text-[#f4f4f4] mb-1">
-                        <span className="bg-[#1d95b0] text-xs px-2 rounded">
+            <div className="opacity-90 hover:opacity-100 hover:brightness-125">
+                <div className="flex justify-between items-center text-xs">
+                    <div className="flex items-center gap-1">
+                        <span className="bg-[#ff7301ce] px-2 rounded">
                             {news.domain}
                         </span>
-                        <div className="flex items-center gap-1">
-                            <Clock size={12} />
-                            <span className="text-[10px]">{formatDate(news.published_at)}</span>
-                        </div>
+                        <Clock size={12} />
+                        <span className="text-[9px]">{formatDate(news.published_at)}</span>
                     </div>
-                    <p className="text-xs text-gray-200 line-clamp-2">
-                        {news.title}
-                    </p>
+                    <div className="flex items-center">
+                        <div className="flex items-center mx-2 pr-2 rounded w-[60px] bg-slate-700">
+                            <ArrowBigUp
+                                size={26}
+                                strokeWidth={3}
+                                className={`scale-[0.5] ${hasUpvoted ? 'text-green-700' : 'text-green-500 hover:scale-[0.65] cursor-pointer'}`}
+                                onClick={handleUpvote}
+                            />
+                            <span className="ml-[-6px] text-[9px]">{upvotes}</span>
+                            <div className="mx-[2px]" />
+                            <ArrowBigDown
+                                size={26}
+                                strokeWidth={3}
+                                className={`scale-[0.5] ${hasDownvoted ? 'text-red-700' : 'text-red-500 hover:scale-[0.65] cursor-pointer'}`}
+                                onClick={handleDownvote}
+                            />
+                            <span className="ml-[-6px] text-[9px]">{downvotes}</span>
+                        </div>
+                        <ExternalLink size={15} className="text-gray-400" />
+                    </div>
                 </div>
-                <ExternalLink size={16} className="text-gray-400 mt-1 flex-shrink-0" />
+                <p className="text-xs text-gray-200">
+                    {news.title}
+                </p>
             </div>
         </a>
     );
 };
-export default NewsCard
+
+export default NewsCard;
+
