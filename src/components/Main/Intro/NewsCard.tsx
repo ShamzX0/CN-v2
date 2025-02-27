@@ -73,8 +73,8 @@ const NewsCard = ({ news, index }: { news: NewsItem; index: number }) => {
                         <Clock size={12} />
                         <span className="text-[9px]">{formatDate(news.published_at)}</span>
                     </div>
-                    <div className="flex items-center">
-                        <div className="flex items-center mx-2 pr-2 rounded w-[60px] bg-slate-700">
+                    <div className="flex items-center justify-center">
+                        <div className="flex items-center pr-3 rounded w-[60px]">
                             <ArrowBigUp
                                 size={26}
                                 strokeWidth={3}
@@ -91,7 +91,7 @@ const NewsCard = ({ news, index }: { news: NewsItem; index: number }) => {
                             />
                             <span className="ml-[-6px] text-[9px]">{downvotes}</span>
                         </div>
-                        <ExternalLink size={15} className="text-gray-400" />
+                        <ExternalLink size={16} className="text-gray-400" />
                     </div>
                 </div>
                 <p className="text-xs text-gray-200">
