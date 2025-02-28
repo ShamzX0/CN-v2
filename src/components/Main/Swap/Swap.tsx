@@ -116,7 +116,7 @@ const Swap: FC<SwapProps> = ({ }) => {
                             onClick={() => { }}>
                             {/* <Image src={tokenOne.img} alt="assetOneLogo" height={14} width={23} className="ml-1" />
                             {tokenOne.ticker} */}
-                            USDC
+                            IMAGE - USDC
                             <ChevronDown />
                         </div>
 
@@ -124,7 +124,7 @@ const Swap: FC<SwapProps> = ({ }) => {
                             onClick={() => { }}>
                             {/* <Image src={tokenTwo.img} alt="assetTwoLogo" height={14} width={23} className="ml-1" />
                             {tokenTwo.ticker} */}
-                            LINK
+                            IMAGE - LINK
                             <ChevronDown />
                         </div>
 
