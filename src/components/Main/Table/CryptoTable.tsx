@@ -1,11 +1,20 @@
+'use client'
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import Image from 'next/image';
 import Sparkline from './Sparkline/Sparkline';
 import useTableCoins from '@/hooks/useTableCoins';
 
+
 const CryptoTable = () => {
     const { data: tableCoins } = useTableCoins()
+    const router = useRouter()
+
+    const handleCoinClick = (coinId: string, symbol: string) => {
+        router.push(`cryptodetail/${symbol.toLowerCase()}`)
+    }
 
     const formatNumberFractions = (marketCap: number): string => {
         return new Intl.NumberFormat('en-US', {
@@ -62,7 +71,8 @@ const CryptoTable = () => {
                             return (
                                 <tr
                                     key={coin.id}
-                                    className="border-b border-gray-700 hover:bg-[#1a2842] transition-colors duration-200"
+                                    className="border-b border-gray-700 hover:bg-[#1a2842] transition-colors duration-200 cursor-pointer"
+                                    onClick={() => handleCoinClick(coin.id, coin.symbol)}
                                 >
                                     <td className="px-4 text-sm text-gray-300">{index + 1}</td>
                                     {/* Token - image */}
