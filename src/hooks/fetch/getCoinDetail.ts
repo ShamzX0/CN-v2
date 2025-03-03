@@ -15,7 +15,7 @@ export const FALLBACK_COINDETAIL_DATA = {
   description: "Bitcoin is the first successful internet money...",
 };
 
-export default async function getCoinDetail(coinId: any): Promise<any> {
+export default async function getCoinDetail(coinId: string): Promise<any> {
   try {
     const response = await fetch(
       `https://api.coingecko.com/api/v3/coins/${coinId}?localization=false&sparkline=true`
@@ -23,7 +23,6 @@ export default async function getCoinDetail(coinId: any): Promise<any> {
     if (!response.ok) throw new Error("Failed to fetch");
 
     const data = await response.json();
-    console.log(data, "BITCOIN DATA TOHLE CHCI");
 
     return data;
   } catch (error) {

@@ -6,6 +6,7 @@ import { TrendingUp, TrendingDown } from 'lucide-react';
 import Image from 'next/image';
 import Sparkline from './Sparkline/Sparkline';
 import useTableCoins from '@/hooks/useTableCoins';
+import Link from 'next/link';
 
 
 const CryptoTable = () => {
@@ -69,7 +70,8 @@ const CryptoTable = () => {
                                 : 'gray'; // Default color if no data
 
                             return (
-                                <tr
+                                <Link
+                                    href={`cryptodetail/${coin.id}`}
                                     key={coin.id}
                                     className="border-b border-gray-700 hover:bg-[#1a2842] transition-colors duration-200 cursor-pointer"
                                     onClick={() => handleCoinClick(coin.id, coin.symbol)}
@@ -172,7 +174,7 @@ const CryptoTable = () => {
                                             'No Data'
                                         )}
                                     </td>
-                                </tr>
+                                </Link>
                             );
                         })
                     }
