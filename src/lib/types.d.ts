@@ -90,23 +90,6 @@ interface GlobalData {
   updated_at: number;
 }
 
-// TypeScript interface for our crypto data
-interface CryptoData {
-  id: string;
-  name: string;
-  symbol: string;
-  image: string;
-  current_price: number;
-  price_change_percentage_24h: number;
-  price_change_percentage_7d?: number;
-  market_cap: number;
-  fully_diluted_valuation?: number;
-  total_volume: number;
-  circulating_supply: number;
-  ath: number;
-  description?: string;
-}
-
 interface CoinData {
   id: string;
   symbol: string;
@@ -144,6 +127,13 @@ interface CoinData {
   price_change_percentage_1h_in_currency: number;
   price_change_percentage_24h_in_currency: number;
   price_change_percentage_7d_in_currency: number;
+
+  market_cap_change_24h_in_currency?: number;
+  price_change_percentage_1y?: number;
+  price_change_percentage_30d?: number;
+  sentiment_votes_down_percentage?: number;
+  sentiment_votes_up_percentage?: number;
+  description?: { [key: string]: string };
 }
 
 interface TrendingDataResponse {
