@@ -83,7 +83,7 @@ const CryptoTable = () => {
                             >
                                 <td colSpan={9} className="">
                                     <Link
-                                        href={`/cryptodetail/${coin.symbol.toLowerCase()}`}
+                                        href={`/cryptodetail/${coin.id.toLowerCase()}`}
                                         className="flex w-full"
                                     >
                                         <div className="flex w-full gap-6 h-16">

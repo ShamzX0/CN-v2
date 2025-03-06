@@ -1,5 +1,48 @@
 import { CoinData } from "./types";
 
+export const FALLBACK_COIN_DETAIL_DATA = (coinId: string) => ({
+  id: coinId,
+  symbol: coinId.substring(0, 3).toLowerCase(),
+  name: coinId.charAt(0).toUpperCase() + coinId.slice(1),
+  image: {
+    thumb: "/fallback-thumb.png",
+    small: "/fallback-small.png",
+    large: "/fallback-large.png",
+  },
+  market_cap_rank: 0,
+  current_price: 0,
+  market_cap: 0,
+  fully_diluted_valuation: 0,
+  total_volume: 0,
+  high_24h: 0,
+  low_24h: 0,
+  price_change_24h: 0,
+  price_change_percentage_24h: 0,
+  market_cap_change_24h: 0,
+  market_cap_change_percentage_24h: 0,
+  circulating_supply: 0,
+  total_supply: null,
+  max_supply: null,
+  ath: 0,
+  ath_change_percentage: 0,
+  ath_date: "N/A",
+  atl: 0,
+  atl_change_percentage: 0,
+  atl_date: "N/A",
+  roi: null,
+  last_updated: new Date().toISOString(),
+  sparkline_in_7d: { price: [] },
+  price_change_percentage_1h_in_currency: 0,
+  price_change_percentage_24h_in_currency: 0,
+  price_change_percentage_7d_in_currency: 0,
+  market_cap_change_24h_in_currency: 0,
+  price_change_percentage_1y: 0,
+  price_change_percentage_30d: 0,
+  sentiment_votes_down_percentage: 0,
+  sentiment_votes_up_percentage: 0,
+  description: `Fallback description for ${coinId} when API is unavailable`,
+});
+
 export default async function getCoinDetail(coinId: string): Promise<CoinData> {
   try {
     const response = await fetch(
@@ -87,6 +130,6 @@ export default async function getCoinDetail(coinId: string): Promise<CoinData> {
     return coinData;
   } catch (error) {
     console.error("Error fetching coin data:", error);
-    return FALLBACK_COIN_DETAIL_DATA; // Make sure this fallback constant is defined elsewhere
+    return FALLBACK_COIN_DETAIL_DATA(coinId);
   }
 }
