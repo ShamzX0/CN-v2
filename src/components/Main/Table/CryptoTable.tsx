@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import Image from 'next/image';
 import Sparkline from './Sparkline/Sparkline';
@@ -11,11 +10,6 @@ import Link from 'next/link';
 
 const CryptoTable = () => {
     const { data: tableCoins } = useTableCoins()
-    const router = useRouter()
-
-    const handleCoinClick = (coinId: string, symbol: string) => {
-        router.push(`cryptodetail/${symbol.toLowerCase()}`)
-    }
 
     const formatNumberFractions = (marketCap: number): string => {
         return new Intl.NumberFormat('en-US', {
@@ -41,55 +35,36 @@ const CryptoTable = () => {
 
     const coins = Array.isArray(tableCoins) ? tableCoins : [];
 
+    const tableHeaders = [
+        { id: 'index', label: '#', width: '60px', align: 'left' },
+        { id: 'name', label: 'Name', width: '230px', align: 'left' },
+        { id: '1h', label: '1h %', width: '110px', align: 'right' },
+        { id: '24h', label: '24h %', width: '123px', align: 'right' },
+        { id: '7d', label: '7d %', width: '123px', align: 'right' },
+        { id: 'marketCap', label: 'Market Cap', width: '220px', align: 'right', noPadding: true },
+        { id: 'volume', label: 'Volume(24h)', width: '200px', align: 'right' },
+        { id: 'price', label: 'Price', width: '120px', align: 'right' },
+        { id: 'chart', label: 'Chart(7d)', width: '220px', align: 'right' },
+    ];
+
     return (
         <section className="px-2 pt-1">
             <table className="w-full">
                 <thead className='text-xs'>
                     <tr className="flex w-full border-b border-gray-700 text-gray-400 pb-2">
-                        {/* Index */}
-                        <th className="px-4 flex items-center min-w-[60px]">
-                            #
-                        </th>
-
-                        {/* Name */}
-                        <th className="px-4 flex items-center min-w-[230px]">
-                            Name
-                        </th>
-
-                        {/* 1h % */}
-                        <th className="px-4 text-right flex items-center justify-end min-w-[110px]">
-                            1h %
-                        </th>
-
-                        {/* 24h % */}
-                        <th className="px-4 text-right flex items-center justify-end min-w-[123px]">
-                            24h %
-                        </th>
-
-                        {/* 7d % */}
-                        <th className="px-4 text-right flex items-center justify-end min-w-[123px]">
-                            7d %
-                        </th>
-
-                        {/* Market Cap */}
-                        <th className="text-right flex items-center justify-end min-w-[220px]">
-                            Market Cap
-                        </th>
-
-                        {/* Volume */}
-                        <th className="px-4 text-right flex items-center justify-end min-w-[200px]">
-                            Volume(24h)
-                        </th>
-
-                        {/* Price */}
-                        <th className="px-4 text-right flex items-center justify-end min-w-[120px]">
-                            Price
-                        </th>
-
-                        {/* Chart */}
-                        <th className="px-4 text-right flex items-center justify-end min-w-[220px]">
-                            Chart(7d)
-                        </th>
+                        {tableHeaders.map((header) => (
+                            <th
+                                key={header.id}
+                                className={`
+                                    ${!header.noPadding ? 'px-4' : ''} 
+                                    flex items-center 
+                                    ${header.align === 'right' ? 'justify-end text-right' : 'justify-start text-left'}
+                                    min-w-[${header.width}]
+                                `}
+                            >
+                                {header.label}
+                            </th>
+                        ))}
                     </tr>
                 </thead>
                 <tbody>
