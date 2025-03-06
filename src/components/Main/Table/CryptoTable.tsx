@@ -44,140 +44,188 @@ const CryptoTable = () => {
     return (
         <section className="px-2 pt-1">
             <table className="w-full">
-                <thead>
-                    {/* COMMENT */}
-                    {/* this can be map function - too much repeated code */}
-                    <tr className="border-b border-gray-700">
-                        <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">#</th>
-                        <th className="px-4 py-3 text-left text-sm font-medium text-gray-300">Name</th>
-                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">1h %</th>
-                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">24h %</th>
-                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">7d %</th>
-                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">Market Cap</th>
-                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">Volume(24h)</th>
-                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300">Price</th>
-                        <th className="px-4 py-3 text-right text-sm font-medium text-gray-300 ">Chart(7d)</th>
+                <thead className='text-xs'>
+                    <tr className="flex w-full border-b border-gray-700 text-gray-400 pb-2">
+                        {/* Index */}
+                        <th className="px-4 flex items-center min-w-[60px]">
+                            #
+                        </th>
+
+                        {/* Name */}
+                        <th className="px-4 flex items-center min-w-[230px]">
+                            Name
+                        </th>
+
+                        {/* 1h % */}
+                        <th className="px-4 text-right flex items-center justify-end min-w-[110px]">
+                            1h %
+                        </th>
+
+                        {/* 24h % */}
+                        <th className="px-4 text-right flex items-center justify-end min-w-[123px]">
+                            24h %
+                        </th>
+
+                        {/* 7d % */}
+                        <th className="px-4 text-right flex items-center justify-end min-w-[123px]">
+                            7d %
+                        </th>
+
+                        {/* Market Cap */}
+                        <th className="text-right flex items-center justify-end min-w-[220px]">
+                            Market Cap
+                        </th>
+
+                        {/* Volume */}
+                        <th className="px-4 text-right flex items-center justify-end min-w-[200px]">
+                            Volume(24h)
+                        </th>
+
+                        {/* Price */}
+                        <th className="px-4 text-right flex items-center justify-end min-w-[120px]">
+                            Price
+                        </th>
+
+                        {/* Chart */}
+                        <th className="px-4 text-right flex items-center justify-end min-w-[220px]">
+                            Chart(7d)
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        coins.map((coin: any, index: number) => {
-                            const sparklineData = coin.sparkline_in_7d?.price;
-                            const sparklineColor = sparklineData && sparklineData.length > 1
-                                ? sparklineData[sparklineData.length - 1] > sparklineData[0]
-                                    ? '	#009F6B'
-                                    : '#D20A2E'
-                                : 'gray'; // Default color if no data
+                    {coins.map((coin: any, index: number) => {
+                        const sparklineData = coin.sparkline_in_7d?.price;
+                        const sparklineColor = sparklineData && sparklineData.length > 1
+                            ? sparklineData[sparklineData.length - 1] > sparklineData[0]
+                                ? '#009F6B'
+                                : '#D20A2E'
+                            : 'gray';
 
-                            return (
-                                <Link
-                                    href={`cryptodetail/${coin.id}`}
-                                    key={coin.id}
-                                    className="border-b border-gray-700 hover:bg-[#1a2842] transition-colors duration-200 cursor-pointer"
-                                    onClick={() => handleCoinClick(coin.id, coin.symbol)}
-                                >
-                                    <td className="px-4 text-sm text-gray-300">{index + 1}</td>
-                                    {/* Token - image */}
-                                    <td className="px-4">
-                                        <div className="flex items-center gap-2">
-                                            <Image
-                                                src={coin.image}
-                                                alt={coin.name}
-                                                width={24}
-                                                height={24}
-                                                className="w-6 h-6 rounded-full"
-                                            />
-                                            {/* Token - name, symbol */}
-                                            <div className="flex flex-col">
-                                                <span className="text-sm font-medium text-gray-200">{coin.name}</span>
-                                                <span className="text-xs text-gray-400 uppercase">{coin.symbol}</span>
+                        return (
+                            <tr
+                                key={coin.id}
+                                className="border-b border-gray-700 hover:bg-[#1a2842] transition-colors duration-200"
+                            >
+                                <td colSpan={9} className="">
+                                    <Link
+                                        href={`/cryptodetail/${coin.symbol.toLowerCase()}`}
+                                        className="flex w-full"
+                                    >
+                                        <div className="flex w-full gap-6 h-16">
+                                            {/* Index */}
+                                            <div className="px-4 text-sm text-gray-300 flex items-center min-w-[50px]">
+                                                {index + 1}
+                                            </div>
+
+                                            {/* Name and Image */}
+                                            <div className="flex items-center w-[200px]">
+                                                <div className="flex items-center gap-2">
+                                                    <Image
+                                                        src={coin.image}
+                                                        alt={coin.name}
+                                                        width={24}
+                                                        height={24}
+                                                        className="w-6 h-6 rounded-full"
+                                                    />
+                                                    <div className="flex flex-col">
+                                                        <span className="text-sm font-medium text-gray-200">{coin.name}</span>
+                                                        <span className="text-xs text-gray-400 uppercase">{coin.symbol}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* 1h Volume */}
+                                            <div className="px-4 text-right text-sm flex items-center justify-end w-[100px]">
+                                                <div className="flex items-center justify-end gap-1">
+                                                    {coin.price_change_percentage_24h > 0 ? (
+                                                        <>
+                                                            <TrendingUp className="w-4 h-4 text-green-500" />
+                                                            <span className="text-green-500">
+                                                                {formatPercentage(coin.price_change_percentage_1h_in_currency)}%
+                                                            </span>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <TrendingDown className="w-4 h-4 text-red-500" />
+                                                            <span className="text-red-500">
+                                                                {formatPercentage(coin.price_change_percentage_1h_in_currency)}%
+                                                            </span>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            {/* 24h Volume */}
+                                            <div className="px-4 text-right text-sm flex items-center justify-end w-[100px]">
+                                                <div className="flex items-center justify-end gap-1">
+                                                    {coin.price_change_percentage_24h > 0 ? (
+                                                        <>
+                                                            <TrendingUp className="w-4 h-4 text-green-500" />
+                                                            <span className="text-green-500">
+                                                                {formatPercentage(coin.price_change_percentage_24h)}%
+                                                            </span>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <TrendingDown className="w-4 h-4 text-red-500" />
+                                                            <span className="text-red-500">
+                                                                {formatPercentage(coin.price_change_percentage_24h)}%
+                                                            </span>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            {/* 7d Volume */}
+                                            <div className="px-4 text-right text-sm flex items-center justify-end w-[100px]">
+                                                <div className="flex items-center justify-end gap-1">
+                                                    {coin.price_change_percentage_7d_in_currency > 0 ? (
+                                                        <>
+                                                            <TrendingUp className="w-4 h-4 text-green-500" />
+                                                            <span className="text-green-500">
+                                                                {formatPercentage(coin.price_change_percentage_7d_in_currency)}%
+                                                            </span>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <TrendingDown className="w-4 h-4 text-red-500" />
+                                                            <span className="text-red-500">
+                                                                {formatPercentage(coin.price_change_percentage_7d_in_currency)}%
+                                                            </span>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            {/* Market Cap */}
+                                            <div className="text-right text-sm text-gray-200 flex justify-end items-center w-[200px]">
+                                                {formatNumberFractions(coin.market_cap)}
+                                            </div>
+
+                                            {/* Volume 24h */}
+                                            <div className="px-4 text-right text-sm text-gray-200 flex items-center justify-end min-w-[170px]">
+                                                {formatNumberFractions(coin.total_volume)}
+                                            </div>
+
+                                            {/* Current Price */}
+                                            <div className="px-4 text-right text-sm text-gray-200 flex items-center justify-end w-[100px]">
+                                                {formatPrice(coin.current_price)}
+                                            </div>
+
+                                            {/* Sparkline */}
+                                            <div className=" flex justify-end items-center min-w-[210px]">
+                                                {sparklineData ? (
+                                                    <Sparkline data={sparklineData} color={sparklineColor} />
+                                                ) : (
+                                                    'No Data'
+                                                )}
                                             </div>
                                         </div>
-                                    </td>
-                                    {/* 1h Volume */}
-                                    <td className="px-4 text-right text-sm">
-                                        <div className="flex items-center justify-end gap-1">
-                                            {coin.price_change_percentage_24h > 0 ? (
-                                                <>
-                                                    <TrendingUp className="w-4 h-4 text-green-500" />
-                                                    <span className="text-green-500">
-                                                        {formatPercentage(coin.price_change_percentage_1h_in_currency)}%
-                                                    </span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <TrendingDown className="w-4 h-4 text-red-500" />
-                                                    <span className="text-red-500">
-                                                        {formatPercentage(coin.price_change_percentage_1h_in_currency)}%
-                                                    </span>
-                                                </>
-                                            )}
-                                        </div>
-                                    </td>
-                                    {/* 24h Volume */}
-                                    <td className="px-4 text-right text-sm">
-                                        <div className="flex items-center justify-end gap-1">
-                                            {coin.price_change_percentage_24h > 0 ? (
-                                                <>
-                                                    <TrendingUp className="w-4 h-4 text-green-500" />
-                                                    <span className="text-green-500">
-                                                        {formatPercentage(coin.price_change_percentage_24h)}%
-                                                    </span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <TrendingDown className="w-4 h-4 text-red-500" />
-                                                    <span className="text-red-500">
-                                                        {formatPercentage(coin.price_change_percentage_24h)}%
-                                                    </span>
-                                                </>
-                                            )}
-                                        </div>
-                                    </td>
-                                    {/* 7d Volume */}
-                                    <td className="px-4 text-right text-sm">
-                                        <div className="flex items-center justify-end gap-1">
-                                            {coin.price_change_percentage_7d_in_currency > 0 ? (
-                                                <>
-                                                    <TrendingUp className="w-4 h-4 text-green-500" />
-                                                    <span className="text-green-500">
-                                                        {formatPercentage(coin.price_change_percentage_7d_in_currency)}%
-                                                    </span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <TrendingDown className="w-4 h-4 text-red-500" />
-                                                    <span className="text-red-500">
-                                                        {formatPercentage(coin.price_change_percentage_7d_in_currency)}%
-                                                    </span>
-                                                </>
-                                            )}
-                                        </div>
-                                    </td>
-                                    {/* Market Cap */}
-                                    <td className="px-4 text-right text-sm text-gray-200">
-                                        {formatNumberFractions(coin.market_cap)}
-                                    </td>
-                                    {/* Volume 24h */}
-                                    <td className="px-4 text-right text-sm text-gray-200">
-                                        {formatNumberFractions(coin.total_volume)}
-                                    </td>
-                                    {/* Current Price */}
-                                    <td className="px-4 text-right text-sm text-gray-200">
-                                        {formatPrice(coin.current_price)}
-                                    </td>
-                                    {/* Sparkline */}
-                                    <td className='flex justify-end'>
-                                        {sparklineData ? (
-                                            <Sparkline data={sparklineData} color={sparklineColor} />
-                                        ) : (
-                                            'No Data'
-                                        )}
-                                    </td>
-                                </Link>
-                            );
-                        })
-                    }
+                                    </Link>
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         </section>
