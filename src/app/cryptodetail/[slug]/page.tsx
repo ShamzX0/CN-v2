@@ -52,10 +52,10 @@ export default function CryptoDetailPage() {
             <div className="pt-8 px-4 md:px-8">
                 <div className="flex items-center gap-4">
                     {/* Placeholder for coin image */}
-                    <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center">
                         {CoinData.image ? (
                             <Image
-                                src={CoinData.image.large}
+                                src={CoinData.image.small}
                                 alt={CoinData.name}
                                 width={64}
                                 height={64}
