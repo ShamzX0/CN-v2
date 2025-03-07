@@ -24,7 +24,7 @@ const NavLinks = () => {
                     <Link
                         key={index}
                         href={oneLink.href}
-                        className={`text-white hover:text-[#00FFFF] ${isActive ? 'text-[#00FFFF] font-bold border-b-[1px] border-[#00FFFF]' : ''
+                        className={`text-white text-[14px] hover:text-[#00FFFF] ${isActive ? 'text-[#00FFFF] font-bold border-b-[1px] border-[#00FFFF]' : ''
                             }`}
                     >
                         {oneLink.name}

@@ -12,6 +12,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 // Assets
 import CryptoNewbie from '../../../../public/images/CryptoNewbie.png'
+import { Search } from 'lucide-react'
 
 // Styling constants
 const NEON_EFFECTS = {
@@ -75,7 +76,7 @@ const Navbar: React.FC = () => {
     const pathname = usePathname()
 
     return (
-        <nav className='flex items-center justify-between py-3 px-12 border-b border-opacity-30 border-[#F4F4F4]'>
+        <nav className='flex items-center justify-between py-1 px-12 border-b border-opacity-30 border-[#F4F4F4]'>
             {/* Logo, Brand Name, and Navigation */}
             <div className='flex items-center space-x-8'>
                 <Link href="/" className='hover:cursor-pointer'>
@@ -96,20 +97,6 @@ const Navbar: React.FC = () => {
                 <WalletConnect pathname={pathname} />
                 {pathname !== '/swap' && <LaunchAppButton />}
             </div>
-
-            {/* Search Bar */}
-            {/* <div className='relative flex items-center bg-[#272e3e] rounded-lg px-4 py-2 group'>
-          <Search className='h-5 w-5 text-gray-400' />
-          <input
-              type="text"
-              placeholder="Search"
-              className='bg-transparent border-none outline-none pl-2 text-gray-300 placeholder-gray-400 w-[200px]'
-          />
-          <kbd className='border border-gray-500 px-2 py-0.5 rounded ml-2 text-sm text-gray-400'>/</kbd> */}
-
-            {/* Gradient Border Effect */}
-            {/* <div className='absolute inset-0 rounded-lg bg-gradient-to-l from-[#00FFFF] via-transparent to-transparent opacity-30 pointer-events-none'></div>
-      </div> */}
         </nav>
     )
 }
