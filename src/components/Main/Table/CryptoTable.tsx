@@ -48,17 +48,18 @@ const CryptoTable = () => {
     ];
 
     return (
-        <section className="px-2 pt-1">
+        <section className="px-2 pt-1 pb-9">
             <table className="w-full">
                 <thead className='text-xs'>
                     <tr className="flex w-full border-b border-gray-700 text-gray-400 pb-2">
                         {tableHeaders.map((header) => (
                             <th
                                 key={header.id}
+                                style={{ minWidth: header.width }}
                                 className={`
                                     ${!header.noPadding ? 'px-4' : ''} 
                                     flex items-center 
-                                    ${header.align === 'right' ? 'justify-end text-right' : 'justify-start text-left'}
+                                    ${header.align === 'right' ? 'justify-end text-right' : 'justify-start text-right'}
                                     min-w-[${header.width}]
                                 `}
                             >
