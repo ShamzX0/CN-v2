@@ -1,7 +1,11 @@
-import useCoinDetail from '@/hooks/useCoinDetail';
 import useCoinNews from '@/hooks/useCoinNews';
-import { ExternalLink } from 'lucide-react';
-import { useParams } from 'next/navigation';
+import { ArrowBigDown, ArrowBigUp, Clock, ExternalLink } from "lucide-react";
+import { IoInfiniteSharp } from "react-icons/io5";
+import { GiBull, GiBearFace, GiBullHorns } from "react-icons/gi";
+import { FaRegStar, FaFire } from "react-icons/fa";
+
+// rising hot bulls bears 
+
 import React, { useState } from 'react'
 
 interface NewsItem {
@@ -31,21 +35,10 @@ interface NewsItem {
     };
 }
 
-
-
 const CryptoNews = () => {
+    const [newsFilter, setNewsFilter] = useState<'rising' | 'hot' | 'bullish' | 'bearish' | null>('bullish');
 
-    const params = useParams();
-    const cryptoSlug = params.slug as string;
-    const { data: CoinData } = useCoinDetail(cryptoSlug);
-
-    // State for news filters
-    const [newsFilter, setNewsFilter] = useState<'rising' | 'hot' | 'bullish' | 'bearish' | null>('rising');
-
-    // Get the currency code for news API
-    const currencyCode = CoinData?.symbol?.toUpperCase();
-
-    // Fetch news specific to this coin
+    // Fetch general crypto news without specific currency
     const {
         data: coinNews,
         error: newsError,
@@ -53,10 +46,13 @@ const CryptoNews = () => {
         loadNextPage,
         hasNextPage,
     } = useCoinNews({
-        currencies: currencyCode ? [currencyCode] : [],
         filter: newsFilter || undefined,
         kind: 'news'
     });
+
+    console.log('News Data:', coinNews);
+    console.log('Loading:', newsLoading);
+    console.log('Error:', newsError);
 
     // Format date for news items
     const formatDate = (dateString: string): string => {
@@ -70,52 +66,86 @@ const CryptoNews = () => {
         });
     };
 
-
     return (
         <div>
             {/* News Section */}
-            <div className="mt-12 px-4 w-2/4 md:px-8">
-                <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-bold">News From the CryptoUniverse</h2>
+            <div className="mt-2 px-1">
 
+                <div className='flex justify-between'>
+                    <div className="flex items-center justify-between mb-1 px-2">
+                        <h2 className="text-sm font-bold">News From the CryptoUniverse</h2>
+                    </div>
+                    <div className="flex gap-1 pb-1">
+                        <div className={`px-3 py-1 rounded-lg cursor-pointer ${newsFilter === null ? 'text-[#00FFFF] bg-slate-700' : 'text-[#f4f4f4]'
+                            }`}>
+                            <IoInfiniteSharp
+                                onClick={() => setNewsFilter(null)}
+                                size={22}
+                            />
+                        </div>
+
+                        <div className={`px-3 py-1 mt-1 rounded-lg cursor-pointer pt-[1.5px] ${newsFilter === 'rising' ? 'text-[#00FFFF] bg-slate-700' : 'text-[#f4f4f4]'
+                            }`}>
+                            <FaRegStar
+                                onClick={() => setNewsFilter('rising')}
+                                size={18}
+                            />
+                        </div>
+
+                        <div className={`px-3 py-1 mt-[2px] rounded-lg cursor-pointer ${newsFilter === 'hot' ? 'text-[#00FFFF] bg-slate-700' : 'text-[#f4f4f4]'
+                            }`}>
+                            <FaFire
+                                onClick={() => setNewsFilter('hot')}
+                                size={18}
+                            />
+                        </div>
+
+                        <div className={`px-3 py-1 rounded-lg cursor-pointer ${newsFilter === 'bullish' ? 'text-[#00FFFF] bg-slate-700' : 'text-[#f4f4f4]'
+                            }`}>
+                            <GiBullHorns
+                                onClick={() => setNewsFilter('bullish')}
+                                size={22}
+                            />
+                        </div>
+
+                        <div className={`px-3 py-1 rounded-lg cursor-pointer ${newsFilter === 'bearish' ? 'text-[#00FFFF] bg-slate-700' : 'text-[#f4f4f4]'
+                            }`}>
+                            <GiBearFace
+                                onClick={() => setNewsFilter('bearish')}
+                                size={22}
+                            />
+                        </div>
+                        {/* <button
+                            className={`px-3 py-1 rounded-md text-xs whitespace-nowrap ${newsFilter === 'rising' ? 'bg-yellow-600 text-white' : 'bg-navy-800 text-gray-300 hover:bg-navy-700'}`}
+                            onClick={() => setNewsFilter('rising')}
+                        >
+                            Rising
+                        </button>
+                        <button
+                            className={`px-3 py-1 rounded-md text-xs whitespace-nowrap ${newsFilter === 'hot' ? 'bg-orange-700 text-white' : 'bg-navy-800 text-gray-300 hover:bg-navy-700'}`}
+                            onClick={() => setNewsFilter('hot')}
+                        >
+                            Hot
+                        </button>
+                        <button
+                            className={`px-3 py-1 rounded-md text-xs whitespace-nowrap ${newsFilter === 'bullish' ? 'bg-green-600 text-white' : 'bg-navy-800 text-gray-300 hover:bg-navy-700'}`}
+                            onClick={() => setNewsFilter('bullish')}
+                        >
+                            Bullish
+                        </button>
+                        <button
+                            className={`px-3 py-1 rounded-md text-xs whitespace-nowrap ${newsFilter === 'bearish' ? 'bg-red-600 text-white' : 'bg-navy-800 text-gray-300 hover:bg-navy-700'}`}
+                            onClick={() => setNewsFilter('bearish')}
+                        >
+                            Bearish
+                        </button> */}
+                    </div>
                 </div>
 
-                {/* News filters */}
-                <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-                    <button
-                        className={`px-3 py-1 rounded-md text-sm whitespace-nowrap ${newsFilter === null ? 'bg-blue-600 text-white' : 'bg-navy-800 text-gray-300 hover:bg-navy-700'}`}
-                        onClick={() => setNewsFilter(null)}
-                    >
-                        All News
-                    </button>
-                    <button
-                        className={`px-3 py-1 rounded-md text-sm whitespace-nowrap ${newsFilter === 'rising' ? 'bg-blue-600 text-white' : 'bg-navy-800 text-gray-300 hover:bg-navy-700'}`}
-                        onClick={() => setNewsFilter('rising')}
-                    >
-                        Rising
-                    </button>
-                    <button
-                        className={`px-3 py-1 rounded-md text-sm whitespace-nowrap ${newsFilter === 'hot' ? 'bg-blue-600 text-white' : 'bg-navy-800 text-gray-300 hover:bg-navy-700'}`}
-                        onClick={() => setNewsFilter('hot')}
-                    >
-                        Hot
-                    </button>
-                    <button
-                        className={`px-3 py-1 rounded-md text-sm whitespace-nowrap ${newsFilter === 'bullish' ? 'bg-green-600 text-white' : 'bg-navy-800 text-gray-300 hover:bg-navy-700'}`}
-                        onClick={() => setNewsFilter('bullish')}
-                    >
-                        Bullish
-                    </button>
-                    <button
-                        className={`px-3 py-1 rounded-md text-sm whitespace-nowrap ${newsFilter === 'bearish' ? 'bg-red-600 text-white' : 'bg-navy-800 text-gray-300 hover:bg-navy-700'}`}
-                        onClick={() => setNewsFilter('bearish')}
-                    >
-                        Bearish
-                    </button>
-                </div>
 
                 {/* News content */}
-                <div className="space-y-4">
+                {/* DOCASNY LOADING */}
+                <div className="space-y-1 mt-2">
                     {newsLoading && (
                         <div className="bg-navy-800 p-6 rounded-xl flex items-center justify-center">
                             <p className="text-gray-400">Loading news...</p>
@@ -130,67 +160,55 @@ const CryptoNews = () => {
 
                     {!newsLoading && !newsError && coinNews?.length === 0 && (
                         <div className="bg-navy-800 p-6 rounded-xl">
-                            <p className="text-gray-400">No news available for {CoinData?.name} with the selected filter.</p>
+                            <p className="text-gray-400">No news available for the selected filter.</p>
                         </div>
                     )}
 
-                    {coinNews && coinNews.map((item: NewsItem, index: number) => (
-                        <div key={`${item.slug}-${index}`} className="bg-navy-800 p-6 rounded-xl hover:bg-navy-700 transition-colors">
+                    {coinNews && coinNews.slice(0, 7).map((item: NewsItem, index: number) => (
+                        <div key={`${item.slug}-${index}`} className="bg-navy-800 rounded-xl">
                             <a
                                 href={item.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block"
                             >
-                                <div className="flex justify-between items-start">
-                                    <h3 className="text-lg font-semibold mb-2 flex-1 hover:text-blue-400">{item.title}</h3>
-                                    <ExternalLink className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" />
-                                </div>
+                                <div className='ounded-xl px-2 py-[0.7px] opacity-90 hover:opacity-100 hover:brightness-110 hover:bg-slate-800 rounded-lg'>
+                                    <div className="flex justify-between text-[8px] mb-1">
+                                        <div className='flex'>
+                                            <div className="mr-3 mt-1 bg-orange-500 rounded-xl px-2">{item.source.title}</div>
+                                            <div className='flex mt-1  text-gray-400'>
+                                                <Clock size={12} className='mr-1' />
+                                                {formatDate(item.published_at)}
+                                            </div>
+                                        </div>
+                                        <div className="flex text-[10px]">
+                                            <ArrowBigUp size={14} className='text-green-500' />
+                                            <span className="text-green-400 mr-2">
+                                                {item.votes.positive}
+                                            </span>
+                                            <ArrowBigDown size={14} className='text-red-400' />
+                                            <span className="text-red-400">
+                                                {item.votes.negative}
+                                            </span>
+                                            <ExternalLink className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" />
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between items-start">
+                                        <h3 className="text-[10px] text-gray-300 font-semibold flex-1 hover:text-[#20c3d0]">
+                                            {item.title.length > 120
+                                                ? `${item.title.substring(0, 110)}...`
+                                                : item.title
+                                            }
+                                        </h3>
+                                    </div>
 
-                                <div className="flex items-center text-sm text-gray-400 mb-3">
-                                    <span className="mr-3">{item.source.title}</span>
-                                    <span>{formatDate(item.published_at)}</span>
-                                </div>
-
-                                <div className="flex gap-2">
-                                    {item.currencies.map(currency => (
-                                        <span
-                                            key={currency.code}
-                                            className="px-2 py-1 bg-navy-900 rounded-md text-xs"
-                                        >
-                                            {currency.code}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                <div className="flex gap-3 mt-3 text-sm">
-                                    <span className="text-green-400">
-                                        +{item.votes.positive}
-                                    </span>
-                                    <span className="text-red-400">
-                                        -{item.votes.negative}
-                                    </span>
-                                    {item.votes.important > 0 && (
-                                        <span className="text-yellow-400">
-                                            {item.votes.important} important
-                                        </span>
-                                    )}
                                 </div>
                             </a>
                         </div>
                     ))}
-
-                    {hasNextPage && (
-                        <button
-                            onClick={loadNextPage}
-                            className="w-full bg-navy-800 hover:bg-navy-700 text-gray-300 p-3 rounded-xl mt-4"
-                        >
-                            Load More News
-                        </button>
-                    )}
                 </div>
             </div>
-        </div>
+        </div >
 
     )
 }
