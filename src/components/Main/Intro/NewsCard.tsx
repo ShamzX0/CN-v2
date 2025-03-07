@@ -1,4 +1,4 @@
-import { ArrowBigDown, ArrowBigUp, ArrowDown, ArrowUp, Clock, ExternalLink } from "lucide-react";
+import { ArrowBigDown, ArrowBigUp, Clock, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface NewsItem {
@@ -14,6 +14,10 @@ const NewsCard = ({ news, index }: { news: NewsItem; index: number }) => {
     const [hasUpvoted, setHasUpvoted] = useState(false);
     const [hasDownvoted, setHasDownvoted] = useState(false);
 
+    const truncateText = (text: string, maxLength: number): string => {
+        if (!text || text.length <= maxLength) return text;
+        return `${text.slice(0, maxLength)}...`;
+    };
 
     if (news.domain === 'youtube.com') return null;
     if (index > 4) return null;
@@ -94,8 +98,8 @@ const NewsCard = ({ news, index }: { news: NewsItem; index: number }) => {
                         <ExternalLink size={16} className="text-gray-400" />
                     </div>
                 </div>
-                <p className="text-xs text-gray-200">
-                    {news.title}
+                <p className="text-xs text-gray-200 line-clamp-2 break-words">
+                    {truncateText(news.title, (160))}
                 </p>
             </div>
         </a>
@@ -103,4 +107,3 @@ const NewsCard = ({ news, index }: { news: NewsItem; index: number }) => {
 };
 
 export default NewsCard;
-

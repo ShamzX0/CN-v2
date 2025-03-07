@@ -24,6 +24,7 @@ export default async function getFearGreed(): Promise<FearGreedResponse> {
     }
 
     const data: FearGreedResponse = await response.json();
+    console.log(data, "TOHLE JSOU NEWS DATA");
 
     if (!data || !Array.isArray(data.data) || data.data.length === 0) {
       console.warn("No fear and greed data available, returning default");
