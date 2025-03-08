@@ -53,7 +53,7 @@ const TrendingCoins = (props: Props) => {
 
     return (
         <div className="flex justify-center">
-            <div className="bg-[#101e36] rounded-2xl px-6 w-full pt-2">
+            <div className="bg-[#13233f] rounded-2xl px-6 w-full pt-2">
                 {/* Single Row Header */}
                 <div className="flex w-full items-center mb-4">
                     <div className="w-2/5">

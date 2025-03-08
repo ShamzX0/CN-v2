@@ -28,7 +28,7 @@ const FearGreedIndex = () => {
     }
 
     return (
-        <div className="bg-[#101e36] p-4 w-full h-[150px] rounded-xl ">
+        <div className="bg-[#13233f] p-4 w-full h-[150px] rounded-xl ">
             {/* Header */}
             <h2 className="flex justify-center text-[11px] font-bold font-mono">Fear & Greed</h2>
 

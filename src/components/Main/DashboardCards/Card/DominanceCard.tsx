@@ -9,7 +9,7 @@ const DominanceCard: React.FC<Props> = ({ globalData }) => {
     const ethDominance = globalData?.market_cap_percentage?.eth;
 
     return (
-        <div className="flex flex-col justify-center items-center bg-[#101e36] p-2 w-full h-full rounded-xl">
+        <div className="flex flex-col justify-center items-center bg-[#13233f] p-2 w-full h-full rounded-xl">
 
             <h2 className="text-[11px] mb-4 font-bold font-mono">Majors Dominance</h2>
 
