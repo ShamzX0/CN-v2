@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
     const pathname = usePathname()
 
     return (
-        <nav className='flex items-center justify-between py-1 px-12 border-b border-opacity-30 border-[#F4F4F4]'>
+        <nav className='flex items-center justify-between py-1 px-12 border-b  border-b-gray-600'>
             {/* Logo, Brand Name, and Navigation */}
             <div className='flex items-center space-x-8'>
                 <Link href="/" className='hover:cursor-pointer'>
