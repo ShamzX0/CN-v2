@@ -8,8 +8,6 @@ import {
     CartesianGrid,
     Tooltip,
     ResponsiveContainer,
-    ComposedChart,
-    Bar
 } from 'recharts';
 
 interface CryptoChartProps {
