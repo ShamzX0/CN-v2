@@ -36,16 +36,27 @@ const CryptoTable = () => {
     const coins = Array.isArray(tableCoins) ? tableCoins : [];
 
     const tableHeaders = [
-        { id: 'index', label: '#', width: '60px', align: 'left' },
-        { id: 'name', label: 'Name', width: '230px', align: 'left' },
-        { id: '1h', label: '1h %', width: '110px', align: 'right' },
-        { id: '24h', label: '24h %', width: '123px', align: 'right' },
-        { id: '7d', label: '7d %', width: '123px', align: 'right' },
-        { id: 'marketCap', label: 'Market Cap', width: '220px', align: 'right', noPadding: true },
-        { id: 'volume', label: 'Volume(24h)', width: '200px', align: 'right' },
-        { id: 'price', label: 'Price', width: '120px', align: 'right' },
-        { id: 'chart', label: 'Chart(7d)', width: '220px', align: 'right' },
+        { id: 'index', label: '#', align: 'left' },
+        { id: 'name', label: 'Name', align: 'left' },
+        { id: '1h', label: '1h %', align: 'right' },
+        { id: '24h', label: '24h %', align: 'right' },
+        { id: '7d', label: '7d %', align: 'right' },
+        { id: 'marketCap', label: 'Market Cap', align: 'right', noPadding: true },
+        { id: 'volume', label: 'Volume(24h)', align: 'right' },
+        { id: 'price', label: 'Price', align: 'right' },
+        { id: 'chart', label: 'Chart(7d)', align: 'right' },
     ];
+    // const tableHeaders = [
+    //     { id: 'index', label: '#', width: '60px', align: 'left' },
+    //     { id: 'name', label: 'Name', width: '230px', align: 'left' },
+    //     { id: '1h', label: '1h %', width: '110px', align: 'right' },
+    //     { id: '24h', label: '24h %', width: '123px', align: 'right' },
+    //     { id: '7d', label: '7d %', width: '123px', align: 'right' },
+    //     { id: 'marketCap', label: 'Market Cap', width: '220px', align: 'right', noPadding: true },
+    //     { id: 'volume', label: 'Volume(24h)', width: '200px', align: 'right' },
+    //     { id: 'price', label: 'Price', width: '120px', align: 'right' },
+    //     { id: 'chart', label: 'Chart(7d)', width: '220px', align: 'right' },
+    // ];
 
     return (
         <section className="px-2 pt-1 pb-9">

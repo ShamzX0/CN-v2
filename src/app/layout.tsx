@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen bg-slate-900">
+      <body className="min-h-screen bg-slate-900 max-w-7xl mx-auto">
         <Providers>
           <Suspense fallback={<Loading />}>
             <Navbar />
