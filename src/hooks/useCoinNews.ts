@@ -1,7 +1,7 @@
 // hooks/useCoinNews.ts
 import { useState } from "react";
 import useSWR from "swr";
-import getCoinNews from "../hooks/fetch/getCoinNews";
+import getCoinNews, { FALLBACK_NEWS_DATA } from "../hooks/fetch/getCoinNews";
 
 interface CoinNewsParams {
   currencies?: string[];
@@ -42,6 +42,7 @@ export default function useCoinNews(params: CoinNewsParams = {}) {
       refreshInterval,
       revalidateOnFocus: false,
       suspense: false, // Handle loading state manually
+      fallbackData: FALLBACK_NEWS_DATA,
     }
   );
 

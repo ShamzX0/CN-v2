@@ -76,9 +76,9 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
 // This is the container component that handles the Suspense boundary
 const CryptoChartContainer: React.FC<CryptoChartContainerProps> = ({ coinId }) => {
     return (
-        <Suspense fallback={<CryptoChartSkeleton />}>
-            <ChartContent coinId={coinId} />
-        </Suspense>
+        // TODO: if else or &&
+        //   <CryptoChartSkeleton />
+        <ChartContent coinId={coinId} />
     );
 };
 
