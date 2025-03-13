@@ -1,12 +1,19 @@
 'use client';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
+import { Suspense } from 'react';
 import useCoinDetail from '@/hooks/useCoinDetail';
 import CoinSentiment from '../../../components/Main/CoinSentiment/CoinSentiment';
+import CryptoChartContainer from '../../../components/Main/CryptoChart/CryptoChartContainer'
 import StatItem, {
     getFirstRowStats,
     getSecondRowStats
 } from '../../../components/Main/StatsItem/StatsItem';
+
+// Chart loading placeholder
+const ChartSkeleton = () => (
+    <div className="p-4 rounded-xl h-72 bg-slate-800 animate-pulse"></div>
+);
 
 export default function CryptoDetailPage() {
     const params = useParams();
@@ -31,7 +38,7 @@ export default function CryptoDetailPage() {
                             <div className="w-10 h-10 bg-gray-800 rounded-full">
                                 {CoinData?.image ? (
                                     <Image
-                                        src={CoinData.image.small}
+                                        src={CoinData.image.large}
                                         alt={CoinData.name}
                                         width={64}
                                         height={64}
@@ -87,12 +94,11 @@ export default function CryptoDetailPage() {
                     </div>
                 </div>
 
-                {/* Chart section */}
+                {/* Chart section - with Suspense boundary */}
                 <div className="mt-12 px-4 md:px-8">
-                    <h2 className="text-xl font-bold mb-4">90 days daily chart</h2>
-                    <div className="p-4 rounded-xl h-72 flex items-center justify-center">
-                        <p className="text-gray-400">Chart will be implemented in a future step</p>
-                    </div>
+                    <Suspense fallback={<ChartSkeleton />}>
+                        {cryptoSlug && <CryptoChartContainer coinId={cryptoSlug} />}
+                    </Suspense>
                 </div>
             </div>
         </div>
