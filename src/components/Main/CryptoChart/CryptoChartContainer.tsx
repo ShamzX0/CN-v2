@@ -36,7 +36,7 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
     }
 
     return (
-        <div>
+        <div className=''>
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold">{selectedTimeframe.label} price chart</h2>
                 <div className="flex rounded-md overflow-hidden">
@@ -45,8 +45,8 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
                             key={timeframe.label}
                             onClick={() => setSelectedTimeframe(timeframe)}
                             className={`px-3 py-1 text-sm ${selectedTimeframe.label === timeframe.label
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
+                                ? 'bg-blue-600 text-white'
+                                : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
                                 }`}
                         >
                             {timeframe.label}
@@ -54,7 +54,7 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
                     ))}
                 </div>
             </div>
-
+            <div className='flex italic justify-center w-full text-[#00FFFF] text-xl'>. . . . WORK IN PROGRESS . . . . </div>
             <CryptoChart
                 priceData={data.prices}
                 volumeData={data.total_volumes}

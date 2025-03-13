@@ -94,7 +94,7 @@ interface CoinData {
   id: string;
   symbol: string;
   name: string;
-  image: string;
+  image: any;
   current_price: number;
   market_cap: number;
   market_cap_rank: number;
@@ -133,7 +133,7 @@ interface CoinData {
   price_change_percentage_30d?: number;
   sentiment_votes_down_percentage?: number;
   sentiment_votes_up_percentage?: number;
-  description?: { [key: string]: string };
+  description?: string;
 }
 
 interface TrendingDataResponse {

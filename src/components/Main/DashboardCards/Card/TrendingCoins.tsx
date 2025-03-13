@@ -109,8 +109,10 @@ const TrendingCoins = (props: Props) => {
                                         </span>
                                     </td>
                                     <td className="py-2 text-right w-1/5 pr-2">
-                                        <img
+                                        <Image
                                             src={item.data.sparkline}
+                                            height={100}
+                                            width={100}
                                             alt={`${item.name} Sparkline`}
                                             className="w-20 h-6 ml-auto"
                                         />

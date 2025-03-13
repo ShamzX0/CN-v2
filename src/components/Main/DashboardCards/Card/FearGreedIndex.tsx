@@ -18,7 +18,7 @@ const FearGreedIndex = () => {
 
     // Safe timestamp formatting with fallback
     const getFormattedTimestamp = (): string => {
-        const timestamp = fearGreed?.data[0]?.timestamp;
+        const timestamp = Number(fearGreed?.data[0]?.timestamp)
         if (!timestamp) return 'N/A';
         return new Date(timestamp * 1000).toLocaleString();
     };

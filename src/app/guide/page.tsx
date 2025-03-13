@@ -1,11 +1,13 @@
 'use client'
 
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import btcImage from '../../../public/images/btcImg.jpeg';
 import CryptoCards from '@/components/Main/Articles/CryptoCards';
 
-const HeaderSection = ({ title, subtitle, imageSrc }: { title: string, subtitle: string, imageSrc?: string }) => (
+const HeaderSection = ({ title, subtitle, imageSrc }: {
+    title: string, subtitle: string, imageSrc?: string | StaticImageData
+}) => (
     <section className="mb-8">
         <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-white">
             {title}
@@ -36,7 +38,7 @@ const Page = () => {
                     skeptical investors. This guide aims to demystify the subject.
                 </p>
                 <p className="text-lg font-normal mt-3 mb-3 lg:text-xl text-gray-400">
-                    This beginner's guide will introduce you to cryptocurrencies, blockchain technology, and the distinctions between
+                    This beginner&apos;s guide will introduce you to cryptocurrencies, blockchain technology, and the distinctions between
                     different projects. With this knowledge, you can decide which cryptocurrency aligns with your goals.
                 </p>
                 <h5 className="underline mt-12 underline-offset-3 decoration-8 decoration-[#1d7272] text-4xl font-extrabold">
@@ -44,7 +46,7 @@ const Page = () => {
                 </h5>
                 <p className="py-6">
                     Cryptocurrency is revolutionizing finance and technology. Operating independently of traditional banking,
-                    it represents a new form of digital currency. This article explores cryptocurrency's foundation, technology,
+                    it represents a new form of digital currency. This article explores cryptocurrency&apos;s foundation, technology,
                     and potential implications.
                 </p>
                 <div className='py-6'>

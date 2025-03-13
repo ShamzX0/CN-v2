@@ -1,5 +1,3 @@
-import { CoinData } from "./types";
-
 export const FALLBACK_COIN_DETAIL_DATA = (coinId: string) => ({
   id: coinId || "",
   symbol: (coinId || "").substring(0, 3).toLowerCase(),
