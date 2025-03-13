@@ -39,7 +39,7 @@ const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
     };
 
     return (
-        <div className="bg-[#101e36] p-2 w-fit h-full rounded-2xl">
+        <div className="bg-[#13233f] p-2 w-fit h-full rounded-2xl">
             <div className="flex items-center justify-between mb-2">
                 <h2 className="text-xs font-bold font-mono tracking-tighter">Volume 24h</h2>
                 <div className="text-xs font-bold">
