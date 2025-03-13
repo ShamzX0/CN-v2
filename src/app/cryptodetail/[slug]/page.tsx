@@ -1,19 +1,13 @@
 'use client';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
-import { Suspense } from 'react';
 import useCoinDetail from '@/hooks/useCoinDetail';
 import CoinSentiment from '../../../components/Main/CoinSentiment/CoinSentiment';
-import CryptoChartContainer from '../../../components/Main/CryptoChart/CryptoChartContainer'
+import CryptoChartContainer from '../../../components/Main/CryptoChart/CryptoChartContainer';
 import StatItem, {
     getFirstRowStats,
     getSecondRowStats
 } from '../../../components/Main/StatsItem/StatsItem';
-
-// Chart loading placeholder
-const ChartSkeleton = () => (
-    <div className="p-4 rounded-xl h-72 bg-slate-800 animate-pulse"></div>
-);
 
 export default function CryptoDetailPage() {
     const params = useParams();
@@ -94,11 +88,9 @@ export default function CryptoDetailPage() {
                     </div>
                 </div>
 
-                {/* Chart section - with Suspense boundary */}
+                {/* Chart section - now CryptoChartContainer handles its own loading state */}
                 <div className="mt-12 px-4 md:px-8">
-                    <Suspense fallback={<ChartSkeleton />}>
-                        {cryptoSlug && <CryptoChartContainer coinId={cryptoSlug} />}
-                    </Suspense>
+                    {cryptoSlug && <CryptoChartContainer coinId={cryptoSlug} />}
                 </div>
             </div>
         </div>
