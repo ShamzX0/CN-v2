@@ -1,14 +1,16 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import CryptoChart from './CryptoChart';
 import PriceStatistics from './PriceStatistics';
+import CryptoChartSkeleton from './CryptoChartSkeleton';
 import useCoinChartData from '@/hooks/useCoinChartData';
 
 interface CryptoChartContainerProps {
     coinId: string;
 }
 
-const CryptoChartContainer: React.FC<CryptoChartContainerProps> = ({ coinId }) => {
+// This component handles the actual data fetching and chart rendering
+const ChartContent = ({ coinId }: { coinId: string }) => {
     // Available timeframe options
     const timeframes = [
         { label: '24h', value: 'day', days: 1 },
@@ -23,6 +25,15 @@ const CryptoChartContainer: React.FC<CryptoChartContainerProps> = ({ coinId }) =
 
     // Fetch chart data using SWR
     const { data } = useCoinChartData(coinId, selectedTimeframe.days);
+
+    // If data is not available yet, show a loading state
+    if (!data || !data.prices) {
+        return (
+            <div className="flex items-center justify-center h-96 w-full bg-slate-800 rounded-xl">
+                <p className="text-gray-400">Loading chart data...</p>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -44,29 +55,31 @@ const CryptoChartContainer: React.FC<CryptoChartContainerProps> = ({ coinId }) =
                 </div>
             </div>
 
-            {data && data.prices ? (
-                <>
-                    <CryptoChart
-                        priceData={data.prices}
-                        volumeData={data.total_volumes}
-                        timeframe={selectedTimeframe.value as 'day' | 'week' | 'month' | 'year'}
-                    />
+            <CryptoChart
+                priceData={data.prices}
+                volumeData={data.total_volumes}
+                timeframe={selectedTimeframe.value as 'day' | 'week' | 'month' | 'year'}
+            />
 
-                    {/* Show price statistics if available */}
-                    {data.priceChange && (
-                        <PriceStatistics
-                            priceChange={data.priceChange}
-                            timeframe={selectedTimeframe.label}
-                            currency="USD"
-                        />
-                    )}
-                </>
-            ) : (
-                <div className="flex items-center justify-center h-96 w-full bg-slate-800 rounded-xl">
-                    <p className="text-gray-400">Loading chart data...</p>
-                </div>
+            {/* Show price statistics if available */}
+            {data.priceChange && (
+                <PriceStatistics
+                    priceChange={data.priceChange}
+                    timeframe={selectedTimeframe.label}
+                    currency="USD"
+                />
             )}
         </div>
     );
 };
-export default CryptoChartContainer
+
+// This is the container component that handles the Suspense boundary
+const CryptoChartContainer: React.FC<CryptoChartContainerProps> = ({ coinId }) => {
+    return (
+        <Suspense fallback={<CryptoChartSkeleton />}>
+            <ChartContent coinId={coinId} />
+        </Suspense>
+    );
+};
+
+export default CryptoChartContainer;
