@@ -1,13 +1,11 @@
 
 import React from 'react';
-import NewsCard from './NewsCard';
-import useNews from '@/hooks/useNews';
+import CryptoNews from '../CryptoNews/CryptoNews';
+
 
 const Intro = () => {
-    const { data: newsFeed } = useNews();
-
     return (
-        <section className="flex items-center px-4">
+        <section className="flex items-center mb-2 px-4">
             {/* Left Section - Main Content */}
             <div className="flex w-3/5">
                 <div className="flex flex-col font-unbounded w-3/5 justify-center items-start">
@@ -23,17 +21,8 @@ const Intro = () => {
             </div>
 
             {/* Right Section - News Feed */}
-            <div className="flex flex-col w-2/5 h-[300px] bg-[#1a1f2e] rounded-xl neon-card">
-
-                <div className="flex-1 flex items-center">
-                    <div className="w-full p-2">
-                        {newsFeed.map((news, index) => (
-                            <React.Fragment key={index}>
-                                <NewsCard news={news} index={index} />
-                            </React.Fragment>
-                        ))}
-                    </div>
-                </div>
+            <div className="flex flex-col w-2/5 h-[330px] bg-[#1a1f2e] rounded-xl neon-card">
+                <CryptoNews />
             </div>
         </section>
     );
