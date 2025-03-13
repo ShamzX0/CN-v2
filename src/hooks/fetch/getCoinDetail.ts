@@ -1,9 +1,9 @@
 import { CoinData } from "./types";
 
 export const FALLBACK_COIN_DETAIL_DATA = (coinId: string) => ({
-  id: coinId,
-  symbol: coinId.substring(0, 3).toLowerCase(),
-  name: coinId.charAt(0).toUpperCase() + coinId.slice(1),
+  id: coinId || "",
+  symbol: (coinId || "").substring(0, 3).toLowerCase(),
+  name: coinId ? coinId.charAt(0).toUpperCase() + coinId.slice(1) : "Unknown",
   image: {
     thumb: "/fallback-thumb.png",
     small: "/fallback-small.png",
@@ -52,7 +52,7 @@ export default async function getCoinDetail(coinId: string): Promise<CoinData> {
     if (!response.ok) throw new Error("Failed to fetch");
 
     const data = await response.json();
-    console.log(data, "COIN DATA FETCHED");
+    console.log(data, "THIS IS DETAILED COIN DATA I GET FROM THE API");
 
     // Transform the nested API response to match your interface
     const coinData: CoinData = {
