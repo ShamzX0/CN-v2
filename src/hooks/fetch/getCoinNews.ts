@@ -162,6 +162,27 @@ export const FALLBACK_NEWS_DATA: NewsItem[] = [
       liked: 12,
     },
   },
+  {
+    created_at: getRandomPastDate(),
+    currencies: [],
+    domain: "blockmaniac.com",
+    kind: "news",
+    published_at: getRandomPastDate(),
+    slug: "bitcoin-vs-ethereum-next-bull-run",
+    title: "LTC vs BTC-CASH: Who Will Lead the Next Bull Run?",
+    source: {
+      title: "CryptoPulse",
+      region: "en",
+      domain: "cryptopanic.com",
+    },
+    url: "https://cryptopanic.com",
+    votes: {
+      negative: 2,
+      positive: 15,
+      important: 8,
+      liked: 10,
+    },
+  },
 ];
 
 export default async function getCoinNews(
