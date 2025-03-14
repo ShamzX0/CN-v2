@@ -12,7 +12,7 @@ interface Props {
 
 const DashboardCards = (props: Props) => {
     const { globalData } = props
-    const { data: trendingData } = useTrendingData()
+    const { data: trendingData, isLoading } = useTrendingData()
 
     const marketCap = globalData?.total_market_cap?.usd || 0;
     const volume = globalData?.total_volume?.usd || 0;
@@ -24,7 +24,7 @@ const DashboardCards = (props: Props) => {
             {/* Left half */}
             <div className='flex gap-4 w-1/2'>
                 <div className='w-2/3'>
-                    <TrendingNFTs trendingNfts={trendingData.nfts} />
+                    <TrendingNFTs trendingNfts={trendingData.nfts} isLoading={isLoading} />
                 </div>
                 <div className='flex flex-col gap-4 w-1/3 h-full'>
                     <InfoChartCard
@@ -41,7 +41,7 @@ const DashboardCards = (props: Props) => {
             {/* Right half */}
             <div className='flex gap-4 w-1/2'>
                 <div className='w-4/5'>
-                    <TrendingCoins trendingCoins={trendingData.coins} />
+                    <TrendingCoins trendingCoins={trendingData.coins} isLoading={isLoading} />
                 </div>
                 <div className='flex flex-col gap-4 w-1/5'>
                     <FearGreedIndex />

@@ -4,13 +4,71 @@ import React, { useState } from "react";
 
 interface Props {
     trendingCoins: Coins[];
+    isLoading?: boolean;
 }
 
+const TrendingCoinsSkeleton = () => {
+    return (
+        <div className="flex justify-center">
+            <div className="bg-[#13233f] rounded-2xl px-6 w-full pt-2 min-h-[284px]">
+                {/* Header Skeleton */}
+                <div className="flex w-full items-center mb-4 h-[28px]">
+                    <div className="w-2/5">
+                        <div className="h-6 w-32 bg-gray-500 rounded animate-pulse"></div>
+                    </div>
+                    <div className="w-1/5 flex justify-end pr-4">
+                        <div className="h-4 w-4 bg-gray-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <div className="w-1/5 flex justify-end pr-4">
+                        <div className="h-4 w-4 bg-gray-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <div className="w-1/5 flex justify-end pr-2">
+                        <div className="h-4 w-4 bg-gray-500 rounded-full animate-pulse"></div>
+                    </div>
+                </div>
+
+                {/* Table Skeleton */}
+                <table className="w-full">
+                    <tbody>
+                        {[...Array(5)].map((_, index) => (
+                            <tr key={index} className="h-[46px]">
+                                <td className="py-[7px] w-2/5">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-5 h-4 bg-gray-500 rounded animate-pulse"></div>
+                                        <div className="w-6 h-6 bg-gray-500 rounded-full animate-pulse"></div>
+                                        <div className="flex flex-col gap-1">
+                                            <div className="w-16 h-3 bg-gray-500 rounded animate-pulse"></div>
+                                            <div className="w-12 h-2 bg-gray-500 rounded animate-pulse"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className="py-2 text-right w-1/5 pr-4">
+                                    <div className="w-16 h-3 bg-gray-500 rounded animate-pulse ml-auto"></div>
+                                </td>
+                                <td className="py-2 text-right w-1/5 pr-4">
+                                    <div className="w-16 h-3 bg-gray-500 rounded animate-pulse ml-auto"></div>
+                                </td>
+                                <td className="py-2 text-right w-1/5 pr-2">
+                                    <div className="w-20 h-6 bg-gray-500 rounded animate-pulse ml-auto"></div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+};
+
 const TrendingCoins = (props: Props) => {
-    const { trendingCoins } = props;
+    const { trendingCoins, isLoading } = props;
 
     // Track which images have failed to load
     const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+
+    if (isLoading) {
+        return <TrendingCoinsSkeleton />;
+    }
 
     const formatPriceChangeWithArrow = (priceChange: number) => {
         const isPositive = priceChange > 0;
