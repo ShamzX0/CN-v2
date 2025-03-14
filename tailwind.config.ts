@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import scrollbarHide from "tailwind-scrollbar-hide";
 
 const config: Config = {
   content: [
@@ -8,7 +9,7 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
-      'unbounded': ['Unbounded', 'sans-serif'],
+      unbounded: ["Unbounded", "sans-serif"],
     },
     extend: {
       backgroundImage: {
@@ -18,14 +19,15 @@ const config: Config = {
       },
       keyframes: {
         scroll: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-50%)' }
-        }
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
-        'pause': 'none'
-      }
+        pause: "none",
+      },
     },
   },
+  plugins: [scrollbarHide],
 };
 export default config;

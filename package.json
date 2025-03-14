@@ -24,6 +24,7 @@
     "react-sparklines": "^1.7.0",
     "recharts": "^2.15.1",
     "swr": "^2.3.0",
+    "tailwind-scrollbar-hide": "^2.0.0",
     "viem": "^2.22.7",
     "wagmi": "^2.14.7"
   },

@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className='scrollbar-hide'>
       <body className="min-h-screen bg-slate-900 max-w-7xl mx-auto">
         <Providers>
           <Suspense fallback={<Loading />}>
