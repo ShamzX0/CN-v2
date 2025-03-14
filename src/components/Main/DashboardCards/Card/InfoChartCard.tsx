@@ -1,11 +1,11 @@
 import React from 'react';
 
 interface Props {
-    volume: number;
+    amount: number;
     changePercent: number;
 }
 
-const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
+const InfoChartCard: React.FC<Props> = ({ amount, changePercent }) => {
     const formatVolume = (value: number): string => {
         if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
         if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`;
@@ -43,7 +43,7 @@ const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
             <div className="flex items-center justify-between mb-2">
                 <h2 className="text-xs font-bold font-mono tracking-tighter">Volume 24h</h2>
                 <div className="text-xs font-bold">
-                    {formatVolume(volume)}
+                    {formatVolume(amount)}
                 </div>
             </div>
             <div className="flex text-xs items-center gap-2">
@@ -69,4 +69,4 @@ const VolumeCard: React.FC<Props> = ({ volume, changePercent }) => {
     );
 };
 
-export default VolumeCard;
+export default InfoChartCard;
