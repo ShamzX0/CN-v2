@@ -23,7 +23,7 @@ export default function useCoinNews(params: CoinNewsParams = {}) {
     cacheKey,
     () =>
       getCoinNews({
-        filter: filter || undefined, // Convert null to undefined for the API call
+        filter: filter || undefined,
         kind,
         public: true,
       }),
@@ -38,7 +38,7 @@ export default function useCoinNews(params: CoinNewsParams = {}) {
   return {
     data,
     error,
-    isLoading: !data && !isValidating,
+    isLoading: !data || isValidating,
     isValidating,
     refresh: () => mutate(),
   };
