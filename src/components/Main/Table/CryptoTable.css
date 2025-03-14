@@ -1,0 +1,56 @@
+.crypto-table {
+    background: transparent !important;
+}
+
+.crypto-table .ant-table {
+    background: transparent !important;
+}
+
+.crypto-table .ant-table-thead > tr > th {
+    background: transparent !important;
+    color: #9CA3AF !important;
+    font-size: 0.75rem !important;
+    padding: 0.5rem 1rem !important;
+    border-bottom: 1px solid #374151 !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+
+.crypto-table .ant-table-thead > tr > th:last-child {
+    border-right: none !important;
+}
+
+.crypto-table .ant-table-tbody > tr > td {
+    background: transparent !important;
+    border-bottom: 1px solid #374151 !important;
+    padding: 0.5rem 1rem !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+
+.crypto-table .ant-table-tbody > tr:hover > td {
+    background: #1a2842 !important;
+}
+
+.crypto-table .ant-table-tbody > tr {
+    cursor: pointer;
+}
+
+.crypto-table .ant-table-tbody > tr > td {
+    transition: background-color 0.2s;
+}
+
+/* Remove all borders from the table */
+.crypto-table .ant-table-cell {
+    border: none !important;
+}
+
+.crypto-table .ant-table-thead > tr > th::before {
+    display: none !important;
+}
+
+.crypto-table .ant-table-tbody > tr > td:last-child {
+    display: flex !important;
+    justify-content: flex-end !important;
+    padding-right: 0rem !important;
+}
