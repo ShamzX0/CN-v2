@@ -20,13 +20,13 @@ const DashboardCards = (props: Props) => {
     const volumeChangePercent = ((volume - (volume / (1 + marketCapChangePercent / 100))) / (volume / (1 + marketCapChangePercent / 100))) * 100 || 0;
 
     return (
-        <div className='flex flex-row w-full h-[300px] p-2 overflow-hidden'>
+        <section className='flex gap-4 w-full py-4'>
             {/* Left half */}
-            <section className='flex w-1/2 gap-4 mr-2 h-[280px]'>
+            <div className='flex gap-4 w-1/2'>
                 <div className='w-2/3'>
                     <TrendingNFTs trendingNfts={trendingData.nfts} />
                 </div>
-                <div className="flex flex-col w-1/3 gap-4 h-[280px]">
+                <div className='flex flex-col gap-4 w-1/3 h-full'>
                     <InfoChartCard
                         amount={marketCap}
                         changePercent={marketCapChangePercent}
@@ -36,24 +36,20 @@ const DashboardCards = (props: Props) => {
                         changePercent={volumeChangePercent}
                     />
                 </div>
-            </section>
+            </div>
+
             {/* Right half */}
-            <section className='flex w-1/2 gap-4 h-[280px]'>
+            <div className='flex gap-4 w-1/2'>
                 <div className='w-4/5'>
                     <TrendingCoins trendingCoins={trendingData.coins} />
                 </div>
-                <div className="flex flex-col w-1/5 gap-4 h-[280px]">
-                    <div className="w-full h-full">
-                        <FearGreedIndex />
-                    </div>
-                    <div className="w-full h-full">
-                        <DominanceCard globalData={globalData} />
-                    </div>
+                <div className='flex flex-col gap-4 w-1/5'>
+                    <FearGreedIndex />
+                    <DominanceCard globalData={globalData} />
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     )
 }
-
 
 export default DashboardCards

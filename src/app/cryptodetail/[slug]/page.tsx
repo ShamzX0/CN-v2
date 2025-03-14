@@ -19,12 +19,12 @@ export default function CryptoDetailPage() {
     const secondRowStats = getSecondRowStats(CoinData);
 
     return (
-        <div className="min-h-screen text-[#f4f4f4] p-5">
+        <div className="min-h-screen text-[#f4f4f4] py-5">
             {/* Main content wrapper - centered */}
             <div className="w-full mx-auto">
-                <div className="flex flex-col md:flex-row">
+                <div className="flex flex-col gap-4 md:flex-row">
                     {/* Left section - coin info */}
-                    <div className="md:w-1/4 pt-4 px-4 flex-col space-y-3">
+                    <div className="md:w-1/4 pt-4 flex-col space-y-3">
                         <div className="flex items-center gap-2">
                             <div className='italic bg-slate-700 p-1 rounded-md'>
                                 #{CoinData?.market_cap_rank}
@@ -72,7 +72,7 @@ export default function CryptoDetailPage() {
                     </div>
 
                     {/* Right section - stats grid */}
-                    <div className="w-3/4 flex flex-col gap-4 p-4 rounded-xl">
+                    <div className="w-3/4 flex flex-col gap-4 py-4">
                         {/* First row - 5 items */}
                         <div className="flex gap-4 justify-between">
                             {firstRowStats.map((stat, index) => (
@@ -89,9 +89,9 @@ export default function CryptoDetailPage() {
                 </div>
 
                 {/* Chart section - now CryptoChartContainer handles its own loading state */}
-                <div className="mt-12 px-4 md:px-8">
-                    {cryptoSlug && <CryptoChartContainer coinId={cryptoSlug} />}
-                </div>
+
+                {cryptoSlug && <CryptoChartContainer coinId={cryptoSlug} />}
+
             </div>
         </div>
     );

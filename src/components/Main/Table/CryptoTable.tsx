@@ -180,7 +180,7 @@ const CryptoTable = () => {
     ];
 
     return (
-        <section className="px-2 pt-1 pb-9">
+        <section className="pt-1 pb-9">
             <Table
                 columns={columns}
                 dataSource={coins}

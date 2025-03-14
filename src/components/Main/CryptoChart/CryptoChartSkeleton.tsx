@@ -2,7 +2,7 @@
  * Loading placeholder for CryptoChart component
  */
 const CryptoChartSkeleton = () => (
-    <div className="w-full">
+    <div className="w-full mt-6">
         {/* Header with title and timeframe options */}
         <div className="flex justify-between items-center mb-2">
             {/* Title/Selected timeframe */}

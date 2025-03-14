@@ -11,7 +11,7 @@ const Footer = () => {
 
     return (
         <footer className="text-gray-300">
-            <div className="w-full mx-auto px-4 py-4">
+            <div className="w-full mx-auto py-4">
                 {/* Divider */}
                 <div className="border-[1px] border-transparent border-[#00d9ff] neon-card mb-6" />
                 <div className="flex gap-3 items-center">

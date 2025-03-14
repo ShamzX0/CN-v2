@@ -36,7 +36,7 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
     }
 
     return (
-        <div className=''>
+        <div className='mt-6'>
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold">{selectedTimeframe.label} price chart</h2>
                 <div className="flex rounded-md overflow-hidden">
