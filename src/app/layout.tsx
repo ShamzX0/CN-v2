@@ -5,6 +5,7 @@ import Footer from '@/components/Main/Footer/Footer'
 import { Providers } from '@/components/Providers'
 import { Suspense } from 'react'
 import Loading from '@/components/Loading/Loading'
+import DeviceWrapper from '@/components/DeviceWrapper'
 
 
 export const metadata: Metadata = {
@@ -21,9 +22,11 @@ export default function RootLayout({
       <body className="min-h-screen bg-slate-900 max-w-7xl mx-auto">
         <Providers>
           <Suspense fallback={<Loading />}>
-            <Navbar />
-            {children}
-            <Footer />
+            <DeviceWrapper>
+              <Navbar />
+              {children}
+              <Footer />
+            </DeviceWrapper>
           </Suspense>
         </Providers>
       </body>
