@@ -110,7 +110,7 @@ const TrendingCoins = (props: Props) => {
     };
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center h-full">
             <div className="bg-[#13233f] rounded-2xl px-6 w-full pt-2">
                 {/* Single Row Header */}
                 <div className="flex w-full items-center mb-4">
@@ -141,7 +141,7 @@ const TrendingCoins = (props: Props) => {
                                     key={item.id}
                                     className="hover:bg-[#1a2842] rounded-lg"
                                 >
-                                    <td className="py-[7px] w-2/5">
+                                    <td className="py-[9px] w-2/5">
                                         <div className="flex items-center gap-2">
                                             <span className="text-sm min-w-[20px]">{index + 1}.</span>
                                             <CoinImage coin={coin} />

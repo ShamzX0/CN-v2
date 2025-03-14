@@ -26,7 +26,7 @@ const DashboardCards = (props: Props) => {
                 <div className='w-2/3'>
                     <TrendingNFTs trendingNfts={trendingData.nfts} isLoading={isLoading} />
                 </div>
-                <div className='flex flex-col gap-4 w-1/3 h-full'>
+                <div className='flex flex-col gap-4 w-1/3'>
                     <InfoChartCard
                         amount={marketCap}
                         changePercent={marketCapChangePercent}
