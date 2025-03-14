@@ -110,77 +110,75 @@ const TrendingCoins = (props: Props) => {
     };
 
     return (
-        <div className="flex justify-center h-full">
-            <div className="bg-[#13233f] rounded-2xl px-6 w-full pt-2">
-                {/* Single Row Header */}
-                <div className="flex w-full items-center mb-4">
-                    <div className="w-2/5">
-                        <h1 className="text-base font-bold font-mono border-b-[1px] border-[#00FFFF] inline-block">
-                            Trending Coins
-                        </h1>
-                    </div>
-                    <div className="w-1/5 flex justify-end pr-4">
-                        <DollarSign className="text-[#00FFFF] mr-2 border-[0.3px] rounded-full" size={15} />
-                    </div>
-                    <div className="w-1/5 flex justify-end pr-4">
-                        <Percent className="text-[#00FFFF] mr-5 border-[0.3px] rounded-full" size={15} />
-                    </div>
-                    <div className="w-1/5 flex justify-end pr-2">
-                        <ChartNoAxesCombined className="text-[#00FFFF] mr-[33px] border-[0.3px] rounded-full" size={15} />
-                    </div>
+        <div className="flex flex-col justify-center items-center w-full h-full bg-[#13233f] rounded-2xl px-6 pt-2">
+            {/* Single Row Header */}
+            <div className="flex w-full items-center mb-4">
+                <div className="w-2/5">
+                    <h1 className="text-base font-bold font-mono border-b-[1px] border-[#00FFFF] inline-block">
+                        Trending Coins
+                    </h1>
                 </div>
+                <div className="w-1/5 flex justify-end pr-4">
+                    <DollarSign className="text-[#00FFFF] mr-2 border-[0.3px] rounded-full" size={15} />
+                </div>
+                <div className="w-1/5 flex justify-end pr-4">
+                    <Percent className="text-[#00FFFF] mr-5 border-[0.3px] rounded-full" size={15} />
+                </div>
+                <div className="w-1/5 flex justify-end pr-2">
+                    <ChartNoAxesCombined className="text-[#00FFFF] mr-[33px] border-[0.3px] rounded-full" size={15} />
+                </div>
+            </div>
 
-                {/* Table */}
-                <table className="w-full">
-                    <tbody>
-                        {trendingCoins?.slice(0, 5).map((coin: { item: any }, index: number) => {
-                            const { item } = coin;
+            {/* Table */}
+            <table className="w-full">
+                <tbody>
+                    {trendingCoins?.slice(0, 5).map((coin: { item: any }, index: number) => {
+                        const { item } = coin;
 
-                            return (
-                                <tr
-                                    key={item.id}
-                                    className="hover:bg-[#1a2842] rounded-lg"
-                                >
-                                    <td className="py-[9px] w-2/5">
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-sm min-w-[20px]">{index + 1}.</span>
-                                            <CoinImage coin={coin} />
-                                            <div className="flex flex-col min-w-[50px]">
-                                                <span className="text-[10px]">{item.name}</span>
-                                                <div className='flex'>
-                                                    <span className="text-xs text-gray-400">
-                                                        {item.symbol.toUpperCase()}
-                                                        <span className="text-[9px] text-[#00FFFF] ml-1">
-                                                            #{item.market_cap_rank}
-                                                        </span>
+                        return (
+                            <tr
+                                key={item.id}
+                                className="hover:bg-[#1a2842] rounded-lg"
+                            >
+                                <td className="py-[7px] w-2/5">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-sm min-w-[20px]">{index + 1}.</span>
+                                        <CoinImage coin={coin} />
+                                        <div className="flex flex-col min-w-[50px]">
+                                            <span className="text-[10px]">{item.name}</span>
+                                            <div className='flex'>
+                                                <span className="text-xs text-gray-400">
+                                                    {item.symbol.toUpperCase()}
+                                                    <span className="text-[9px] text-[#00FFFF] ml-1">
+                                                        #{item.market_cap_rank}
                                                     </span>
-                                                </div>
+                                                </span>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td className="py-2 text-right w-1/5 pr-4">
-                                        <span className="text-xs">${item.data.price.toFixed(2)}</span>
-                                    </td>
-                                    <td className="py-2 text-right w-1/5 pr-4">
-                                        <span className="text-xs">
-                                            {formatPriceChangeWithArrow(item.data.price_change_percentage_24h.usd)}
-                                        </span>
-                                    </td>
-                                    <td className="py-2 text-right w-1/5 pr-2">
-                                        <Image
-                                            src={item.data.sparkline}
-                                            height={100}
-                                            width={100}
-                                            alt={`${item.name} Sparkline`}
-                                            className="w-20 h-6 ml-auto"
-                                        />
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </div>
+                                    </div>
+                                </td>
+                                <td className="py-2 text-right w-1/5 pr-4">
+                                    <span className="text-xs">${item.data.price.toFixed(2)}</span>
+                                </td>
+                                <td className="py-2 text-right w-1/5 pr-4">
+                                    <span className="text-xs">
+                                        {formatPriceChangeWithArrow(item.data.price_change_percentage_24h.usd)}
+                                    </span>
+                                </td>
+                                <td className="py-2 text-right w-1/5 pr-2">
+                                    <Image
+                                        src={item.data.sparkline}
+                                        height={100}
+                                        width={100}
+                                        alt={`${item.name} Sparkline`}
+                                        className="w-20 h-6 ml-auto"
+                                    />
+                                </td>
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
         </div>
     );
 };

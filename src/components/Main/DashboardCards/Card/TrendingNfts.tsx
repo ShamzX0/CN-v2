@@ -92,42 +92,40 @@ const TrendingNFTs = (props: Props) => {
     };
 
     return (
-        <div className="">
-            <div className="bg-[#13233f] rounded-2xl px-6 w-full pt-2">
-                <div className="flex flex-row justify-between mb-5 mr-2">
-                    <h1 className="flex text-base font-bold font-mono border-b-[1px] border-[#00FFFF]">Trending NFTs</h1>
-                    <div className="flex flex-row items-center space-x-2">
-                        <p className="text-[#00FFFF] border-[0.3px] rounded-full"><DollarSign size={13} /></p>
-                        <p>/</p>
-                        <p className="text-[#00FFFF] border-[0.3px] rounded-full"><Percent size={13} /></p>
-                    </div>
+        <div className="bg-[#13233f] rounded-2xl px-6 w-full h-full pt-2">
+            <div className="flex flex-row justify-between mb-5 mr-2">
+                <h1 className="flex text-base font-bold font-mono border-b-[1px] border-[#00FFFF]">Trending NFTs</h1>
+                <div className="flex flex-row items-center space-x-2">
+                    <p className="text-[#00FFFF] border-[0.3px] rounded-full"><DollarSign size={13} /></p>
+                    <span>/</span>
+                    <p className="text-[#00FFFF] border-[0.3px] rounded-full"><Percent size={13} /></p>
                 </div>
+            </div>
 
-                {trendingNfts?.map((nft: any, index: number) => {
-                    if (index > 4) return null;
+            {trendingNfts?.map((nft: any, index: number) => {
+                if (index > 4) return null;
 
-                    return (
-                        <div key={nft.id} className="flex items-center py-[4px] justify-between hover:bg-[#1a2842] rounded-lg">
-                            <div className="flex items-center gap-3">
-                                <div className="text-sm">
-                                    <span className="text-xs">{index + 1}.</span>
-                                </div>
-                                <NFTImage nft={nft} />
-                                <div className="flex flex-col">
-                                    <span className="text-[12px]">{nft.name}</span>
-                                    <span className="text-xs text-gray-400">{nft.symbol}</span>
-                                </div>
+                return (
+                    <div key={nft.id} className="flex items-center py-[4px] justify-between hover:bg-[#1a2842] rounded-lg">
+                        <div className="flex items-center gap-3">
+                            <div className="text-sm">
+                                <span className="text-xs">{index + 1}.</span>
                             </div>
-                            <div className="flex items-center flex-col">
-                                <span className="text-[14px]">{nft.data.floor_price}</span>
-                                <div className="flex text-[11px] gap-2">
-                                    {formatPriceChange(nft.floor_price_24h_percentage_change)}
-                                </div>
+                            <NFTImage nft={nft} />
+                            <div className="flex flex-col">
+                                <span className="text-[12px]">{nft.name}</span>
+                                <span className="text-xs text-gray-400">{nft.symbol}</span>
                             </div>
                         </div>
-                    );
-                })}
-            </div>
+                        <div className="flex items-center flex-col">
+                            <span className="text-[14px]">{nft.data.floor_price}</span>
+                            <div className="flex text-[11px] gap-2">
+                                {formatPriceChange(nft.floor_price_24h_percentage_change)}
+                            </div>
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 };
