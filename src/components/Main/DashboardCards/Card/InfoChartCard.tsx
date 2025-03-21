@@ -39,8 +39,8 @@ const InfoChartCard: React.FC<Props> = ({ amount, changePercent }) => {
     };
 
     return (
-        <div className="bg-[#13233f] p-2 w-fit h-full rounded-2xl">
-            <div className="flex items-center justify-between mb-2">
+        <div className="p-2 w-fit h-full space-y-5 rounded-2xl bg-[#13233f]">
+            <div className="flex items-center justify-between">
                 <h2 className="text-xs font-bold font-mono tracking-tighter">Volume 24h</h2>
                 <div className="text-xs font-bold">
                     {formatVolume(amount)}
@@ -60,7 +60,7 @@ const InfoChartCard: React.FC<Props> = ({ amount, changePercent }) => {
                         strokeWidth="1.5"
                     />
                 </svg>
-                <div className="flex justify-between text-[8px] text-gray-400 mt-1">
+                <div className="flex justify-between text-[8px] text-gray-400">
                     <span>24h ago</span>
                     <span>Now</span>
                 </div>
