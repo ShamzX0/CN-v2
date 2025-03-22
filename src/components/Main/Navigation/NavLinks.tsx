@@ -24,10 +24,16 @@ const NavLinks = () => {
                     <Link
                         key={index}
                         href={oneLink.href}
-                        className={`text-white text-[14px] hover:text-[#00FFFF] ${isActive ? 'text-[#00FFFF] font-bold border-b-[1px] border-[#00FFFF]' : ''
+                        className={`text-white text-[14px] hover:text-[#bcfbfb] relative group ${isActive ? 'text-[#00FFFF] font-bold' : ''
                             }`}
                     >
                         {oneLink.name}
+                        {/* Active indicator or hover indicator */}
+                        {isActive ? (
+                            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#00FFFF]"></span>
+                        ) : (
+                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#00FFFF] group-hover:w-full transition-all duration-300"></span>
+                        )}
                     </Link>
                 );
             })}
