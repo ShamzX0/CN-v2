@@ -138,11 +138,10 @@ const TrendingCoins = (props: Props) => {
                         return (
                             <tr
                                 key={item.id}
-                                className="hover:bg-[#1a2842] rounded-lg"
                             >
-                                <td className="py-[7px] w-2/5">
+                                <td className="py-[8px] w-2/5">
                                     <div className="flex items-center gap-2">
-                                        <span className="text-sm min-w-[20px]">{index + 1}.</span>
+                                        <span className="text-xs min-w-[20px]">{index + 1}.</span>
                                         <CoinImage coin={coin} />
                                         <div className="flex flex-col min-w-[50px]">
                                             <span className="text-[10px]">{item.name}</span>
