@@ -30,10 +30,12 @@ const DashboardCards = (props: Props) => {
                     <InfoChartCard
                         amount={marketCap}
                         changePercent={marketCapChangePercent}
+                        title="Market Cap 24h"
                     />
                     <InfoChartCard
                         amount={volume}
                         changePercent={volumeChangePercent}
+                        title="Volume 24h"
                     />
                 </div>
             </div>

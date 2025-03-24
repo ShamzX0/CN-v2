@@ -3,9 +3,10 @@ import React from 'react';
 interface Props {
     amount: number;
     changePercent: number;
+    title: string;
 }
 
-const InfoChartCard: React.FC<Props> = ({ amount, changePercent }) => {
+const InfoChartCard: React.FC<Props> = ({ amount, changePercent, title }) => {
     const formatVolume = (value: number): string => {
         if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
         if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`;
@@ -16,7 +17,7 @@ const InfoChartCard: React.FC<Props> = ({ amount, changePercent }) => {
     const generateTrendLine = (): string => {
         const points: string[] = [];
         const steps = 24;
-        const height = 40;
+        const height = 20;
         const width = 200;
 
         const amplitude = Math.min(Math.abs(changePercent) * 2, 20);
@@ -25,11 +26,11 @@ const InfoChartCard: React.FC<Props> = ({ amount, changePercent }) => {
             const x = (width / steps) * i;
             const progress = i / steps;
             const curve = Math.sin(progress * Math.PI) * amplitude;
-            const noise = Math.random() * 7 - 2;
+            const noise = Math.random() * 15 - 5;
 
             const trend = changePercent > 0 ?
                 height - (height * 0.6) * progress :
-                (height * 0.2) + (height * 0.2) * progress;
+                (height * 0.3) + (height * 0.5) * progress;
 
             const y = trend + curve + noise;
             points.push(`${x},${y}`);
@@ -39,10 +40,10 @@ const InfoChartCard: React.FC<Props> = ({ amount, changePercent }) => {
     };
 
     return (
-        <div className="p-2 w-fit h-full space-y-5 rounded-2xl bg-[#13233f]">
+        <div className="p-[10px] w-fit h-full space-y-4 rounded-2xl bg-[#13233f]">
             <div className="flex items-center justify-between">
-                <h2 className="text-xs font-bold font-mono tracking-tighter">Volume 24h</h2>
-                <div className="text-xs font-bold">
+                <h2 className="text-[11px] text-gray-200 font-bold font-mono tracking-tighter">{title}</h2>
+                <div className="font-bold text-[10px] text-gray-200 ">
                     {formatVolume(amount)}
                 </div>
             </div>
@@ -51,7 +52,7 @@ const InfoChartCard: React.FC<Props> = ({ amount, changePercent }) => {
                     {changePercent > 0 ? '▲' : '▼'} {Math.abs(changePercent).toFixed(2)}% (24h)
                 </span>
             </div>
-            <div className="mt-2 relative">
+            <div className="relative">
                 <svg width="200" height="40" className="w-full">
                     <polyline
                         points={generateTrendLine()}
@@ -60,7 +61,7 @@ const InfoChartCard: React.FC<Props> = ({ amount, changePercent }) => {
                         strokeWidth="1.5"
                     />
                 </svg>
-                <div className="flex justify-between text-[8px] text-gray-400">
+                <div className="flex justify-between text-[8px] text-gray-400 mt-2">
                     <span>24h ago</span>
                     <span>Now</span>
                 </div>
