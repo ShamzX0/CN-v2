@@ -92,8 +92,8 @@ const TrendingNFTs = (props: Props) => {
     };
 
     return (
-        <div className="bg-[#13233f] rounded-2xl px-6 w-full h-full pt-2">
-            <div className="flex flex-row justify-between mb-5 mr-2">
+        <div className="bg-[#13233f] rounded-2xl px-6 w-full h-full">
+            <div className="flex flex-row justify-between pt-4 mb-3 mr-2">
                 <h1 className="flex text-base font-bold font-mono border-b-[1px] border-[#00FFFF]">Trending NFTs</h1>
                 <div className="flex flex-row items-center space-x-2">
                     <p className="text-[#00FFFF] border-[0.3px] rounded-full"><DollarSign size={13} /></p>
@@ -106,14 +106,14 @@ const TrendingNFTs = (props: Props) => {
                 if (index > 4) return null;
 
                 return (
-                    <div key={nft.id} className="flex items-center py-[4px] justify-between hover:bg-[#1a2842] rounded-lg">
+                    <div key={nft.id} className="flex items-center py-[6px] justify-between">
                         <div className="flex items-center gap-3">
                             <div className="text-sm">
                                 <span className="text-xs">{index + 1}.</span>
                             </div>
                             <NFTImage nft={nft} />
                             <div className="flex flex-col">
-                                <span className="text-[12px]">{nft.name}</span>
+                                <span className="text-[10px] max-w-[190px] truncate">{nft.name}</span>
                                 <span className="text-xs text-gray-400">{nft.symbol}</span>
                             </div>
                         </div>
