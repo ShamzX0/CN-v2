@@ -37,14 +37,13 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
 
     return (
         <div className='mt-6'>
-            <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">{selectedTimeframe.label} price chart</h2>
+            <div className="flex items-center mb-4 pl-16">
                 <div className="flex rounded-md overflow-hidden">
                     {timeframes.map((timeframe) => (
                         <button
                             key={timeframe.label}
                             onClick={() => setSelectedTimeframe(timeframe)}
-                            className={`px-3 py-1 text-sm ${selectedTimeframe.label === timeframe.label
+                            className={`px-3 py-1 text-xs ${selectedTimeframe.label === timeframe.label
                                 ? 'bg-blue-600 text-white'
                                 : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
                                 }`}
@@ -54,21 +53,29 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
                     ))}
                 </div>
             </div>
-            <div className='flex italic justify-center w-full text-[#00FFFF] text-xl'>. . . . WORK IN PROGRESS . . . . </div>
-            <CryptoChart
-                priceData={data.prices}
-                volumeData={data.total_volumes}
-                timeframe={selectedTimeframe.value as 'day' | 'week' | 'month' | 'year'}
-            />
 
-            {/* Show price statistics if available */}
-            {data.priceChange && (
-                <PriceStatistics
-                    priceChange={data.priceChange}
-                    timeframe={selectedTimeframe.label}
-                    currency="USD"
-                />
-            )}
+            {/* Replace the vertical stacking with horizontal flex layout */}
+            <div className="flex flex-col lg:flex-row gap-4">
+                {/* Chart component taking 2/3 width */}
+                <div className="w-full lg:w-2/3">
+                    <CryptoChart
+                        priceData={data.prices}
+                        volumeData={data.total_volumes}
+                        timeframe={selectedTimeframe.value as 'day' | 'week' | 'month' | 'year'}
+                    />
+                </div>
+
+                {/* Price statistics taking 1/3 width */}
+                {data.priceChange && (
+                    <div className="w-full lg:w-1/3">
+                        <PriceStatistics
+                            priceChange={data.priceChange}
+                            timeframe={selectedTimeframe.label}
+                            currency="USD"
+                        />
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

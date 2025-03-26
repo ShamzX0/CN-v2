@@ -15,6 +15,7 @@ interface CryptoChartProps {
     volumeData?: [number, number][];
     timeframe?: 'day' | 'week' | 'month' | 'year';
 }
+
 const CryptoChart: React.FC<CryptoChartProps> = ({
     priceData,
     timeframe = 'month'
@@ -55,6 +56,25 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
         return new Date(timestamp).toLocaleString();
     };
 
+    // Function to format price for Y-axis ticks (compact format)
+    const formatYAxisTick = (value: number) => {
+        if (value >= 1000000) {
+            return `$${(value / 1000000).toFixed(1)}M`;
+        } else if (value >= 1000) {
+            return `$${(value / 1000).toFixed(1)}K`;
+        } else {
+            return `$${value.toFixed(2)}`;
+        }
+    };
+
+    // Function to format price for tooltip (detailed format)
+    const formatDetailedPrice = (value: number) => {
+        return `$${value.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        })}`;
+    };
+
     // Calculate price domain for better visualization
     const prices = priceData.map(item => item[1]);
     const minPrice = Math.min(...prices) * 0.99; // 1% padding below
@@ -77,16 +97,11 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
                     <YAxis
                         domain={[minPrice, maxPrice]}
                         tick={{ fill: '#f4f4f4' }}
-                        tickFormatter={(value) => `$${value.toLocaleString(undefined, {
-                            maximumFractionDigits: 2
-                        })}`}
+                        tickFormatter={formatYAxisTick}
                     />
                     <Tooltip
                         labelFormatter={formatTooltipDate}
-                        formatter={(value: number) => [`$${value.toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        })}`, 'Price']}
+                        formatter={(value: number) => [formatDetailedPrice(value), 'Price']}
                         contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', color: '#f4f4f4' }}
                     />
                     <Line
