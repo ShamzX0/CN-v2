@@ -10,7 +10,7 @@ interface Props {
 const TrendingCoinsSkeleton = () => {
     return (
         <div className="flex justify-center">
-            <div className="bg-[#13233f] rounded-2xl px-6 w-full pt-2 min-h-[284px]">
+            <div className="bg-[#13233f] rounded-2xl px-6 w-full pt-2 min-h-[310px]">
                 {/* Header Skeleton */}
                 <div className="flex w-full items-center mb-4 h-[28px]">
                     <div className="w-2/5">
@@ -32,7 +32,7 @@ const TrendingCoinsSkeleton = () => {
                     <tbody>
                         {[...Array(5)].map((_, index) => (
                             <tr key={index} className="h-[46px]">
-                                <td className="py-[7px] w-2/5">
+                                <td className="py-[13px] w-2/5">
                                     <div className="flex items-center gap-2">
                                         <div className="w-5 h-4 bg-gray-500 rounded animate-pulse"></div>
                                         <div className="w-6 h-6 bg-gray-500 rounded-full animate-pulse"></div>

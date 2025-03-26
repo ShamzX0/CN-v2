@@ -14,12 +14,14 @@ interface PriceStatisticsProps {
   };
   timeframe: string;
   currency?: string;
+  chartType?: 'price' | 'marketCap';
 }
 
 const PriceStatistics: React.FC<PriceStatisticsProps> = ({
   priceChange,
   timeframe,
-  currency = 'USD'
+  currency = 'USD',
+  chartType = 'price'
 }) => {
   if (!priceChange) return null;
 

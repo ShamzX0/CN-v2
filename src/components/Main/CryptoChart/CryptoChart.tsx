@@ -12,15 +12,22 @@ import {
 
 interface CryptoChartProps {
     priceData: [number, number][];
+    marketCapData?: [number, number][];
     volumeData?: [number, number][];
     timeframe?: 'day' | 'week' | 'month' | 'year';
+    chartType?: 'price' | 'marketCap';
 }
 
 const CryptoChart: React.FC<CryptoChartProps> = ({
     priceData,
-    timeframe = 'month'
+    marketCapData,
+    timeframe = 'month',
+    chartType = 'price'
 }) => {
-    if (!priceData || priceData.length === 0) {
+    // Choose which data to display based on chartType
+    const chartData = chartType === 'price' ? priceData : marketCapData;
+
+    if (!chartData || chartData.length === 0) {
         return (
             <div className="flex items-center justify-center h-72 w-full bg-slate-800 rounded-xl">
                 <p className="text-gray-400">No chart data available</p>
@@ -29,9 +36,9 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
     }
 
     // Transform the data for Recharts
-    const formattedData = priceData.map(([timestamp, price]) => ({
+    const formattedData = chartData.map(([timestamp, value]) => ({
         date: timestamp,
-        price: price
+        value: value
     }));
 
     // Format date for x-axis labels based on timeframe
@@ -40,12 +47,23 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
 
         switch (timeframe) {
             case 'day':
-                return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                // Format like "8:00 AM", "12:00 PM"
+                return date.toLocaleTimeString([], {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                });
             case 'week':
+                // Only show day of week for certain intervals
                 return date.toLocaleDateString([], { weekday: 'short' });
             case 'month':
             case 'year':
-                return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+                // For longer timeframes, show cleaner date format
+                // This will display like "26 Mar"
+                return date.toLocaleDateString([], {
+                    day: 'numeric',
+                    month: 'short'
+                });
             default:
                 return date.toLocaleDateString();
         }
@@ -56,29 +74,39 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
         return new Date(timestamp).toLocaleString();
     };
 
-    // Function to format price for Y-axis ticks (compact format)
+    // Function to format value for Y-axis ticks (compact format)y
     const formatYAxisTick = (value: number) => {
-        if (value >= 1000000) {
-            return `$${(value / 1000000).toFixed(1)}M`;
-        } else if (value >= 1000) {
-            return `$${(value / 1000).toFixed(1)}K`;
+        if (chartType === 'marketCap') {
+            if (value >= 1000000000) {
+                return `$${(value / 1000000000).toFixed(1)}B`;
+            } else if (value >= 1000000) {
+                return `$${(value / 1000000).toFixed(1)}M`;
+            } else if (value >= 1000) {
+                return `$${(value / 1000).toFixed(1)}K`;
+            }
         } else {
-            return `$${value.toFixed(2)}`;
+            // Original price formatting
+            if (value >= 1000000) {
+                return `$${(value / 1000000).toFixed(1)}M`;
+            } else if (value >= 1000) {
+                return `$${(value / 1000).toFixed(1)}K`;
+            }
         }
+        return `$${value.toFixed(2)}`;
     };
 
-    // Function to format price for tooltip (detailed format)
-    const formatDetailedPrice = (value: number) => {
+    // Function to format value for tooltip (detailed format)
+    const formatDetailedValue = (value: number) => {
         return `$${value.toLocaleString(undefined, {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         })}`;
     };
 
-    // Calculate price domain for better visualization
-    const prices = priceData.map(item => item[1]);
-    const minPrice = Math.min(...prices) * 0.99; // 1% padding below
-    const maxPrice = Math.max(...prices) * 1.01; // 1% padding above
+    // Calculate domain for better visualization
+    const values = chartData.map(item => item[1]);
+    const minValue = Math.min(...values) * 0.99; // 1% padding below
+    const maxValue = Math.max(...values) * 1.01; // 1% padding above
 
     return (
         <div className="w-full h-72">
@@ -91,22 +119,27 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
                     <XAxis
                         dataKey="date"
                         tickFormatter={formatXAxis}
-                        tick={{ fill: '#f4f4f4' }}
+                        tick={{ fill: '#f4f4f4', fontSize: 10 }}
                         dy={10}
+                        interval="preserveStartEnd"
+                        minTickGap={50}
                     />
                     <YAxis
-                        domain={[minPrice, maxPrice]}
-                        tick={{ fill: '#f4f4f4' }}
+                        domain={[minValue, maxValue]}
+                        tick={{ fill: '#f4f4f4', fontSize: 14 }}
                         tickFormatter={formatYAxisTick}
                     />
                     <Tooltip
                         labelFormatter={formatTooltipDate}
-                        formatter={(value: number) => [formatDetailedPrice(value), 'Price']}
-                        contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', color: '#f4f4f4' }}
+                        formatter={(value: number) => [
+                            formatDetailedValue(value),
+                            chartType === 'price' ? 'Price' : 'Market Cap'
+                        ]}
+                        contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', color: '#f4f4f4', fontSize: 12 }}
                     />
                     <Line
                         type="monotone"
-                        dataKey="price"
+                        dataKey="value"
                         stroke="#3B82F6" // Blue color from Tailwind
                         strokeWidth={2}
                         dot={false}

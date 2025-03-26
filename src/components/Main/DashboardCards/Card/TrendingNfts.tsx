@@ -10,7 +10,7 @@ interface Props {
 const TrendingNFTsSkeleton = () => {
     return (
         <div className="">
-            <div className="bg-[#13233f] rounded-2xl px-6 w-full pt-2 min-h-[284px]">
+            <div className="bg-[#13233f] rounded-2xl px-6 w-full pt-2 min-h-[310px]">
                 {/* Header Skeleton */}
                 <div className="flex flex-row justify-between mb-5 mr-2 h-[28px]">
                     <div className="h-6 w-32 bg-gray-500 rounded animate-pulse"></div>
@@ -23,7 +23,7 @@ const TrendingNFTsSkeleton = () => {
 
                 {/* Rows Skeleton */}
                 {[...Array(5)].map((_, index) => (
-                    <div key={index} className="flex items-center py-[4px] justify-between h-[46px]">
+                    <div key={index} className="flex items-center py-[25px] justify-between h-[46px]">
                         <div className="flex items-center gap-3">
                             <div className="w-4 h-3 bg-gray-500 rounded animate-pulse"></div>
                             <div className="w-5 h-5 bg-gray-500 rounded-full animate-pulse"></div>
