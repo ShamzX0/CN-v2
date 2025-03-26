@@ -1,7 +1,7 @@
 import useCoinNews from '@/hooks/useCoinNews';
 import { FALLBACK_NEWS_DATA } from '@/hooks/fetch/getCoinNews';
 import { ArrowBigDown, ArrowBigUp, Clock, ExternalLink } from "lucide-react";
-import { IoInfiniteSharp } from "react-icons/io5";
+import { GiNewspaper } from "react-icons/gi";
 import { GiBearFace, GiBullHorns } from "react-icons/gi";
 import { FaRegStar, FaFire } from "react-icons/fa";
 import NewsSkeleton from '../CryptoNews/NewsSkeleton';
@@ -41,7 +41,7 @@ const CryptoNews = () => {
     const [newsFilter, setNewsFilter] = useState<'rising' | 'hot' | 'bullish' | 'bearish' | null>('bullish');
 
     const filterOptions = [
-        { value: null, icon: IoInfiniteSharp, size: 22 },
+        { value: null, icon: GiNewspaper, size: 22 },
         { value: 'rising', icon: FaRegStar, size: 18, marginTop: 'mt-1' },
         { value: 'hot', icon: FaFire, size: 18, marginTop: 'mt-[2px]' },
         { value: 'bullish', icon: GiBullHorns, size: 22 },
