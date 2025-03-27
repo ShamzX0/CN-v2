@@ -44,54 +44,56 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
     }
 
     return (
-        <div className='mt-6'>
-            <div className="flex justify-between mb-4 pl-16 w-[840px] ">
-                <div className="flex rounded-md overflow-hidden">
-                    {chartTypes.map((chartType) => (
-                        <button
-                            key={chartType.label}
-                            onClick={() => setSelectedChartType(chartType)}
-                            className={`px-3 py-1 text-xs ${selectedChartType.value === chartType.value
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
-                                }`}
-                        >
-                            {chartType.label}
-                        </button>
-                    ))}
+        <div className="flex flex-col lg:flex-row w-full gap-4">
+            {/* Left container - Controls and Chart (2/3 width) */}
+            <div className="w-full lg:w-3/4 flex flex-col">
+                {/* Controls section */}
+                <div className="flex justify-between mb-4 w-full">
+                    <div className="flex rounded-md overflow-hidden">
+                        {chartTypes.map((chartType) => (
+                            <button
+                                key={chartType.label}
+                                onClick={() => setSelectedChartType(chartType)}
+                                className={`px-3 py-1 text-xs ${selectedChartType.value === chartType.value
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
+                                    }`}
+                            >
+                                {chartType.label}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="flex rounded-md overflow-hidden">
+                        {timeframes.map((timeframe) => (
+                            <button
+                                key={timeframe.label}
+                                onClick={() => setSelectedTimeframe(timeframe)}
+                                className={`px-3 py-1 text-xs ${selectedTimeframe.label === timeframe.label
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
+                                    }`}
+                            >
+                                {timeframe.label}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
-                <div className="flex rounded-md overflow-hidden">
-                    {timeframes.map((timeframe) => (
-                        <button
-                            key={timeframe.label}
-                            onClick={() => setSelectedTimeframe(timeframe)}
-                            className={`px-3 py-1 text-xs ${selectedTimeframe.label === timeframe.label
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-slate-700 text-gray-300 hover:bg-slate-600'
-                                }`}
-                        >
-                            {timeframe.label}
-                        </button>
-                    ))}
-                </div>
+                {/* Chart section */}
+                <CryptoChart
+                    priceData={data.prices}
+                    marketCapData={data.market_caps}
+                    volumeData={data.total_volumes}
+                    timeframe={selectedTimeframe.value as 'day' | 'week' | 'month' | 'year'}
+                    chartType={selectedChartType.value as 'price' | 'marketCap'}
+                />
             </div>
 
-            {/* Replace the vertical stacking with horizontal flex layout */}
-            <div className="flex flex-col lg:flex-row gap-4">
-                <div className="w-full lg:w-2/3">
-                    <CryptoChart
-                        priceData={data.prices}
-                        marketCapData={data.market_caps}
-                        volumeData={data.total_volumes}
-                        timeframe={selectedTimeframe.value as 'day' | 'week' | 'month' | 'year'}
-                        chartType={selectedChartType.value as 'price' | 'marketCap'}
-                    />
-                </div>
-
-                {/* Always show the statistics panel */}
-                {data.priceChange && (
-                    <div className="w-full lg:w-1/3">
+            {/* Right container - Statistics panel (1/3 width) */}
+            {data.priceChange && (
+                <div className="w-full lg:w-1/4 flex">
+                    <div className="rounded-xl w-full">
                         <PriceStatistics
                             priceChange={data.priceChange}
                             timeframe={selectedTimeframe.label}
@@ -99,8 +101,8 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
                             chartType={selectedChartType.value as 'price' | 'marketCap'}
                         />
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 };
