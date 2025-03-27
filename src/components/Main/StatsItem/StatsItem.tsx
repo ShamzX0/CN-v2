@@ -106,21 +106,72 @@ export const getSecondRowStats = (coinData: any) => [
 ];
 
 // StatItem component
-const StatItem = ({ label, value, isPercentage, percentageValue, tooltipText }: StatItemProps) => (
-    <div className="flex-1 flex flex-col justify-center items-center w-[130px] space-y-2 p-4 rounded-xl border border-gray-600">
-        <div className="flex items-center gap-1">
-            <h3 className={`text-gray-400 ${label.length > 17 ? 'text-[12px]' : 'text-sm'}`}>{label}</h3>
-            <Tooltip tooltipText={tooltipText} />
-        </div>
-        {isPercentage ? (
-            <div className={`inline-flex items-center ${percentageValue && percentageValue >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                {percentageValue && percentageValue >= 0 ? <ArrowUp className="w-4 h-4 mr-1" /> : <ArrowDown className="w-4 h-4 mr-1" />}
-                <span className="text-md font-semibold">{percentageValue ? Math.abs(percentageValue).toFixed(2) : 0}%</span>
+const StatItem = ({ label, value, isPercentage, percentageValue, tooltipText }: StatItemProps) => {
+    // Convert value to string to get its length
+    const valueString = String(value);
+
+    // Function to format large numbers or truncate as needed
+    const formatValue = () => {
+        // If it's a token amount with ticker, separate them
+        if (typeof value === 'string' && value.includes(' ')) {
+            const parts = value.split(' ');
+            const numberPart = parts[0];
+            const tickerPart = parts[1];
+
+            // Format large numbers
+            if (numberPart.length > 12) {
+                // Abbreviate large numbers
+                const num = parseFloat(numberPart.replace(/,/g, ''));
+                let formattedNum;
+
+                if (num >= 1e12) {
+                    formattedNum = (num / 1e12).toFixed(2) + 'T';
+                } else if (num >= 1e9) {
+                    formattedNum = (num / 1e9).toFixed(2) + 'B';
+                } else if (num >= 1e6) {
+                    formattedNum = (num / 1e6).toFixed(2) + 'M';
+                }
+
+                return `${formattedNum} ${tickerPart}`;
+            }
+        }
+
+        return value;
+    };
+
+    // Get formatted value
+    const displayValue = formatValue();
+    const displayValueString = String(displayValue);
+
+    // Function to determine the appropriate text size class
+    const getValueTextSizeClass = () => {
+        if (displayValueString.length > 20) {
+            return 'text-[9px]';
+        } else if (displayValueString.length > 15) {
+            return 'text-[10px]';
+        } else if (displayValueString.length > 10) {
+            return 'text-xs';
+        } else {
+            return 'text-sm';
+        }
+    };
+
+    return (
+        <div className="flex-1 flex flex-col justify-center items-center w-[130px] space-y-2 p-4 rounded-xl border border-gray-600">
+            <div className="flex items-center gap-1">
+                <h3 className={`text-gray-400 ${label.length > 17 ? 'text-[12px]' : 'text-sm'}`}>{label}</h3>
+                <Tooltip tooltipText={tooltipText} />
             </div>
-        ) : (
-            <p className="text-sm font-semibold mt-1">{value}</p>
-        )}
-    </div>
-);
+            {isPercentage ? (
+                <div className={`inline-flex items-center ${percentageValue && percentageValue >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                    {percentageValue && percentageValue >= 0 ? <ArrowUp className="w-4 h-4 mr-1" /> : <ArrowDown className="w-4 h-4 mr-1" />}
+                    <span className="text-sm font-semibold">{percentageValue ? Math.abs(percentageValue).toFixed(2) : 0}%</span>
+                </div>
+            ) : (
+                <p className={`${getValueTextSizeClass()} font-semibold mt-1 whitespace-nowrap`}>{displayValue}</p>
+            )}
+        </div>
+    );
+};
 
 export default StatItem;
