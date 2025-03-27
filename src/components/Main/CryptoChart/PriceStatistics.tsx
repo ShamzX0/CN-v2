@@ -46,52 +46,55 @@ const PriceStatistics: React.FC<PriceStatisticsProps> = ({
 
   const isPositiveChange = priceChange.percentChange >= 0;
 
+  // PriceStatistics component
   return (
-    <div className="bg-slate-800 rounded-xl p-4 mt-4">
-      <h3 className="text-lg font-semibold mb-3">Price Statistics ({timeframe})</h3>
+    <div className="w-full h-full p-4">
+      <h3 className="text-xs font-semibold text-gray-100 mb-3">
+        Detailed Price Statistics (<span className="text-[9px]">{timeframe}</span>)
+      </h3>
+      <div className="flex flex-col space-y-3">
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="flex flex-col space-y-2">
-          <div className="flex justify-between">
-            <span className="text-gray-400">Price Change:</span>
-            <span className={isPositiveChange ? 'text-green-500' : 'text-red-500'}>
-              {formatPrice(priceChange.absoluteChange)}
-              &nbsp;
-              ({priceChange.percentChange.toFixed(2)}%)
-            </span>
-          </div>
-
-          <div className="flex justify-between">
-            <span className="text-gray-400">Starting Price:</span>
-            <span>{formatPrice(priceChange.startPrice)}</span>
-          </div>
-
-          <div className="flex justify-between">
-            <span className="text-gray-400">Current Price:</span>
-            <span>{formatPrice(priceChange.endPrice)}</span>
-          </div>
+        <div className="flex justify-between pb-3 border-b-[1px]  border-gray-700">
+          <span className="text-xs text-gray-400">Price Change:</span>
+          <span className={`text-xs ${isPositiveChange ? 'text-green-500' : 'text-red-500'}`}>
+            &nbsp;
+            ({priceChange.percentChange.toFixed(2)}%)
+          </span>
         </div>
 
-        <div className="flex flex-col space-y-2">
-          <div className="flex justify-between">
-            <span className="text-gray-400">Highest Price:</span>
-            <span className="text-green-500">{formatPrice(priceChange.highPrice)}</span>
-          </div>
 
-          <div className="flex justify-between">
-            <span className="text-gray-400">Highest on:</span>
-            <span>{formatDate(priceChange.highTimestamp)}</span>
-          </div>
+        <div className="flex justify-between pb-3 border-b-[1px]  border-gray-700">
+          <span className="text-xs text-gray-400">Starting Price:</span>
+          <span className="text-xs">{formatPrice(priceChange.startPrice)}</span>
+        </div>
 
-          <div className="flex justify-between">
-            <span className="text-gray-400">Lowest Price:</span>
-            <span className="text-red-500">{formatPrice(priceChange.lowPrice)}</span>
-          </div>
 
-          <div className="flex justify-between">
-            <span className="text-gray-400">Lowest on:</span>
-            <span>{formatDate(priceChange.lowTimestamp)}</span>
-          </div>
+        <div className="flex justify-between pb-3 border-b-[1px]  border-gray-700">
+          <span className="text-xs text-gray-400">Current Price:</span>
+          <span className="text-xs">{formatPrice(priceChange.endPrice)}</span>
+        </div>
+
+
+        <div className="flex justify-between pb-3 border-b-[1px]  border-gray-700">
+          <span className="text-xs text-gray-400">Highest Price:</span>
+          <span className="text-xs text-green-500">{formatPrice(priceChange.highPrice)}</span>
+        </div>
+
+
+        <div className="flex justify-between pb-3 border-b-[1px]  border-gray-700">
+          <span className="text-xs text-gray-400">Lowest Price:</span>
+          <span className="text-xs text-red-500">{formatPrice(priceChange.lowPrice)}</span>
+        </div>
+
+
+        <div className="flex justify-between pb-3 border-b-[1px]  border-gray-700">
+          <span className="text-xs text-gray-400">Lowest on:</span>
+          <span className="text-xs">{formatDate(priceChange.lowTimestamp)}</span>
+        </div>
+
+        <div className="flex justify-between pb-3">
+          <span className="text-xs text-gray-400">Highest on:</span>
+          <span className="text-xs">{formatDate(priceChange.highTimestamp)}</span>
         </div>
       </div>
     </div>
