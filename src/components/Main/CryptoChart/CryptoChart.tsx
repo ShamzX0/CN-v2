@@ -74,7 +74,7 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
         return new Date(timestamp).toLocaleString();
     };
 
-    // Function to format value for Y-axis ticks (compact format)y
+    // Function to format value for Y-axis ticks with support for very small values
     const formatYAxisTick = (value: number) => {
         if (chartType === 'marketCap') {
             if (value >= 1000000000) {
@@ -85,13 +85,38 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
                 return `$${(value / 1000).toFixed(1)}K`;
             }
         } else {
-            // Original price formatting
+            // Price formatting with special handling for very small values
             if (value >= 1000000) {
                 return `$${(value / 1000000).toFixed(1)}M`;
             } else if (value >= 1000) {
                 return `$${(value / 1000).toFixed(1)}K`;
+            } else if (value < 0.01) {
+                // Find the significant digits for very small values
+                const valueStr = value.toString();
+                const decimalIndex = valueStr.indexOf('.');
+
+                if (decimalIndex !== -1) {
+                    let zeroCount = 0;
+                    let found = false;
+
+                    for (let i = decimalIndex + 1; i < valueStr.length; i++) {
+                        if (valueStr[i] === '0') {
+                            zeroCount++;
+                        } else {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (found) {
+                        // Show with appropriate number of decimal places
+                        return `$${value.toFixed(zeroCount + 3)}`;
+                    }
+                }
             }
         }
+
+        // Default case
         return `$${value.toFixed(2)}`;
     };
 
@@ -119,14 +144,14 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
                     <XAxis
                         dataKey="date"
                         tickFormatter={formatXAxis}
-                        tick={{ fill: '#f4f4f4', fontSize: 10 }}
+                        tick={{ fill: '#f4f4f4', fontSize: 8 }}
                         dy={10}
                         interval="preserveStartEnd"
                         minTickGap={50}
                     />
                     <YAxis
                         domain={[minValue, maxValue]}
-                        tick={{ fill: '#f4f4f4', fontSize: 14 }}
+                        tick={{ fill: '#f4f4f4', fontSize: 11 }}
                         tickFormatter={formatYAxisTick}
                     />
                     <Tooltip
