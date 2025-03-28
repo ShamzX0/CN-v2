@@ -3,10 +3,7 @@ import { FALLBACK_NEWS_DATA } from '@/hooks/fetch/getCoinNews';
 import { ArrowBigDown, ArrowBigUp, Clock, ExternalLink } from "lucide-react";
 import { GiNewspaper } from "react-icons/gi";
 import { GiBearFace, GiBullHorns } from "react-icons/gi";
-import { FaRegStar, FaFire } from "react-icons/fa";
 import NewsSkeleton from '../CryptoNews/NewsSkeleton';
-
-// rising hot bulls bears 
 
 import React, { useState } from 'react'
 
@@ -38,12 +35,10 @@ interface NewsItem {
 }
 
 const CryptoNews = () => {
-    const [newsFilter, setNewsFilter] = useState<'rising' | 'hot' | 'bullish' | 'bearish' | null>('bullish');
+    const [newsFilter, setNewsFilter] = useState<'bullish' | 'bearish' | null>('bullish');
 
     const filterOptions = [
         { value: null, icon: GiNewspaper, size: 22 },
-        { value: 'rising', icon: FaRegStar, size: 18, marginTop: 'mt-1' },
-        { value: 'hot', icon: FaFire, size: 18, marginTop: 'mt-[2px]' },
         { value: 'bullish', icon: GiBullHorns, size: 22 },
         { value: 'bearish', icon: GiBearFace, size: 22 },
     ] as const;
@@ -54,15 +49,11 @@ const CryptoNews = () => {
         error: newsError,
         isLoading: newsLoading,
     } = useCoinNews({
-        filter: newsFilter || undefined
+        filter: newsFilter
     });
 
     // Use FALLBACK_NEWS_DATA only when there's an error
     const displayData = newsError ? FALLBACK_NEWS_DATA : coinNews;
-
-    console.log('News Data:', displayData);
-    console.log('Loading:', newsLoading);
-    console.log('Error:', newsError);
 
     // Format date for news items
     const formatDate = (dateString: string): string => {
@@ -75,7 +66,6 @@ const CryptoNews = () => {
             minute: '2-digit'
         });
     };
-    console.log(newsFilter, 'newsFilter')
 
     return (
         <div>
@@ -85,27 +75,21 @@ const CryptoNews = () => {
                     <div className="flex items-center justify-between mb-1 px-2">
                         <h2 className="text-sm font-bold border-b-[1px] border-[#00FFFF]">News From the CryptoUniverse</h2>
                     </div>
-                    <div className="flex gap-1 pb-1">
-                        {filterOptions.map(({ value, icon: Icon, size }) => {
-                            console.log(value, 'value')
-                            return (
-
-                                <div
-                                    key={value ?? 'all'}
-                                    className={`px-3 py-1 rounded-lg cursor-pointer
-                                            ${newsFilter === value ? 'text-[#00FFFF] bg-slate-700' : 'text-[#f4f4f4]'}`}
-                                >
-                                    <Icon
-                                        onClick={() => setNewsFilter(value)}
-                                        size={size}
-                                    />
-                                </div>
-
-                            )
-                        })}
+                    <div className="flex gap-3 pb-1 mr-3">
+                        {filterOptions.map(({ value, icon: Icon, size }) => (
+                            <div
+                                key={value ?? 'all'}
+                                className={`px-3 py-1 rounded-lg cursor-pointer
+                                        ${newsFilter === value ? 'text-[#00FFFF] bg-slate-700' : 'text-[#f4f4f4]'}`}
+                            >
+                                <Icon
+                                    onClick={() => setNewsFilter(value)}
+                                    size={size}
+                                />
+                            </div>
+                        ))}
                     </div>
                 </div>
-
 
                 {/* News content */}
                 <div className="space-y-2">
@@ -157,7 +141,6 @@ const CryptoNews = () => {
                                                 }
                                             </h3>
                                         </div>
-
                                     </div>
                                 </a>
                             </div>

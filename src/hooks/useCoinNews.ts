@@ -1,11 +1,13 @@
 import useSWR from "swr";
-import getCoinNews, { FALLBACK_NEWS_DATA } from "./fetch/getCoinNews";
+import getCoinNews from "./fetch/getCoinNews";
 
-type NewsFilter = "rising" | "hot" | "bullish" | "bearish" | null;
+export type NewsFilter = "bullish" | "bearish";
 
 interface CoinNewsParams {
-  filter?: NewsFilter;
+  filter?: NewsFilter | null;
   kind?: "news" | "media";
+  regions?: string[];
+  page?: number;
   refreshInterval?: number;
 }
 
@@ -13,11 +15,15 @@ export default function useCoinNews(params: CoinNewsParams = {}) {
   const {
     filter,
     kind = "news",
+    regions,
+    page,
     refreshInterval = 600000, // 10 minutes default
   } = params;
 
-  // Build a simple cache key based on the filter
-  const cacheKey = `coinNews-${filter || "all"}-${kind}`;
+  // Build a unique cache key based on all relevant parameters
+  const cacheKey = `coinNews-${filter || "all"}-${kind}-${
+    regions?.join(",") || "all"
+  }-${page || 1}`;
 
   const { data, error, isValidating, mutate } = useSWR(
     cacheKey,
@@ -25,20 +31,21 @@ export default function useCoinNews(params: CoinNewsParams = {}) {
       getCoinNews({
         filter: filter || undefined,
         kind,
+        regions,
+        page,
         public: true,
       }),
     {
       refreshInterval,
       revalidateOnFocus: false,
       suspense: false,
-      fallbackData: undefined,
     }
   );
 
   return {
     data,
     error,
-    isLoading: !data || isValidating,
+    isLoading: !data && !error,
     isValidating,
     refresh: () => mutate(),
   };

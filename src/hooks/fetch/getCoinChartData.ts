@@ -35,7 +35,6 @@ export default async function getCoinChartData(
     if (!response.ok) throw new Error("Failed to fetch chart data");
 
     const data = await response.json();
-    console.log("Chart data fetched successfully for", coinId);
 
     const chartData: ChartData = {
       prices: data.prices || [],

@@ -27,15 +27,7 @@ export interface NewsItem {
 }
 
 interface NewsApiParams {
-  currencies?: string[];
-  filter?:
-    | "rising"
-    | "hot"
-    | "bullish"
-    | "bearish"
-    | "important"
-    | "saved"
-    | "lol";
+  filter?: "bullish" | "bearish";
   regions?: string[];
   kind?: "news" | "media";
   page?: number;
@@ -53,7 +45,6 @@ const getRandomPastDate = () => {
 };
 
 const AUTH_TOKEN = "add107fcd8027e1359adcba401377ac5174e859a"; // Your auth token
-const MAX_CURRENCIES_PER_REQUEST = 50; // API limitation
 
 // Fallback data if API fails
 export const FALLBACK_NEWS_DATA: NewsItem[] = [
@@ -189,44 +180,8 @@ export default async function getCoinNews(
   params: NewsApiParams
 ): Promise<NewsItem[]> {
   try {
-    const {
-      currencies = ["BTC", "ETH", "ADA", "XRP", "SOL"],
-      public: isPublic = true,
-    } = params;
-
-    // If we have more than MAX_CURRENCIES_PER_REQUEST, we need to make multiple requests
-    if (currencies.length > MAX_CURRENCIES_PER_REQUEST) {
-      // Make multiple requests in chunks of MAX_CURRENCIES_PER_REQUEST
-      const allResults: NewsItem[] = [];
-
-      // Process in chunks of 50 currencies (API limit)
-      for (let i = 0; i < currencies.length; i += MAX_CURRENCIES_PER_REQUEST) {
-        const currencyChunk = currencies.slice(
-          i,
-          i + MAX_CURRENCIES_PER_REQUEST
-        );
-        const chunkResults = await fetchNewsWithParams({
-          ...params,
-          currencies: currencyChunk,
-        });
-        allResults.push(...chunkResults);
-      }
-
-      // Remove duplicates (if any) based on slug
-      const uniqueResults = Array.from(
-        new Map(allResults.map((item) => [item.slug, item])).values()
-      );
-
-      // Sort by published_at to keep the most recent first
-      return uniqueResults.sort(
-        (a, b) =>
-          new Date(b.published_at).getTime() -
-          new Date(a.published_at).getTime()
-      );
-    } else {
-      // Normal case - fetch with the provided currencies
-      return await fetchNewsWithParams(params);
-    }
+    // Simplified to directly fetch with the given parameters
+    return await fetchNewsWithParams(params);
   } catch (error) {
     console.error(`Error fetching coin news:`, error);
     return FALLBACK_NEWS_DATA;
@@ -238,7 +193,8 @@ async function fetchNewsWithParams(params: NewsApiParams): Promise<NewsItem[]> {
   const queryParams = buildQueryParams(params);
   const url = `https://cryptopanic.com/api/v1/posts/?auth_token=${AUTH_TOKEN}${queryParams}`;
 
-  console.log("Fetching from URL:", url); // Log the full URL (remove in production)
+  console.log(`Fetching news with filter: ${params.filter}`);
+  console.log(`Full URL: ${url}`);
 
   try {
     const response = await fetch(url, {
@@ -249,12 +205,22 @@ async function fetchNewsWithParams(params: NewsApiParams): Promise<NewsItem[]> {
     });
 
     if (!response.ok) {
-      console.error("API Response not OK:", await response.text());
+      console.error(`API error: ${response.status} ${response.statusText}`);
       throw new Error(`API error: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();
-    console.log("Raw API Response:", data); // Log the raw response
+    console.log(
+      `Received ${data.results?.length || 0} news items for filter: ${
+        params.filter
+      }`
+    );
+
+    // Check if we got results
+    if (!data.results || data.results.length === 0) {
+      console.warn(`No results for filter: ${params.filter}`);
+    }
+
     return data.results || [];
   } catch (error) {
     console.error("Error fetching from CryptoPanic API:", error);
@@ -266,13 +232,8 @@ async function fetchNewsWithParams(params: NewsApiParams): Promise<NewsItem[]> {
 function buildQueryParams(params: NewsApiParams): string {
   const queryParts: string[] = [];
 
-  if (params.public) {
-    queryParts.push("&public=true");
-  }
-
-  if (params.currencies && params.currencies.length > 0) {
-    queryParts.push(`&currencies=${params.currencies.join(",")}`);
-  }
+  // Always set public to true as that's what we're using
+  queryParts.push("&public=true");
 
   if (params.filter) {
     queryParts.push(`&filter=${params.filter}`);
