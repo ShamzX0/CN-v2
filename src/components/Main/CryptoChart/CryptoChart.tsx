@@ -26,6 +26,8 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
 }) => {
     // Choose which data to display based on chartType
     const chartData = chartType === 'price' ? priceData : marketCapData;
+    const lineColor = chartType === 'price' ? '#00dffd' : '#3B82F6';
+
 
     if (!chartData || chartData.length === 0) {
         return (
@@ -165,10 +167,10 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
                     <Line
                         type="monotone"
                         dataKey="value"
-                        stroke="#3B82F6" // Blue color from Tailwind
+                        stroke={lineColor} // Use the dynamic color
                         strokeWidth={2}
                         dot={false}
-                        activeDot={{ r: 6, fill: '#3B82F6' }}
+                        activeDot={{ r: 6, fill: lineColor }} // Also update the activeDot fill color
                     />
                 </LineChart>
             </ResponsiveContainer>

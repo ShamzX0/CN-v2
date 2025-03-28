@@ -3,23 +3,28 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import useCoinDetail from '@/hooks/useCoinDetail';
 import CoinSentiment from '../../../components/Main/CoinSentiment/CoinSentiment';
-import CryptoChartContainer from '../../../components/Main/CryptoChart/CryptoChartContainer';
 import StatItem, {
     getFirstRowStats,
     getSecondRowStats
 } from '../../../components/Main/StatsItem/StatsItem';
+import CryptoDetailSkeleton from './CryptoDetailSkeleton';
+import CryptoChartContainer from '@/components/Main/CryptoChart/CryptoChartContainer';
 
 export default function CryptoDetailPage() {
     const params = useParams();
     const cryptoSlug = params.slug as string;
-    const { data: CoinData } = useCoinDetail(cryptoSlug);
+    const { data: CoinData, isLoading } = useCoinDetail(cryptoSlug);
+
+    if (isLoading) {
+        return <CryptoDetailSkeleton />;
+    }
 
     // Get stats arrays using the imported functions
     const firstRowStats = getFirstRowStats(CoinData);
     const secondRowStats = getSecondRowStats(CoinData);
 
     return (
-        <div className="min-h-screen text-[#f4f4f4] py-5">
+        <div className="text-[#f4f4f4] py-5">
             {/* Main content wrapper - centered */}
             <div className="w-full mx-auto">
                 <div className="flex flex-col gap-4 md:flex-row">

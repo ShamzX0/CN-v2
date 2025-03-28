@@ -2,8 +2,8 @@
 import React, { useState, Suspense } from 'react';
 import CryptoChart from './CryptoChart';
 import PriceStatistics from './PriceStatistics';
-import CryptoChartSkeleton from './CryptoChartSkeleton';
 import useCoinChartData from '@/hooks/useCoinChartData';
+import CryptoDetailSkeleton from '@/app/cryptodetail/[slug]/CryptoDetailSkeleton';
 
 interface CryptoChartContainerProps {
     coinId: string;
@@ -44,7 +44,7 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row w-full gap-4">
+        <div className="flex flex-col lg:flex-row w-full gap-4 my-5">
             {/* Left container - Controls and Chart (2/3 width) */}
             <div className="w-full lg:w-3/4 flex flex-col">
                 {/* Controls section */}
@@ -111,11 +111,8 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
 const CryptoChartContainer: React.FC<CryptoChartContainerProps> = ({ coinId }) => {
     const { isLoading } = useCoinChartData(coinId, 90);
 
-    if (isLoading) {
-        return <CryptoChartSkeleton />;
-    } else {
-        return <ChartContent coinId={coinId} />;
-    }
+
+    return <ChartContent coinId={coinId} />;
 };
 
 export default CryptoChartContainer;
