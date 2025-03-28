@@ -30,7 +30,7 @@ const CoinSentiment = ({
     const formattedVotes = formatVotes(totalVotes);
 
     return (
-        <div className="flex flex-col mt-3 bg-slate-800 rounded-lg p-2 w-full">
+        <div className="flex flex-col mt-2 bg-slate-800 rounded-lg p-2 w-full">
             <div className="flex justify-between items-center mb-2">
                 <span className='flex items-center text-[#2cd3d3] space-x-1'>
                     <CircleGauge size={10} />
