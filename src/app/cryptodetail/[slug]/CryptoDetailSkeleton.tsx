@@ -121,7 +121,7 @@ const CryptoDetailSkeleton = () => {
 
                             {/* Community Sentiment placeholder */}
                             <div className="w-full">
-                                <div className="h-24 bg-gray-700 rounded-md animate-pulse"></div>
+                                <div className="h-[68px] bg-gray-700 rounded-md animate-pulse"></div>
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,15 @@ const FearGreedIndex = () => {
         return new Date(timestamp * 1000).toLocaleString();
     };
 
-    // Get color based on sentiment classification
+    const getClassification = (value: number): string => {
+        if (value >= 0 && value <= 25) return 'Extreme Fear';
+        if (value > 25 && value <= 45) return 'Fear';
+        if (value > 45 && value <= 55) return 'Neutral';
+        if (value > 55 && value <= 75) return 'Greed';
+        if (value > 75 && value <= 100) return 'Extreme Greed';
+        return 'Unknown'; // Fallback
+    };
+
     const getSentimentColor = (classification: string): string => {
         switch (classification) {
             case 'Extreme Fear':
@@ -45,7 +53,9 @@ const FearGreedIndex = () => {
         return null; // or a loading state
     }
 
-    const sentimentColor = getSentimentColor(fearGreed.data[0].value_classification);
+    const currentValue = getValue();
+    const classification = getClassification(currentValue);
+    const sentimentColor = getSentimentColor(classification);
 
     return (
         <div className="bg-[#13233f] p-4 w-full h-[150px] rounded-xl ">
@@ -59,7 +69,7 @@ const FearGreedIndex = () => {
                     <defs>
                         <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stopColor="#FF0000" /> {/* Extreme Fear */}
-                            <stop offset="25%" stopColor="#FF4444" /> {/* Fear */}
+                            <stop offset="20%" stopColor="#FF4444" /> {/* Fear */}
                             <stop offset="50%" stopColor="#FFBB33" /> {/* Neutral */}
                             <stop offset="75%" stopColor="#00C851" /> {/* Greed */}
                             <stop offset="100%" stopColor="#007E33" /> {/* Extreme Greed */}
@@ -79,7 +89,7 @@ const FearGreedIndex = () => {
                         y2="20"
                         stroke={sentimentColor}
                         strokeWidth="2"
-                        transform={`rotate(${getGradientColor(getValue())}, 100, 80)`}
+                        transform={`rotate(${getGradientColor(currentValue)}, 100, 80)`}
                     />
                     <circle
                         cx="100"
@@ -92,7 +102,7 @@ const FearGreedIndex = () => {
                 {/* Value display - repositioned */}
                 <div className='absolute bottom-[5px] left-1/2 transform w-full -translate-x-1/2 flex flex-col items-center'>
                     <div className="text-[8px]" style={{ color: sentimentColor }}>
-                        {fearGreed.data[0].value_classification}
+                        {classification}
                     </div>
                     <div className="font-bold text-md">
                         {fearGreed.data[0].value}
