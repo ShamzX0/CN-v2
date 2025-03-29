@@ -1,5 +1,5 @@
 
-import Swap from '@/components/Main/Swap/Swap';
+import Swap from '../../components/Main/Swap/Swap';
 
 const SwapPage = () => {
 
