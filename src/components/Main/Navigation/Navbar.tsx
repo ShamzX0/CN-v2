@@ -12,7 +12,6 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 // Assets
 import CryptoNewbie from '../../../../public/images/CryptoNewbie.png'
-import { Search } from 'lucide-react'
 
 // Styling constants
 const NEON_EFFECTS = {
@@ -27,44 +26,24 @@ interface WalletConnectProps {
 
 const WalletConnect: React.FC<WalletConnectProps> = ({ pathname }) => (
     <div
-        className={`
-      hover:text-[#61d9f1] 
-      scale-[0.9] 
-      hover:border-transparent 
-      rounded 
-      border-slate-600 
-      border-[1px] 
-      transition 
-      duration-300 
-      ease-in-out 
+        className={`hover:text-[#61d9f1] scale-[0.9] hover:border-transparent rounded border-slate-600 border-[1px] transition duration-300 ease-in-out
       ${pathname === '/swap' ? NEON_EFFECTS.active : NEON_EFFECTS.walletHover}
     `}
     >
-        <ConnectButton
-            chainStatus="icon"
-            accountStatus="address"
-            showBalance={false}
-        />
+        <div className='bg-[#1c1c24f5]'>
+            <ConnectButton
+                chainStatus="icon"
+                accountStatus="address"
+                showBalance={false}
+            />
+        </div>
     </div>
 )
 
 const LaunchAppButton: React.FC = () => (
     <Link
         href="/swap"
-        className={`
-      neon-card 
-      border-opacity-30 
-      text-white/80 
-      text-opacity-80 
-      hover:text-[#61d9f1] 
-      py-2 
-      px-4 
-      rounded 
-      font-unbounded 
-      font-light 
-      transition 
-      duration-300 
-      ease-in-out 
+        className={`neon-card border-opacity-30 text-white/80 text-opacity-80 hover:text-[#61d9f1] py-2 px-4 rounded font-unbounded font-light transition duration-300 ease-in-out 
       ${NEON_EFFECTS.hover}
     `}
     >

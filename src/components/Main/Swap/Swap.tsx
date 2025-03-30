@@ -4,7 +4,7 @@ import { FC } from 'react'
 import React, { useState, useEffect } from "react";
 import { Input, Popover, Radio, Modal, message, RadioChangeEvent } from "antd";
 import { ArrowDown, ChevronDown, Settings, } from 'lucide-react';
-import tokenList from '../../../helpers/tokens/token-list'
+import tokenList from '../../../helpers/tokens/token-list.json'
 import { useSendTransaction, useAccount, useWaitForTransactionReceipt } from "wagmi";
 
 import Image from 'next/image';
