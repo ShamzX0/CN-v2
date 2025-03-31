@@ -18,6 +18,8 @@ import {
     QueryClientProvider,
     QueryClient,
 } from "@tanstack/react-query";
+import Moralis from "moralis";
+
 
 const config = getDefaultConfig({
     appName: 'CN-V2',
@@ -28,6 +30,9 @@ const config = getDefaultConfig({
 
 
 const queryClient = new QueryClient();
+
+Moralis.start({ apiKey: process.env.NEXT_PUBLIC_API_KEY });
+
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (

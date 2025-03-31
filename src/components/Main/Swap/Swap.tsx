@@ -113,40 +113,120 @@ const Swap: FC<SwapProps> = ({ }) => {
             setPrices(usdPrices)
             return usdPrices
         } catch (error) {
-            console.log(error)
+            console.log('This error is:', error)
         }
     }
+
+    // const fetchDexSwap = async () => {
+    //     // ziskani pro metamask allowence
+
+    //     console.log(address, 'address')
+    //     console.log(tokenOne.address, 'tokenOne.address')
+    //     console.log('jede tady one')
+    //     const allowance = await axios.get(`https://api.1inch.io/v6.0/1/approve/allowance?tokenAddress=${tokenOne.address}&walletAddress=${address}`)
+
+
+    //     console.log(allowance, 'allowance')
+    //     // povoleni k allowence
+    //     // if (allowance.data.allowance === "0") {
+    //     //     const approve = await axios.get(`https://api.1inch.io/v6.0/1/approve/transaction?src=${tokenOne.address}`)
+    //     //     setTxDetails(approve.data);
+    //     //     console.log("not approved")
+    //     //     return
+    //     // }
+
+    //     // transakce
+    //     const tx = await axios.get(
+    //         `https://api.1inch.io/v6.0/1/swap?src=${tokenOne.address}&dst=${tokenTwo.address}&amount=${tokenOneAmount.padEnd(tokenOne.decimals + tokenOneAmount.length, '0')}&from=${address}&slippage=${slippage}`
+    //     )
+
+    //     let decimals = Number(`1E${tokenTwo.decimals}`)
+    //     setTokenTwoAmount((Number(tx.data.toTokenAmount) / decimals).toFixed(2));
+
+    //     console.log(tx, 'tx.data.tx')
+    //     setTxDetails(tx.data.tx);
+    // }
+
+    // Replace your existing fetchDexSwap function with this:
 
     const fetchDexSwap = async () => {
-        // ziskani pro metamask allowence
-        const allowance = await axios.get(`https://api.1inch.io/v5.0/1/approve/allowance?tokenAddress=${tokenOne.address}&walletAddress=${address}`)
+        // Make sure you've added your API key to your .env.local file:
+        // NEXT_PUBLIC_1INCH_API_KEY=your_api_key_here
+        const apiKey = process.env.NEXT_PUBLIC_1INCH_API_KEY;
 
-        // povoleni k allowence
-        if (allowance.data.allowance === "0") {
-            const approve = await axios.get(`https://api.1inch.io/v5.0/1/approve/transaction?tokenAddress=${tokenOne.address}`)
-            setTxDetails(approve.data);
-            console.log("not approved")
-            return
+        // Headers with API key
+        const headers = {
+            'Authorization': `Bearer ${apiKey}`,
+            'Accept': 'application/json'
+        };
+
+        try {
+            // Check allowance first
+            console.log(address, 'address')
+            console.log(tokenOne.address, 'tokenOne.address')
+
+            const allowanceUrl = `https://api.1inch.dev/swap/v5.2/1/approve/allowance`;
+            const allowanceResponse = await axios.get(allowanceUrl, {
+                params: {
+                    tokenAddress: tokenOne.address,
+                    walletAddress: address
+                },
+                headers
+            });
+
+            console.log(allowanceResponse.data, 'allowance');
+
+            // If token is not approved, get approval transaction
+            if (allowanceResponse.data.allowance === "0") {
+                const approveUrl = `https://api.1inch.dev/swap/v5.2/1/approve/transaction`;
+                const approveResponse = await axios.get(approveUrl, {
+                    params: {
+                        tokenAddress: tokenOne.address
+                    },
+                    headers
+                });
+
+                setTxDetails(approveResponse.data);
+                console.log("not approved");
+                return;
+            }
+
+            // Get swap transaction
+            const swapUrl = `https://api.1inch.dev/swap/v5.2/1/swap`;
+            const swapResponse = await axios.get(swapUrl, {
+                params: {
+                    src: tokenOne.address,
+                    dst: tokenTwo.address,
+                    amount: tokenOneAmount.padEnd(tokenOne.decimals + tokenOneAmount.length, '0'),
+                    from: address,
+                    slippage: slippage
+                },
+                headers
+            });
+
+            let decimals = Number(`1E${tokenTwo.decimals}`);
+            setTokenTwoAmount((Number(swapResponse.data.toTokenAmount) / decimals).toFixed(2));
+
+            console.log(swapResponse.data, 'swap response');
+            setTxDetails(swapResponse.data.tx);
+        } catch (error) {
+            console.error("Error in fetchDexSwap:", error);
+
+            // Better error handling
+            if (error.response) {
+                console.error("API Error Response:", error.response.data);
+            }
         }
-
-        // transakce
-        const tx = await axios.get(
-            `https://api.1inch.io/v5.0/1/swap?fromTokenAddress=${tokenOne.address}&toTokenAddress=${tokenTwo.address}&amount=${tokenOneAmount.padEnd(tokenOne.decimals + tokenOneAmount.length, '0')}&fromAddress=${address}&slippage=${slippage}`
-        )
-
-        let decimals = Number(`1E${tokenTwo.decimals}`)
-        setTokenTwoAmount((Number(tx.data.toTokenAmount) / decimals).toFixed(2));
-
-        setTxDetails(tx.data.tx);
-    }
+    };
 
 
     useEffect(() => {
         fetchPrices(tokenList[0].address, tokenList[1].address)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
+
+        console.log(txDetails, 'txDetails')
         if (txDetails.to && isConnected) {
             sendTransaction({
                 to: txDetails.to as `0x${string}`,
@@ -195,13 +275,11 @@ const Swap: FC<SwapProps> = ({ }) => {
             <div>
                 Slippage Tolerance
             </div>
-            <div>
-                <Radio.Group value={slippage} onChange={handleSlippageChange}>
-                    <Radio.Button value={0.5}>0.5%</Radio.Button>
-                    <Radio.Button value={2.5}>2.5%</Radio.Button>
-                    <Radio.Button value={5}>5.0%</Radio.Button>
-                </Radio.Group>
-            </div>
+            <Radio.Group value={slippage} onChange={handleSlippageChange}>
+                <Radio.Button value={0.5}>0.5%</Radio.Button>
+                <Radio.Button value={2.5}>2.5%</Radio.Button>
+                <Radio.Button value={5}>5.0%</Radio.Button>
+            </Radio.Group>
         </>
     )
 
@@ -294,10 +372,11 @@ const Swap: FC<SwapProps> = ({ }) => {
                             <fieldset className='w-full'>
                                 <div className='relative'>
                                     <Input
-                                        placeholder="0"
+                                        placeholder="222220"
                                         value={tokenOneAmount}
                                         onChange={changeAmount}
                                         disabled={!prices}
+                                        type='number'
                                     />
 
                                     <button
