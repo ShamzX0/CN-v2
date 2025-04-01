@@ -372,11 +372,12 @@ const Swap: FC<SwapProps> = ({ }) => {
                             <fieldset className='w-full'>
                                 <div className='relative'>
                                     <Input
-                                        placeholder="222220"
+                                        placeholder="0"
                                         value={tokenOneAmount}
                                         onChange={changeAmount}
                                         disabled={!prices}
                                         type='number'
+                                        className='no-spinner'
                                     />
 
                                     <button
@@ -395,6 +396,7 @@ const Swap: FC<SwapProps> = ({ }) => {
                                         placeholder="0"
                                         value={tokenTwoAmount}
                                         disabled={true}
+                                        className='no-spinner'
                                     />
 
                                     <button
