@@ -12,49 +12,44 @@ import {
     polygon,
     optimism,
     arbitrum,
-    base,
 } from 'wagmi/chains';
 import {
     QueryClientProvider,
     QueryClient,
 } from "@tanstack/react-query";
 import Moralis from "moralis";
-
+import ModalDetector from '../components/Modal/ModalDetector';
 
 const config = getDefaultConfig({
     appName: 'CN-V2',
-    projectId: 'b484a6d745f59bf0fc555e0d347124de', // WalletConnect Cloud ID
+    projectId: 'b484a6d745f59bf0fc555e0d347124de',
     chains: [mainnet, polygon, optimism, arbitrum],
     ssr: true,
 });
 
-
 const queryClient = new QueryClient();
 
 Moralis.start({ apiKey: process.env.NEXT_PUBLIC_API_KEY });
-
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
         <WagmiProvider config={config}>
             <QueryClientProvider client={queryClient}>
                 <RainbowKitProvider
+                    coolMode={true}
+                    modalSize='compact'
                     theme={darkTheme({
                         accentColor: '',
                         accentColorForeground: '#51b7cb',
-                        borderRadius: 'none',
+                        borderRadius: 'large',
                         fontStack: 'system',
-                        overlayBlur: 'small',
-
+                        overlayBlur: 'large',
                     })}
                 >
+                    <ModalDetector />
                     {children}
                 </RainbowKitProvider>
             </QueryClientProvider>
         </WagmiProvider>
     )
 }
-
-
-
-
