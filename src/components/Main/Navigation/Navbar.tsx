@@ -30,7 +30,7 @@ const WalletConnect: React.FC<WalletConnectProps> = ({ pathname }) => (
       ${pathname === '/swap' ? NEON_EFFECTS.active : NEON_EFFECTS.walletHover}
     `}
     >
-        <div className='bg-[#1c1c24f5]'>
+        <div className='bg-[#1f1f22bb]'>
             <ConnectButton
                 chainStatus="icon"
                 accountStatus="address"
