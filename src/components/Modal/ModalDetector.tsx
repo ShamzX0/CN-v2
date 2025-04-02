@@ -1,13 +1,18 @@
 'use client';
 
-import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { useConnectModal, useAccountModal, useChainModal } from '@rainbow-me/rainbowkit';
 import { useEffect } from 'react';
 
 const ModalDetector = () => {
+
     const { connectModalOpen } = useConnectModal();
+    const { accountModalOpen } = useAccountModal();
+    const { chainModalOpen } = useChainModal();
+
+    const isAnyModalOpen = connectModalOpen || accountModalOpen || chainModalOpen;
 
     useEffect(() => {
-        if (connectModalOpen) {
+        if (isAnyModalOpen) {
             // Create a full-screen black overlay
             const overlay = document.createElement('div');
             overlay.id = 'modal-overlay';
@@ -17,23 +22,21 @@ const ModalDetector = () => {
             overlay.style.width = '100vw';
             overlay.style.height = '100vh';
             overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-            overlay.style.zIndex = '999'; // High z-index but below modal
+            overlay.style.zIndex = '999'; //
 
-            // Insert the overlay before the modal
             document.body.appendChild(overlay);
 
-
+            console.log('Modal is open, overlay added');
         } else {
-            // Remove the overlay when modal closes
             const overlay = document.getElementById('modal-overlay');
             if (overlay) {
                 document.body.removeChild(overlay);
-
+                console.log('All modals closed, overlay removed');
             }
         }
-    }, [connectModalOpen]);
+    }, [isAnyModalOpen]);
 
-    return null; // This component doesn't render anything
+    return null;
 };
 
 export default ModalDetector;
