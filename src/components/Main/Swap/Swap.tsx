@@ -3,10 +3,9 @@
 import { FC } from 'react'
 import React, { useState, useEffect } from "react";
 import { Input, Popover, Radio, Modal, message, RadioChangeEvent } from "antd";
-import { ArrowDown, ChevronDown, Settings, } from 'lucide-react';
+import { ArrowUpDown, ChevronDown, Settings, } from 'lucide-react';
 import tokenList from '../../../helpers/tokens/token-list.json'
 import { useSendTransaction, useAccount, useWaitForTransactionReceipt } from "wagmi";
-
 import Image from 'next/image';
 import { TokenData } from '../../../lib/coinTypes/tokenTypes';
 import Moralis from 'moralis'
@@ -18,7 +17,7 @@ interface SwapProps {
 }
 
 const Swap: FC<SwapProps> = ({ }) => {
-
+    const [isLoading, setIsLoading] = useState(false);
     const [tokenOne, setTokenOne] = useState<TokenData>(tokenList[0])
     const [tokenTwo, setTokenTwo] = useState<TokenData>(tokenList[1])
     const [tokenOneAmount, setTokenOneAmount] = useState<any>(null)
@@ -43,7 +42,7 @@ const Swap: FC<SwapProps> = ({ }) => {
     const { address, isConnected } = useAccount();
     const { data: hash, sendTransaction, isPending: isSending } = useSendTransaction();
 
-    const { isLoading, isSuccess } = useWaitForTransactionReceipt({
+    const { isLoading: isLoadingTranstaction, isSuccess } = useWaitForTransactionReceipt({
         hash: hash
     })
 
@@ -150,73 +149,117 @@ const Swap: FC<SwapProps> = ({ }) => {
     // Replace your existing fetchDexSwap function with this:
 
     const fetchDexSwap = async () => {
-        // Make sure you've added your API key to your .env.local file:
-        // NEXT_PUBLIC_1INCH_API_KEY=your_api_key_here
-        const apiKey = process.env.NEXT_PUBLIC_1INCH_API_KEY;
+        if (isLoading) {
+            messageApi.open({
+                type: 'info',
+                content: 'Please wait, transaction is processing...',
+                duration: 2,
+            });
+            return;
+        }
 
-        // Headers with API key
-        const headers = {
-            'Authorization': `Bearer ${apiKey}`,
-            'Accept': 'application/json'
-        };
+        setIsLoading(true);
+
+        console.log("fetchDexSwap function called");
+
+        if (!tokenOneAmount) {
+            console.log('tokenOneAmount is empty')
+            return
+        }
 
         try {
-            // Check allowance first
-            console.log(address, 'address')
-            console.log(tokenOne.address, 'tokenOne.address')
 
-            const allowanceUrl = `https://api.1inch.dev/swap/v5.2/1/approve/allowance`;
-            const allowanceResponse = await axios.get(allowanceUrl, {
+            const allowanceResponse = await axios.get('/api/one-inch-proxy', {
                 params: {
+                    endpoint: 'approve/allowance',
                     tokenAddress: tokenOne.address,
                     walletAddress: address
-                },
-                headers
+                }
             });
 
-            console.log(allowanceResponse.data, 'allowance');
+            console.log("Allowance API call completed");
+            console.log("Allowance response data:", allowanceResponse.data);
 
             // If token is not approved, get approval transaction
             if (allowanceResponse.data.allowance === "0") {
-                const approveUrl = `https://api.1inch.dev/swap/v5.2/1/approve/transaction`;
-                const approveResponse = await axios.get(approveUrl, {
+                console.log("Token not approved, getting approval transaction...");
+
+                const approveResponse = await axios.get('/api/one-inch-proxy', {
                     params: {
+                        endpoint: 'approve/transaction',
                         tokenAddress: tokenOne.address
-                    },
-                    headers
+                    }
                 });
 
+                console.log("Approval response:", approveResponse.data);
                 setTxDetails(approveResponse.data);
-                console.log("not approved");
+                console.log("Token not approved, returning after setting txDetails");
                 return;
             }
 
             // Get swap transaction
-            const swapUrl = `https://api.1inch.dev/swap/v5.2/1/swap`;
-            const swapResponse = await axios.get(swapUrl, {
+            console.log("Making swap API call with params:", {
+                src: tokenOne.address,
+                dst: tokenTwo.address,
+                amount: tokenOneAmount.padEnd(tokenOne.decimals + tokenOneAmount.length, '0'),
+                from: address,
+                slippage: slippage
+            });
+            const swapResponse = await axios.get('/api/one-inch-proxy', {
                 params: {
+                    endpoint: 'swap',
                     src: tokenOne.address,
                     dst: tokenTwo.address,
                     amount: tokenOneAmount.padEnd(tokenOne.decimals + tokenOneAmount.length, '0'),
                     from: address,
                     slippage: slippage
-                },
-                headers
+                }
             });
+
+            console.log("Swap API call completed");
 
             let decimals = Number(`1E${tokenTwo.decimals}`);
             setTokenTwoAmount((Number(swapResponse.data.toTokenAmount) / decimals).toFixed(2));
 
-            console.log(swapResponse.data, 'swap response');
+            console.log("Swap response:", swapResponse.data);
+            console.log("Setting txDetails with tx data");
             setTxDetails(swapResponse.data.tx);
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error in fetchDexSwap:", error);
 
-            // Better error handling
-            if (error.response) {
-                console.error("API Error Response:", error.response.data);
-            }
+            // if (error.response) {
+            //     console.error("Error status:", error.response.status);
+            //     console.error("Error data:", error.response.data);
+
+            //     // Show error to user
+            //     messageApi.open({
+            //         type: 'error',
+            //         content: `Swap failed: ${error.response.data?.description || 'Unknown error'}`,
+            //         duration: 5,
+            //     });
+            // } else if (error.request) {
+            //     // The request was made but no response was received
+            //     console.error("No response received:", error.request);
+
+            //     messageApi.open({
+            //         type: 'error',
+            //         content: 'Network error: No response from server',
+            //         duration: 5,
+            //     });
+            // } else {
+            //     // Something happened in setting up the request
+            //     console.error("Error message:", error.message);
+
+            //     messageApi.open({
+            //         type: 'error',
+            //         content: `Error: ${error.message}`,
+            //         duration: 5,
+            //     });
+            // }
+        } finally {
+            setIsLoading(false);
         }
+
     };
 
 
@@ -240,7 +283,7 @@ const Swap: FC<SwapProps> = ({ }) => {
     useEffect(() => {
         messageApi.destroy();
 
-        if (isLoading || isSending) {
+        if (isLoadingTranstaction || isSending) {
             messageApi.open({
                 type: 'loading',
                 content: 'Transaction is Pending...',
@@ -248,7 +291,7 @@ const Swap: FC<SwapProps> = ({ }) => {
             })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoading, isSending])
+    }, [isLoadingTranstaction, isSending])
 
     useEffect(() => {
         messageApi.destroy();
@@ -286,9 +329,9 @@ const Swap: FC<SwapProps> = ({ }) => {
 
 
     return (
-        <main className='flex'>
+        <main className='flex-col h-full'>
             {/*SWAP CARD */}
-            <section className='flex flex-row justify-center items-center mx-auto'>
+            <section className='flex flex-row justify-center items-center gap-6 h-[90%]'>
                 <header className='flex flex-col gap-4 font-unbounded pr-12 '>
                     <h1 className="font-bold text-4xl neon-writing  text-[#fff] flex flex-col">
                         <span>SWAP YOUR</span>
@@ -355,7 +398,7 @@ const Swap: FC<SwapProps> = ({ }) => {
                     <div className='w-[500px] min-h-[300px] bg-slate-900 border-2 border-none rounded-xl flex flex-col justify-start items-start px-8'>
                         {/* Card Header */}
                         <header className='flex justify-between items-center w-[98%] py-4 text-zinc-300'>
-                            <h4>Swap</h4>
+                            <h4 className='py-[3px] px-[12px] rounded-xl bg-[#3a4157] text-[#03d7f8d9] text-sm'>Swap</h4>
                             <Popover
                                 content={settings}
                                 title='Settings'
@@ -382,7 +425,7 @@ const Swap: FC<SwapProps> = ({ }) => {
 
                                     <button
                                         type="button"
-                                        className="absolute min-w-[20px] h-[30px] bg-[#3a4157] top-9 right-2 rounded-full flex justify-start items-center gap-1 font-bold text-[17px] pr-2 hover:cursor-pointer text-zinc-300"
+                                        className="absolute min-w-[20px] h-[30px] bg-[#3a4157] top-9 right-2 rounded-full flex justify-start items-center gap-1 font-medium text-[15px] pr-2 hover:cursor-pointer text-zinc-300"
                                         onClick={() => openModal(1)}
                                     >
                                         <Image src={tokenOne.img} alt="assetOneLogo" height={14} width={23} className="ml-1" />
@@ -401,7 +444,7 @@ const Swap: FC<SwapProps> = ({ }) => {
 
                                     <button
                                         type="button"
-                                        className="absolute min-w-[20px] h-[30px] bg-[#3a4157] top-9 right-2 rounded-full flex justify-start items-center gap-1 font-bold text-[17px] pr-2 hover:cursor-pointer text-zinc-300"
+                                        className="absolute min-w-[20px] h-[30px] bg-[#3a4157] top-9 right-2 rounded-full flex justify-start items-center gap-1 font-medium text-[15px] pr-2 hover:cursor-pointer text-zinc-300"
                                         onClick={() => openModal(2)}
                                     >
                                         <Image src={tokenTwo.img} alt="assetTwoLogo" height={14} width={23} className="ml-1" />
@@ -414,16 +457,16 @@ const Swap: FC<SwapProps> = ({ }) => {
                             {/* Swap Direction Toggle */}
                             <button
                                 type="button"
-                                className="bg-[#3a4157] w-6 h-6 flex items-center justify-center rounded-md absolute top-[86px] left-[200px] text-[#5f6783] border-[3px] border-slate-900 text-sm transition duration-300 hover:cursor-pointer hover:text-white"
+                                className="bg-[#3a4157] w-6 h-6 flex items-center justify-center rounded-md absolute top-[86px] left-[200px] text-[#03d7f8d9] border-[3px] border-slate-900 text-sm transition-all duration-300 ease-in-out hover:cursor-pointer hover:rotate-180"
                                 onClick={switchTokens}
                             >
-                                <ArrowDown />
+                                <ArrowUpDown size={16} />
                             </button>
 
                             {/* Swap Button */}
                             <button
                                 type="button"
-                                className="flex justify-center items-center bg-[#243056] w-full h-14 text-[20px] font-bold rounded-lg text-[#5981F3] transition duration-300 mb-7 mt-2 disabled:bg-[#243056] disabled:opacity-40 disabled:text-[#5982f39b] disabled:hover:cursor-not-allowed disabled:hover:bg-[#243056] hover:cursor-pointer hover:bg-[#3b4874]"
+                                className="flex justify-center items-center bg-[#243056] w-full h-14 text-[20px] font-bold rounded-lg text-[#00FFFF] transition duration-300 mb-7 mt-2 disabled:bg-[#243056] disabled:opacity-40 disabled:text-[#5982f39b] disabled:hover:cursor-not-allowed disabled:hover:bg-[#243056] hover:cursor-pointer hover:bg-[#3b4874]"
                                 disabled={!tokenOneAmount || !isConnected}
                                 onClick={fetchDexSwap}
                             >
@@ -433,6 +476,9 @@ const Swap: FC<SwapProps> = ({ }) => {
                     </div>
                 </aside>
             </section>
+            <div className='flex w-full justify-center items-center font-unbounded tracking-[0.18rem] opacity-50'>
+                POWERED BY<Image src="/images/1inch_transparent.jpeg" alt="1inch logo" width={100} height={100} />
+            </div>
         </main>
     );
 }
