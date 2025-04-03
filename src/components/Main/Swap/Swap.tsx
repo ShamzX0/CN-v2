@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { TokenData } from '../../../lib/coinTypes/tokenTypes';
 import Moralis from 'moralis'
 import axios from 'axios';
-
+import SwapReviewModal from '../Swap/SwapReviewModal'; // Import the new component
 
 interface SwapProps {
 
@@ -35,9 +35,10 @@ const Swap: FC<SwapProps> = ({ }) => {
     const [messageApi, contextHolder] = message.useMessage()
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [changeToken, setChangeToken] = useState<number>(1)
-
     const [slippage, setSlippage] = useState<number>(2.5)
 
+    // Add new state for review modal
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState<boolean>(false)
 
     const { address, isConnected } = useAccount();
     const { data: hash, sendTransaction, isPending: isSending } = useSendTransaction();
@@ -116,37 +117,19 @@ const Swap: FC<SwapProps> = ({ }) => {
         }
     }
 
-    // const fetchDexSwap = async () => {
-    //     // ziskani pro metamask allowence
+    // Add a new function to handle opening the review modal
+    const handleOpenReviewModal = () => {
+        if (!tokenOneAmount || !isConnected) {
+            return;
+        }
+        setIsReviewModalOpen(true);
+    }
 
-    //     console.log(address, 'address')
-    //     console.log(tokenOne.address, 'tokenOne.address')
-    //     console.log('jede tady one')
-    //     const allowance = await axios.get(`https://api.1inch.io/v6.0/1/approve/allowance?tokenAddress=${tokenOne.address}&walletAddress=${address}`)
-
-
-    //     console.log(allowance, 'allowance')
-    //     // povoleni k allowence
-    //     // if (allowance.data.allowance === "0") {
-    //     //     const approve = await axios.get(`https://api.1inch.io/v6.0/1/approve/transaction?src=${tokenOne.address}`)
-    //     //     setTxDetails(approve.data);
-    //     //     console.log("not approved")
-    //     //     return
-    //     // }
-
-    //     // transakce
-    //     const tx = await axios.get(
-    //         `https://api.1inch.io/v6.0/1/swap?src=${tokenOne.address}&dst=${tokenTwo.address}&amount=${tokenOneAmount.padEnd(tokenOne.decimals + tokenOneAmount.length, '0')}&from=${address}&slippage=${slippage}`
-    //     )
-
-    //     let decimals = Number(`1E${tokenTwo.decimals}`)
-    //     setTokenTwoAmount((Number(tx.data.toTokenAmount) / decimals).toFixed(2));
-
-    //     console.log(tx, 'tx.data.tx')
-    //     setTxDetails(tx.data.tx);
-    // }
-
-    // Replace your existing fetchDexSwap function with this:
+    // Modify the fetchDexSwap function to be called from the review modal
+    const handleConfirmSwap = async () => {
+        setIsReviewModalOpen(false);
+        await fetchDexSwap();
+    }
 
     const fetchDexSwap = async () => {
         if (isLoading) {
@@ -394,6 +377,20 @@ const Swap: FC<SwapProps> = ({ }) => {
                         </div>
                     </Modal>
 
+                    {/* Add the Review Modal */}
+                    <SwapReviewModal
+                        isOpen={isReviewModalOpen}
+                        onClose={() => setIsReviewModalOpen(false)}
+                        tokenOne={tokenOne}
+                        tokenTwo={tokenTwo}
+                        tokenOneAmount={tokenOneAmount}
+                        tokenTwoAmount={tokenTwoAmount}
+                        prices={prices}
+                        slippage={slippage}
+                        onConfirm={handleConfirmSwap}
+                        isLoading={isLoading}
+                    />
+
                     {/* Swap Card Container */}
                     <div className='w-[500px] min-h-[300px] bg-slate-900 border-2 border-none rounded-xl flex flex-col justify-start items-start px-8'>
                         {/* Card Header */}
@@ -463,12 +460,12 @@ const Swap: FC<SwapProps> = ({ }) => {
                                 <ArrowUpDown size={16} />
                             </button>
 
-                            {/* Swap Button */}
+                            {/* Swap Button - Updated to open review modal instead of directly calling fetchDexSwap */}
                             <button
                                 type="button"
                                 className="flex justify-center items-center bg-[#243056] w-full h-14 text-[20px] font-bold rounded-lg text-[#00FFFF] transition duration-300 mb-7 mt-2 disabled:bg-[#243056] disabled:opacity-40 disabled:text-[#5982f39b] disabled:hover:cursor-not-allowed disabled:hover:bg-[#243056] hover:cursor-pointer hover:bg-[#3b4874]"
                                 disabled={!tokenOneAmount || !isConnected}
-                                onClick={fetchDexSwap}
+                                onClick={handleOpenReviewModal}
                             >
                                 Swap
                             </button>
