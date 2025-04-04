@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { TokenData } from '../../../lib/coinTypes/tokenTypes';
 import Moralis from 'moralis'
 import axios from 'axios';
-import SwapReviewModal from '../Swap/SwapReviewModal'; // Import the new component
+import SwapReviewModal from '../Swap/SwapReviewModal';
 
 interface SwapProps {
 
@@ -463,7 +463,7 @@ const Swap: FC<SwapProps> = ({ }) => {
                             {/* Swap Button - Updated to open review modal instead of directly calling fetchDexSwap */}
                             <button
                                 type="button"
-                                className="flex justify-center items-center bg-[#243056] w-full h-14 text-[20px] font-bold rounded-lg text-[#00FFFF] transition duration-300 mb-7 mt-2 disabled:bg-[#243056] disabled:opacity-40 disabled:text-[#5982f39b] disabled:hover:cursor-not-allowed disabled:hover:bg-[#243056] hover:cursor-pointer hover:bg-[#3b4874]"
+                                className="flex justify-center items-center bg-[#243056] w-full h-14 text-[20px] font-bold rounded-lg text-[#00FFFF] transition duration-300 mb-7 mt-2 disabled:bg-[#243056] disabled:opacity-40 disabled:text-[#5982f39b] disabled:hover:cursor-not-allowed disabled:hover:bg-[#243056] hover:cursor-pointer hover:bg-[#3b4874] hover:scale-[1.02]"
                                 disabled={!tokenOneAmount || !isConnected}
                                 onClick={handleOpenReviewModal}
                             >
