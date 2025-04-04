@@ -416,3 +416,15 @@ body {
 .ant-modal-close-icon:hover {
   color: white !important;
 }
+
+/* Stronger selectors to ensure styles are applied */
+.ant-modal-root .ant-modal-mask {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Prevent background scrolling when modal is open */
+body.modal-open {
+  overflow: hidden !important;
+}
