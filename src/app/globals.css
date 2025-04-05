@@ -417,6 +417,10 @@ body {
   color: white !important;
 }
 
+.swap-review-modal .ant-modal-body {
+  height: 0px; /* Adjust as needed */
+}
+
 /* Stronger selectors to ensure styles are applied */
 .ant-modal-root .ant-modal-mask {
   backdrop-filter: blur(8px) !important;

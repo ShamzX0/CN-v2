@@ -60,9 +60,8 @@ const SwapReviewModal: FC<SwapReviewModalProps> = ({
             closable={false}
             className="swap-review-modal"
             width={500}
-            height={0}
         >
-            <div className="bg-slate-900 rounded-xl neon-card p-3">
+            <div className="bg-slate-900 rounded-xl neon-card p-5">
                 <button
                     onClick={onClose}
                     className="flex w-full justify-end text-gray-400 hover:text-white transition-colors"
