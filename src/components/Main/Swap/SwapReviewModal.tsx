@@ -97,7 +97,7 @@ const SwapReviewModal: FC<SwapReviewModalProps> = ({
                 <div className="flex mt-2 justify-center items-center">
                     <div className="border-[1px] w-full border-transparent border-[#00d9ff] neon-card"></div>
                     <div className="mx-4 text-gray-400 flex items-center">
-                        <ChevronsDown size={24} className="text-gray-400" />
+                        <ChevronsDown size={22} className="text-[#00d9ff]" />
                     </div>
                     <div className="border-[1px] w-full border-transparent border-[#00d9ff] neon-card"></div>
                 </div>
