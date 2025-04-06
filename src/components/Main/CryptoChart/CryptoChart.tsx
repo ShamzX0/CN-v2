@@ -31,8 +31,47 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
 
     if (!chartData || chartData.length === 0) {
         return (
-            <div className="flex items-center justify-center h-72 w-full bg-slate-800 rounded-xl">
-                <p className="text-gray-400">No chart data available</p>
+            <div className='flex w-[1280px]'>
+                <div className="flex items-center justify-center h-72 w-3/4 bg-slate-800 rounded-xl">
+                    <p className="text-gray-400"><span className='font-bold'>Whoops!</span> No data – a quick timeframe swap might do the trick!</p>
+                </div>
+                <div className="flex">
+                    <div className="w-[300px] h-full p-1 ml-4 mt-[-25px]">
+                        <h3 className="text-xs font-semibold text-gray-100 mb-3">
+                            Detailed Price Statistics (<span className="text-[9px]">{timeframe}</span>)
+                        </h3>
+                        <div className="flex flex-col space-y-3">
+                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
+                                <span className="text-xs text-gray-400">Price Change:</span>
+                                <span className="text-xs text-gray-400">N/A</span>
+                            </div>
+                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
+                                <span className="text-xs text-gray-400">Starting Price:</span>
+                                <span className="text-xs text-gray-400">N/A</span>
+                            </div>
+                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
+                                <span className="text-xs text-gray-400">Current Price:</span>
+                                <span className="text-xs text-gray-400">N/A</span>
+                            </div>
+                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
+                                <span className="text-xs text-gray-400">Highest Price:</span>
+                                <span className="text-xs text-gray-400">N/A</span>
+                            </div>
+                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
+                                <span className="text-xs text-gray-400">Lowest Price:</span>
+                                <span className="text-xs text-gray-400">N/A</span>
+                            </div>
+                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
+                                <span className="text-xs text-gray-400">Lowest on:</span>
+                                <span className="text-xs text-gray-400">N/A</span>
+                            </div>
+                            <div className="flex justify-between pb-3">
+                                <span className="text-xs text-gray-400">Highest on:</span>
+                                <span className="text-xs text-gray-400">N/A</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
