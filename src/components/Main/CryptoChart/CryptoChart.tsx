@@ -18,6 +18,22 @@ interface CryptoChartProps {
     chartType?: 'price' | 'marketCap';
 }
 
+// Stats row component to reduce repetition
+const StatRow = ({ label, value }: { label: string; value: string }) => (
+    <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
+        <span className="text-xs text-gray-400">{label}:</span>
+        <span className="text-xs text-gray-400">{value}</span>
+    </div>
+);
+
+// Last stat row without bottom border
+const LastStatRow = ({ label, value }: { label: string; value: string }) => (
+    <div className="flex justify-between pb-3">
+        <span className="text-xs text-gray-400">{label}:</span>
+        <span className="text-xs text-gray-400">{value}</span>
+    </div>
+);
+
 const CryptoChart: React.FC<CryptoChartProps> = ({
     priceData,
     marketCapData,
@@ -27,8 +43,9 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
     // Choose which data to display based on chartType
     const chartData = chartType === 'price' ? priceData : marketCapData;
     const lineColor = chartType === 'price' ? '#00dffd' : '#3B82F6';
+    const chartLabel = chartType === 'price' ? 'Price' : 'Market Cap';
 
-
+    // No data view
     if (!chartData || chartData.length === 0) {
         return (
             <div className='flex w-[1280px]'>
@@ -38,37 +55,16 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
                 <div className="flex">
                     <div className="w-[300px] h-full p-1 ml-4 mt-[-25px]">
                         <h3 className="text-xs font-semibold text-gray-100 mb-3">
-                            Detailed Price Statistics (<span className="text-[9px]">{timeframe}</span>)
+                            Detailed {chartLabel} Statistics (<span className="text-[9px]">{timeframe}</span>)
                         </h3>
                         <div className="flex flex-col space-y-3">
-                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
-                                <span className="text-xs text-gray-400">Price Change:</span>
-                                <span className="text-xs text-gray-400">N/A</span>
-                            </div>
-                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
-                                <span className="text-xs text-gray-400">Starting Price:</span>
-                                <span className="text-xs text-gray-400">N/A</span>
-                            </div>
-                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
-                                <span className="text-xs text-gray-400">Current Price:</span>
-                                <span className="text-xs text-gray-400">N/A</span>
-                            </div>
-                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
-                                <span className="text-xs text-gray-400">Highest Price:</span>
-                                <span className="text-xs text-gray-400">N/A</span>
-                            </div>
-                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
-                                <span className="text-xs text-gray-400">Lowest Price:</span>
-                                <span className="text-xs text-gray-400">N/A</span>
-                            </div>
-                            <div className="flex justify-between pb-3 border-b-[1px] border-gray-700">
-                                <span className="text-xs text-gray-400">Lowest on:</span>
-                                <span className="text-xs text-gray-400">N/A</span>
-                            </div>
-                            <div className="flex justify-between pb-3">
-                                <span className="text-xs text-gray-400">Highest on:</span>
-                                <span className="text-xs text-gray-400">N/A</span>
-                            </div>
+                            <StatRow label={`${chartLabel} Change`} value="N/A" />
+                            <StatRow label={`Starting ${chartLabel}`} value="N/A" />
+                            <StatRow label={`Current ${chartLabel}`} value="N/A" />
+                            <StatRow label={`Highest ${chartLabel}`} value="N/A" />
+                            <StatRow label={`Lowest ${chartLabel}`} value="N/A" />
+                            <StatRow label="Lowest on" value="N/A" />
+                            <LastStatRow label="Highest on" value="N/A" />
                         </div>
                     </div>
                 </div>
@@ -82,57 +78,58 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
         value: value
     }));
 
-    // Format date for x-axis labels based on timeframe
-    const formatXAxis = (timestamp: number) => {
-        const date = new Date(timestamp);
+    // Utility functions for formatting
+    const formatters = {
+        // Format date for x-axis labels based on timeframe
+        xAxis: (timestamp: number) => {
+            const date = new Date(timestamp);
 
-        switch (timeframe) {
-            case 'day':
-                // Format like "8:00 AM", "12:00 PM"
-                return date.toLocaleTimeString([], {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true
-                });
-            case 'week':
-                // Only show day of week for certain intervals
-                return date.toLocaleDateString([], { weekday: 'short' });
-            case 'month':
-            case 'year':
-                // For longer timeframes, show cleaner date format
-                // This will display like "26 Mar"
-                return date.toLocaleDateString([], {
-                    day: 'numeric',
-                    month: 'short'
-                });
-            default:
-                return date.toLocaleDateString();
-        }
-    };
-
-    // Format date for tooltip
-    const formatTooltipDate = (timestamp: number) => {
-        return new Date(timestamp).toLocaleString();
-    };
-
-    // Function to format value for Y-axis ticks with support for very small values
-    const formatYAxisTick = (value: number) => {
-        if (chartType === 'marketCap') {
-            if (value >= 1000000000) {
-                return `$${(value / 1000000000).toFixed(1)}B`;
-            } else if (value >= 1000000) {
-                return `$${(value / 1000000).toFixed(1)}M`;
-            } else if (value >= 1000) {
-                return `$${(value / 1000).toFixed(1)}K`;
+            switch (timeframe) {
+                case 'day':
+                    return date.toLocaleTimeString([], {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                    });
+                case 'week':
+                    return date.toLocaleDateString([], { weekday: 'short' });
+                case 'month':
+                case 'year':
+                    return date.toLocaleDateString([], {
+                        day: 'numeric',
+                        month: 'short'
+                    });
+                default:
+                    return date.toLocaleDateString();
             }
-        } else {
-            // Price formatting with special handling for very small values
-            if (value >= 1000000) {
-                return `$${(value / 1000000).toFixed(1)}M`;
-            } else if (value >= 1000) {
-                return `$${(value / 1000).toFixed(1)}K`;
-            } else if (value < 0.01) {
-                // Find the significant digits for very small values
+        },
+
+        // Format date for tooltip
+        tooltipDate: (timestamp: number) => new Date(timestamp).toLocaleString(),
+
+        // Format currency values with appropriate units
+        formatCurrency: (value: number, isDetailed = false) => {
+            // For detailed view (tooltip)
+            if (isDetailed) {
+                return `$${value.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })}`;
+            }
+
+            // For Y-axis labels
+            if (chartType === 'marketCap' || value >= 1000) {
+                if (value >= 1000000000) {
+                    return `$${(value / 1000000000).toFixed(1)}B`;
+                } else if (value >= 1000000) {
+                    return `$${(value / 1000000).toFixed(1)}M`;
+                } else if (value >= 1000) {
+                    return `$${(value / 1000).toFixed(1)}K`;
+                }
+            }
+
+            // Special handling for very small values
+            if (value < 0.01) {
                 const valueStr = value.toString();
                 const decimalIndex = valueStr.indexOf('.');
 
@@ -150,23 +147,14 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
                     }
 
                     if (found) {
-                        // Show with appropriate number of decimal places
                         return `$${value.toFixed(zeroCount + 3)}`;
                     }
                 }
             }
+
+            // Default case
+            return `$${value.toFixed(2)}`;
         }
-
-        // Default case
-        return `$${value.toFixed(2)}`;
-    };
-
-    // Function to format value for tooltip (detailed format)
-    const formatDetailedValue = (value: number) => {
-        return `$${value.toLocaleString(undefined, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        })}`;
     };
 
     // Calculate domain for better visualization
@@ -184,7 +172,7 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
                     <CartesianGrid strokeDasharray="3 3" stroke="#333" />
                     <XAxis
                         dataKey="date"
-                        tickFormatter={formatXAxis}
+                        tickFormatter={formatters.xAxis}
                         tick={{ fill: '#f4f4f4', fontSize: 8 }}
                         dy={10}
                         interval="preserveStartEnd"
@@ -193,23 +181,23 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
                     <YAxis
                         domain={[minValue, maxValue]}
                         tick={{ fill: '#f4f4f4', fontSize: 11 }}
-                        tickFormatter={formatYAxisTick}
+                        tickFormatter={value => formatters.formatCurrency(value)}
                     />
                     <Tooltip
-                        labelFormatter={formatTooltipDate}
+                        labelFormatter={formatters.tooltipDate}
                         formatter={(value: number) => [
-                            formatDetailedValue(value),
-                            chartType === 'price' ? 'Price' : 'Market Cap'
+                            formatters.formatCurrency(value, true),
+                            chartLabel
                         ]}
                         contentStyle={{ backgroundColor: '#1F2937', borderColor: '#374151', color: '#f4f4f4', fontSize: 12 }}
                     />
                     <Line
                         type="monotone"
                         dataKey="value"
-                        stroke={lineColor} // Use the dynamic color
+                        stroke={lineColor}
                         strokeWidth={2}
                         dot={false}
-                        activeDot={{ r: 6, fill: lineColor }} // Also update the activeDot fill color
+                        activeDot={{ r: 6, fill: lineColor }}
                     />
                 </LineChart>
             </ResponsiveContainer>
