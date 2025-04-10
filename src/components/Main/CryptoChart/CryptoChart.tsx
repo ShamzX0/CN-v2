@@ -50,7 +50,16 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
         return (
             <div className='flex w-[1280px]'>
                 <div className="flex items-center justify-center h-72 w-3/4 bg-slate-800 rounded-xl">
-                    <p className="text-gray-400"><span className='font-bold'>Whoops!</span> No data – a quick timeframe swap might do the trick!</p>
+                    <div className="flex flex-col items-center text-center text-gray-400 text-xs px-4">
+                        <p className="mb-5">
+                            <strong className="text-lg mr-2">Whoops!</strong>
+                            Sorry about that..
+                        </p>
+                        <p className="mb-2">
+                            Sometimes the free version of the CoinGecko API can be stubborn.
+                        </p>
+                        <p>Reload the page or a quick timeframe swap might do the trick!</p>
+                    </div>
                 </div>
                 <div className="flex">
                     <div className="w-[300px] h-full p-1 ml-4 mt-[-25px]">
