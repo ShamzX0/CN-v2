@@ -44,8 +44,7 @@ const getRandomPastDate = () => {
   return new Date(pastTime).toISOString();
 };
 
-const AUTH_TOKEN = "add107fcd8027e1359adcba401377ac5174e859a"; // Your auth token
-
+const AUTH_TOKEN = "add107fcd8027e1359adcba401377ac5174e859a";
 // Fallback data if API fails
 export const FALLBACK_NEWS_DATA: NewsItem[] = [
   {

@@ -1,11 +1,11 @@
+import React, { useState, useEffect } from 'react';
+import { ArrowBigDown, ArrowBigUp, Clock, ExternalLink } from "lucide-react";
+import { GiNewspaper, GiBearFace, GiBullHorns } from "react-icons/gi";
 import useCoinNews from '@/hooks/useCoinNews';
 import { FALLBACK_NEWS_DATA } from '@/hooks/fetch/getCoinNews';
-import { ArrowBigDown, ArrowBigUp, Clock, ExternalLink } from "lucide-react";
-import { GiNewspaper } from "react-icons/gi";
-import { GiBearFace, GiBullHorns } from "react-icons/gi";
 import NewsSkeleton from '../CryptoNews/NewsSkeleton';
 
-import React, { useState } from 'react'
+type NewsFilter = 'bullish' | 'bearish' | null;
 
 interface NewsItem {
     created_at: string;
@@ -35,7 +35,7 @@ interface NewsItem {
 }
 
 const CryptoNews = () => {
-    const [newsFilter, setNewsFilter] = useState<'bullish' | 'bearish' | null>('bullish');
+    const [newsFilter, setNewsFilter] = useState<NewsFilter>('bullish');
 
     const filterOptions = [
         { value: null, icon: GiNewspaper, size: 22 },
@@ -43,27 +43,42 @@ const CryptoNews = () => {
         { value: 'bearish', icon: GiBearFace, size: 22 },
     ] as const;
 
-    // Fetch general crypto news without specific currency
+    // Data fetching with custom hook
     const {
         data: coinNews,
         error: newsError,
         isLoading: newsLoading,
-    } = useCoinNews({
-        filter: newsFilter
-    });
+    } = useCoinNews({ filter: newsFilter });
+
+    // Debug logs to track data fetching status
+    useEffect(() => {
+        console.log('Current filter:', newsFilter);
+        console.log('Is data loading:', newsLoading);
+        console.log('Fetch error:', newsError);
+        console.log('Fetched news data:', coinNews);
+
+        if (newsError) {
+            console.error('Error details:', newsError);
+        }
+
+        // Check if we're using fallback data
+        const usingFallback = newsError || !coinNews;
+        console.log('Using fallback data:', usingFallback);
+
+        if (usingFallback) {
+            console.log('Fallback data sample:', FALLBACK_NEWS_DATA?.slice(0, 2));
+        }
+    }, [coinNews, newsError, newsLoading, newsFilter]);
 
     // Use FALLBACK_NEWS_DATA only when there's an error
     const displayData = newsError ? FALLBACK_NEWS_DATA : coinNews;
 
-    // Format date for news items
+    // Helper function for formatting dates
     const formatDate = (dateString: string): string => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit'
         });
     };
 
@@ -73,31 +88,37 @@ const CryptoNews = () => {
             <div className="mt-2 p-2">
                 <div className='flex justify-between'>
                     <div className="flex items-center justify-between mb-1 px-2">
-                        <h2 className="text-sm font-bold border-b-[1px] border-[#00FFFF]">News From the CryptoUniverse</h2>
+                        <h2 className="text-sm font-bold border-b-[1px] border-[#00FFFF]">
+                            News From the CryptoUniverse
+                            {newsError && <span className="ml-2 text-xs text-red-400">(Using fallback data)</span>}
+                        </h2>
                     </div>
+                    {/* Filter Options */}
                     <div className="flex gap-3 pb-1 mr-3">
                         {filterOptions.map(({ value, icon: Icon, size }) => (
                             <div
                                 key={value ?? 'all'}
+                                onClick={() => {
+                                    console.log('Setting filter to:', value);
+                                    setNewsFilter(value);
+                                }}
                                 className={`px-3 py-1 rounded-lg cursor-pointer
-                                        ${newsFilter === value ? 'text-[#00FFFF] bg-slate-700' : 'text-[#f4f4f4]'}`}
+                                    ${newsFilter === value ? 'text-[#00FFFF] bg-slate-700' : 'text-[#f4f4f4]'}`}
                             >
-                                <Icon
-                                    onClick={() => setNewsFilter(value)}
-                                    size={size}
-                                />
+                                <Icon size={size} />
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* News content */}
+                {/* News Content */}
                 <div className="space-y-2">
                     {newsLoading ? (
                         <NewsSkeleton count={5} />
                     ) : newsError ? (
                         <div className="bg-navy-800 p-6 rounded-xl">
                             <p className="text-red-400">Failed to load news. Showing fallback data.</p>
+                            <p className="text-red-400 text-xs mt-1">Error: {newsError.toString()}</p>
                         </div>
                     ) : !displayData?.length ? (
                         <div className="bg-navy-800 p-6 rounded-xl">
@@ -112,11 +133,13 @@ const CryptoNews = () => {
                                     rel="noopener noreferrer"
                                     className="block"
                                 >
-                                    <div className='ounded-xl px-2 py-[0.7px] opacity-90 hover:opacity-100 hover:brightness-110 hover:bg-slate-800 rounded-lg'>
+                                    <div className='rounded-xl px-2 py-[0.7px] opacity-90 hover:opacity-100 hover:brightness-110 hover:bg-slate-800'>
                                         <div className="flex justify-between text-[8px] mb-1">
                                             <div className='flex'>
-                                                <div className="mr-3 mt-1 bg-orange-500 rounded-xl px-2">{item.source.title}</div>
-                                                <div className='flex mt-1  text-gray-400'>
+                                                <div className="mr-3 mt-1 bg-orange-500 rounded-xl px-2">
+                                                    {item.source.title}
+                                                </div>
+                                                <div className='flex mt-1 text-gray-400'>
                                                     <Clock size={12} className='mr-1' />
                                                     {formatDate(item.published_at)}
                                                 </div>
@@ -149,7 +172,7 @@ const CryptoNews = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default CryptoNews
+export default CryptoNews;
