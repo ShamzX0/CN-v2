@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import Image from 'next/image';
 import { Table } from 'antd';
@@ -9,34 +9,54 @@ import Sparkline from './Sparkline/Sparkline';
 import useTableCoins from '@/hooks/useTableCoins';
 import './CryptoTable.css';
 
-const CryptoTable = () => {
-    const { data: tableCoins } = useTableCoins();
-
-    const formatNumberFractions = (marketCap: number): string => {
+// Move formatting functions outside component
+const formatters = {
+    numberFractions: (value: number): string => {
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
             notation: 'standard',
             maximumFractionDigits: 0
-        }).format(marketCap);
-    };
+        }).format(value);
+    },
 
-    const formatPrice = (marketCap: number): string => {
+    price: (value: number): string => {
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
             notation: 'standard',
             maximumFractionDigits: 2
-        }).format(marketCap);
-    };
+        }).format(value);
+    },
 
-    const formatPercentage = (percentage: number): string => {
-        return Math.abs(percentage).toFixed(2);
-    };
+    percentage: (value: number): string => {
+        return Math.abs(value).toFixed(2);
+    }
+};
 
+// Reusable UI components
+const TrendIndicator = ({ value }: { value: number }) => (
+    <div className="flex items-center justify-end gap-1">
+        {value > 0 ? (
+            <>
+                <TrendingUp className="w-4 h-4 text-green-500" />
+                <span className="text-green-500">{formatters.percentage(value)}%</span>
+            </>
+        ) : (
+            <>
+                <TrendingDown className="w-4 h-4 text-red-500" />
+                <span className="text-red-500">{formatters.percentage(value)}%</span>
+            </>
+        )}
+    </div>
+);
+
+const CryptoTable = () => {
+    const { data: tableCoins } = useTableCoins();
     const coins = Array.isArray(tableCoins) ? tableCoins : [];
 
-    const columns: ColumnsType<any> = [
+    // Move columns definition into useMemo to prevent recreating on each render
+    const columns = useMemo<ColumnsType<any>>(() => [
         {
             title: '#',
             dataIndex: 'index',
@@ -73,21 +93,7 @@ const CryptoTable = () => {
             key: '1h',
             width: 110,
             align: 'right',
-            render: (value) => (
-                <div className="flex items-center justify-end gap-1">
-                    {value > 0 ? (
-                        <>
-                            <TrendingUp className="w-4 h-4 text-green-500" />
-                            <span className="text-green-500">{formatPercentage(value)}%</span>
-                        </>
-                    ) : (
-                        <>
-                            <TrendingDown className="w-4 h-4 text-red-500" />
-                            <span className="text-red-500">{formatPercentage(value)}%</span>
-                        </>
-                    )}
-                </div>
-            ),
+            render: (value) => <TrendIndicator value={value} />,
         },
         {
             title: '24h %',
@@ -95,21 +101,7 @@ const CryptoTable = () => {
             key: '24h',
             width: 123,
             align: 'right',
-            render: (value) => (
-                <div className="flex items-center justify-end gap-1">
-                    {value > 0 ? (
-                        <>
-                            <TrendingUp className="w-4 h-4 text-green-500" />
-                            <span className="text-green-500">{formatPercentage(value)}%</span>
-                        </>
-                    ) : (
-                        <>
-                            <TrendingDown className="w-4 h-4 text-red-500" />
-                            <span className="text-red-500">{formatPercentage(value)}%</span>
-                        </>
-                    )}
-                </div>
-            ),
+            render: (value) => <TrendIndicator value={value} />,
         },
         {
             title: '7d %',
@@ -117,21 +109,7 @@ const CryptoTable = () => {
             key: '7d',
             width: 123,
             align: 'right',
-            render: (value) => (
-                <div className="flex items-center justify-end gap-1">
-                    {value > 0 ? (
-                        <>
-                            <TrendingUp className="w-4 h-4 text-green-500" />
-                            <span className="text-green-500">{formatPercentage(value)}%</span>
-                        </>
-                    ) : (
-                        <>
-                            <TrendingDown className="w-4 h-4 text-red-500" />
-                            <span className="text-red-500">{formatPercentage(value)}%</span>
-                        </>
-                    )}
-                </div>
-            ),
+            render: (value) => <TrendIndicator value={value} />,
         },
         {
             title: 'Market Cap',
@@ -139,7 +117,9 @@ const CryptoTable = () => {
             key: 'marketCap',
             width: 220,
             align: 'right',
-            render: (value) => <div className="text-sm text-gray-200">{formatNumberFractions(value)}</div>,
+            render: (value) => (
+                <div className="text-sm text-gray-200">{formatters.numberFractions(value)}</div>
+            ),
         },
         {
             title: 'Volume(24h)',
@@ -147,7 +127,9 @@ const CryptoTable = () => {
             key: 'volume',
             width: 200,
             align: 'right',
-            render: (value) => <div className="text-sm text-gray-200">{formatNumberFractions(value)}</div>,
+            render: (value) => (
+                <div className="text-sm text-gray-200">{formatters.numberFractions(value)}</div>
+            ),
         },
         {
             title: 'Price',
@@ -155,7 +137,9 @@ const CryptoTable = () => {
             key: 'price',
             width: 120,
             align: 'right',
-            render: (value) => <div className="text-sm text-gray-200">{formatPrice(value)}</div>,
+            render: (value) => (
+                <div className="text-sm text-gray-200">{formatters.price(value)}</div>
+            ),
         },
         {
             title: 'Chart(7d)',
@@ -177,7 +161,11 @@ const CryptoTable = () => {
                 );
             },
         },
-    ];
+    ], []);
+
+    const handleRowClick = (record: any) => {
+        window.location.href = `/cryptodetail/${record.id.toLowerCase()}`;
+    };
 
     return (
         <section className="pt-1 pb-9">
@@ -188,7 +176,7 @@ const CryptoTable = () => {
                 rowKey="id"
                 className="crypto-table"
                 onRow={(record) => ({
-                    onClick: () => window.location.href = `/cryptodetail/${record.id.toLowerCase()}`,
+                    onClick: () => handleRowClick(record),
                     className: 'cursor-pointer hover:bg-[#1a2842] transition-colors duration-200',
                 })}
             />
