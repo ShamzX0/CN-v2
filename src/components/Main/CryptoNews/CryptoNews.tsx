@@ -85,7 +85,7 @@ const CryptoNews = () => {
     return (
         <div>
             {/* News Section */}
-            <div className="mt-2 p-2">
+            <div className="p-3">
                 <div className='flex justify-between'>
                     <div className="flex items-center justify-between mb-1 px-2">
                         <h2 className="text-sm font-bold border-b-[1px] border-[#00FFFF]">
@@ -133,35 +133,32 @@ const CryptoNews = () => {
                                     rel="noopener noreferrer"
                                     className="block"
                                 >
-                                    <div className='rounded-xl px-2 py-[0.7px] opacity-90 hover:opacity-100 hover:brightness-110 hover:bg-slate-800'>
+                                    <div className='rounded-xl px-2 py-[2px] opacity-90 hover:opacity-100 hover:brightness-110 hover:bg-slate-800'>
                                         <div className="flex justify-between text-[8px] mb-1">
-                                            <div className='flex'>
-                                                <div className="mr-3 mt-1 bg-orange-500 rounded-xl px-2">
+                                            <div className='flex items-center flex-wrap max-w-[70%]'>
+                                                <div className="mr-3 mt-1 bg-orange-500 rounded-xl px-2 whitespace-nowrap">
                                                     {item.source.title}
                                                 </div>
-                                                <div className='flex mt-1 text-gray-400'>
-                                                    <Clock size={12} className='mr-1' />
+                                                <div className='flex mt-1 text-gray-400 whitespace-nowrap'>
+                                                    <Clock size={12} className='mr-1 flex-shrink-0' />
                                                     {formatDate(item.published_at)}
                                                 </div>
                                             </div>
-                                            <div className="flex text-[10px]">
-                                                <ArrowBigUp size={14} className='text-green-500' />
+                                            <div className="flex text-[10px] items-center flex-shrink-0">
+                                                <ArrowBigUp size={14} className='text-green-500 flex-shrink-0' />
                                                 <span className="text-green-400 mr-2">
                                                     {item.votes.positive}
                                                 </span>
-                                                <ArrowBigDown size={14} className='text-red-400' />
+                                                <ArrowBigDown size={14} className='text-red-400 flex-shrink-0' />
                                                 <span className="text-red-400">
                                                     {item.votes.negative}
                                                 </span>
                                                 <ExternalLink className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" />
                                             </div>
                                         </div>
-                                        <div className="flex justify-between items-start">
-                                            <h3 className="text-[10px] text-gray-300 font-semibold flex-1 hover:text-[#20c3d0]">
-                                                {item.title.length > 120
-                                                    ? `${item.title.substring(0, 100)}...`
-                                                    : item.title
-                                                }
+                                        <div className="flex justify-between items-start w-full">
+                                            <h3 className="text-[10px] text-gray-300 font-semibold whitespace-nowrap overflow-hidden text-ellipsis w-full hover:text-[#20c3d0]">
+                                                {item.title}
                                             </h3>
                                         </div>
                                     </div>
