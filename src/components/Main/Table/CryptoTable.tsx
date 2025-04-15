@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import Image from 'next/image';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Table } from 'antd';
+import { Button, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Sparkline from './Sparkline/Sparkline';
 import useTableCoins from '@/hooks/useTableCoins';
@@ -54,7 +54,7 @@ const TrendIndicator = ({ value }: { value: number }) => (
 
 // Constants for fetch configuration
 const ITEMS_PER_PAGE = 20;
-const FETCH_DELAY_MS = 2000; // 2 seconds delay between fetches
+const FETCH_DELAY_MS = 4000; // 4 seconds delay between fetches
 
 const CryptoTable = () => {
     const { data: initialCoins, fetchMoreCoins } = useTableCoins();
@@ -110,7 +110,6 @@ const CryptoTable = () => {
             }
         } catch (error) {
             console.error('Error fetching additional coin data:', error);
-            // Don't set hasMore to false on error - we might want to retry
         } finally {
             setLoading(false);
 
@@ -121,7 +120,7 @@ const CryptoTable = () => {
                 // This helps with continuous scrolling even with throttling
                 const scrollElement = document.scrollingElement || document.documentElement;
                 const scrollPosition = scrollElement.scrollTop + window.innerHeight;
-                const scrollThreshold = scrollElement.scrollHeight * 0.9; // 90% of scroll height
+                const scrollThreshold = scrollElement.scrollHeight * 0.95; // 95% of scroll height
 
                 if (scrollPosition >= scrollThreshold && hasMore && !loading) {
                     loadMoreCoins();
@@ -130,11 +129,26 @@ const CryptoTable = () => {
         }
     };
 
-    // Custom loader component with improved messaging
+    // Manual fetch function
+    const handleManualFetch = () => {
+        if (!loading) {
+            loadMoreCoins();
+        }
+    };
+
+    // Custom loader component with improved messaging that's also clickable
     const loader = (
-        <div className="flex flex-col items-center py-4">
+        <div
+            className="flex flex-col items-center py-4 cursor-pointer"
+            onClick={handleManualFetch}
+            role="button"
+            tabIndex={0}
+            aria-label="Load more tokens"
+        >
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mb-2"></div>
-            <p className="text-sm text-gray-400">Loading more tokens...</p>
+            <p className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
+                {loading ? "Loading more tokens..." : "Click to load more tokens"}
+            </p>
         </div>
     );
 
@@ -267,12 +281,6 @@ const CryptoTable = () => {
                 hasMore={hasMore}
                 loader={loader}
                 scrollThreshold={0.8} // Increase threshold to load earlier
-                endMessage={
-                    <div className='flex w-full justify-end items-center gap-1 mt-3'>
-                        <p className='font-unbounded tracking-[0.18rem] opacity-50 text-[8px]'>POWERED BY</p>
-                        <Image src="/images/Coingecko_transparent.png" alt="Coingecko logo" width={90} height={100} className='opacity-80' />
-                    </div>
-                }
             >
                 <Table
                     columns={columns}
@@ -285,16 +293,27 @@ const CryptoTable = () => {
                         className: 'cursor-pointer hover:bg-[#1a2842] transition-colors duration-200',
                     })}
                 />
-                {/* API Status indicator */}
-                {loading && <div className="h-8"></div>}
-                {!hasMore && <div className="h-10"></div>}
             </InfiniteScroll>
 
             {/* Optional: Add a subtle API status indicator */}
-            <div className="fixed bottom-4 left-4 bg-black bg-opacity-70 text-gray-300 p-2 rounded text-xs z-50">
+            <div className="fixed bottom-4 left-4 bg-black bg-opacity-50 rounded-lg text-gray-300 p-2 rounded text-xs z-50">
                 <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${canFetchRef.current && !loading ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-                    <span>{loading ? 'Fetching data...' : canFetchRef.current ? 'API Ready' : `Throttling (${FETCH_DELAY_MS / 1000}s)`}</span>
+                    <div className={`w-2 h-2 rounded-full ${canFetchRef.current && !loading
+                        ? 'bg-green-500'
+                        : 'bg-yellow-500'
+                        }`}></div>
+                    <span>
+                        {loading
+                            ? 'Fetching data...'
+                            : canFetchRef.current
+                                ? 'API Ready'
+                                : `Throttling (${FETCH_DELAY_MS / 1000}s)`
+                        }
+                    </span>
+                </div>
+                <div className='flex w-full justify-end items-center gap-1 mt-3'>
+                    <p className='font-unbounded tracking-[0.18rem] opacity-50 text-[8px]'>POWERED BY</p>
+                    <Image src="/images/Coingecko_transparent.png" alt="Coingecko logo" width={90} height={100} className='opacity-80' />
                 </div>
             </div>
         </section>
