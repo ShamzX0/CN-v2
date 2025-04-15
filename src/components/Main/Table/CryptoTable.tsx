@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import Image from 'next/image';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Sparkline from './Sparkline/Sparkline';
@@ -51,9 +52,91 @@ const TrendIndicator = ({ value }: { value: number }) => (
     </div>
 );
 
+// Constants for fetch configuration
+const ITEMS_PER_PAGE = 20;
+const FETCH_DELAY_MS = 2000; // 2 seconds delay between fetches
+
 const CryptoTable = () => {
-    const { data: tableCoins } = useTableCoins();
-    const coins = Array.isArray(tableCoins) ? tableCoins : [];
+    const { data: initialCoins, fetchMoreCoins } = useTableCoins();
+    const [coins, setCoins] = useState<any[]>([]);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const [loading, setLoading] = useState(false);
+
+    // Add a throttling mechanism with useRef
+    const canFetchRef = useRef(true);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Set initial coins when they are loaded
+    useEffect(() => {
+        if (initialCoins && initialCoins.length > 0) {
+            setCoins(initialCoins);
+            setPage(2); // Next fetch will be page 2
+        }
+    }, [initialCoins]);
+
+    // Cleanup timeout on unmount
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
+
+    const loadMoreCoins = async () => {
+        // Check if we are already loading or if we've reached the end
+        if (loading || !hasMore) return;
+
+        // Add throttling check
+        if (!canFetchRef.current) {
+            console.log('Throttling in effect, skipping fetch');
+            return;
+        }
+
+        // Set loading state and disable further fetches
+        setLoading(true);
+        canFetchRef.current = false;
+
+        try {
+            console.log(`Fetching page ${page} with ${ITEMS_PER_PAGE} items per page`);
+            const newCoins = await fetchMoreCoins(page, ITEMS_PER_PAGE);
+
+            if (!newCoins || newCoins.length === 0) {
+                setHasMore(false);
+            } else {
+                setCoins((prevCoins) => [...prevCoins, ...newCoins]);
+                setPage((prevPage) => prevPage + 1);
+            }
+        } catch (error) {
+            console.error('Error fetching additional coin data:', error);
+            // Don't set hasMore to false on error - we might want to retry
+        } finally {
+            setLoading(false);
+
+            // Set up a timeout to re-enable fetching after delay
+            timeoutRef.current = setTimeout(() => {
+                canFetchRef.current = true;
+                // If the user is still at the bottom, trigger another fetch
+                // This helps with continuous scrolling even with throttling
+                const scrollElement = document.scrollingElement || document.documentElement;
+                const scrollPosition = scrollElement.scrollTop + window.innerHeight;
+                const scrollThreshold = scrollElement.scrollHeight * 0.9; // 90% of scroll height
+
+                if (scrollPosition >= scrollThreshold && hasMore && !loading) {
+                    loadMoreCoins();
+                }
+            }, FETCH_DELAY_MS);
+        }
+    };
+
+    // Custom loader component with improved messaging
+    const loader = (
+        <div className="flex flex-col items-center py-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mb-2"></div>
+            <p className="text-sm text-gray-400">Loading more tokens...</p>
+        </div>
+    );
 
     // Move columns definition into useMemo to prevent recreating on each render
     const columns = useMemo<ColumnsType<any>>(() => [
@@ -167,19 +250,53 @@ const CryptoTable = () => {
         window.location.href = `/cryptodetail/${record.id.toLowerCase()}`;
     };
 
+    // Don't render until initial data is loaded
+    if (!initialCoins || initialCoins.length === 0) {
+        return (
+            <div className="flex justify-center py-8">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            </div>
+        );
+    }
+
     return (
         <section className="pt-1 pb-9">
-            <Table
-                columns={columns}
-                dataSource={coins}
-                pagination={false}
-                rowKey="id"
-                className="crypto-table"
-                onRow={(record) => ({
-                    onClick: () => handleRowClick(record),
-                    className: 'cursor-pointer hover:bg-[#1a2842] transition-colors duration-200',
-                })}
-            />
+            <InfiniteScroll
+                dataLength={coins.length}
+                next={loadMoreCoins}
+                hasMore={hasMore}
+                loader={loader}
+                scrollThreshold={0.8} // Increase threshold to load earlier
+                endMessage={
+                    <div className='flex w-full justify-end items-center gap-1 mt-3'>
+                        <p className='font-unbounded tracking-[0.18rem] opacity-50 text-[8px]'>POWERED BY</p>
+                        <Image src="/images/Coingecko_transparent.png" alt="Coingecko logo" width={90} height={100} className='opacity-80' />
+                    </div>
+                }
+            >
+                <Table
+                    columns={columns}
+                    dataSource={coins}
+                    pagination={false}
+                    rowKey="id"
+                    className="crypto-table"
+                    onRow={(record) => ({
+                        onClick: () => handleRowClick(record),
+                        className: 'cursor-pointer hover:bg-[#1a2842] transition-colors duration-200',
+                    })}
+                />
+                {/* API Status indicator */}
+                {loading && <div className="h-8"></div>}
+                {!hasMore && <div className="h-10"></div>}
+            </InfiniteScroll>
+
+            {/* Optional: Add a subtle API status indicator */}
+            <div className="fixed bottom-4 left-4 bg-black bg-opacity-70 text-gray-300 p-2 rounded text-xs z-50">
+                <div className="flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full ${canFetchRef.current && !loading ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+                    <span>{loading ? 'Fetching data...' : canFetchRef.current ? 'API Ready' : `Throttling (${FETCH_DELAY_MS / 1000}s)`}</span>
+                </div>
+            </div>
         </section>
     );
 };
