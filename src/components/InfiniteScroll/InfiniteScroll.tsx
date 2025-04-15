@@ -138,13 +138,6 @@ function InfiniteScrollList<T extends Item>({
 
             {/* Add a small element at the bottom to help with scrolling detection */}
             {hasMore && <div className="h-10"></div>}
-
-            {/* Debug info */}
-            {debug && (
-                <div className="fixed bottom-4 right-4 bg-black bg-opacity-70 text-white p-2 rounded text-sm z-50">
-                    Items: {items.length} | Page: {page} | HasMore: {hasMore.toString()} | Loading: {loading.toString()}
-                </div>
-            )}
         </div>
     );
 }
