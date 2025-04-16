@@ -34,6 +34,17 @@ const LastStatRow = ({ label, value }: { label: string; value: string }) => (
     </div>
 );
 
+const loader = (
+    <div className="flex items-center justify-center h-72 w-3/4 bg-slate-800 rounded-xl">
+        <div className="flex flex-col items-center text-center text-gray-400 text-xs px-4">
+            <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-blue-600 mb-2"></div>
+            <p className="text-sm tracking-widest ml-2 mt-9 font-unbounded text-[#00c3ff87] hover:text-blue-400 transition-colors animate-pulse">
+                ...Loading...
+            </p>
+        </div>
+    </div>
+)
+
 const CryptoChart: React.FC<CryptoChartProps> = ({
     priceData,
     marketCapData,
@@ -51,14 +62,10 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
             <div className='flex w-[1280px]'>
                 <div className="flex items-center justify-center h-72 w-3/4 bg-slate-800 rounded-xl">
                     <div className="flex flex-col items-center text-center text-gray-400 text-xs px-4">
-                        <p className="mb-5">
-                            <strong className="text-lg mr-2">Whoops!</strong>
-                            Sorry about that..
+                        <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-blue-600 mb-2"></div>
+                        <p className="text-sm tracking-widest ml-2 mt-9 font-unbounded text-[#00c3ff87] hover:text-blue-400 transition-colors animate-pulse">
+                            ...Loading...
                         </p>
-                        <p className="mb-2">
-                            Sometimes the free version of the CoinGecko API can be stubborn.
-                        </p>
-                        <p>Reload the page or a quick timeframe swap might do the trick!</p>
                     </div>
                 </div>
                 <div className="flex">

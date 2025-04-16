@@ -11,7 +11,7 @@ const CryptoChartSkeleton = () => (
             <div className="h-6 w-24 bg-slate-700 rounded animate-pulse" />
 
             {/* Timeframe options */}
-            <div className="flex space-x-2 w-3/6">
+            <div className="flex space-x-2 w-[600px]">
                 {['24h', '7d', '30d', '90d'].map((_, i) => (
                     <div
                         key={`timeframe-${i}`}
