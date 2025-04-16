@@ -62,6 +62,8 @@ const CryptoTable = () => {
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
+    // Add a state variable to track API status
+    const [apiStatus, setApiStatus] = useState<'ready' | 'fetching' | 'throttling'>('ready');
 
     // Add a throttling mechanism with useRef
     const canFetchRef = useRef(true);
@@ -96,6 +98,7 @@ const CryptoTable = () => {
 
         // Set loading state and disable further fetches
         setLoading(true);
+        setApiStatus('fetching');
         canFetchRef.current = false;
 
         try {
@@ -112,10 +115,13 @@ const CryptoTable = () => {
             console.error('Error fetching additional coin data:', error);
         } finally {
             setLoading(false);
+            setApiStatus('throttling');
 
             // Set up a timeout to re-enable fetching after delay
             timeoutRef.current = setTimeout(() => {
                 canFetchRef.current = true;
+                setApiStatus('ready'); // This will trigger a re-render
+
                 // If the user is still at the bottom, trigger another fetch
                 // This helps with continuous scrolling even with throttling
                 const scrollElement = document.scrollingElement || document.documentElement;
@@ -134,6 +140,7 @@ const CryptoTable = () => {
         if (!loading) {
             loadMoreCoins();
         }
+        console.log(handleManualFetch, "clicked")
     };
 
     // Custom loader component with improved messaging that's also clickable
@@ -145,9 +152,9 @@ const CryptoTable = () => {
             tabIndex={0}
             aria-label="Load more tokens"
         >
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mb-2"></div>
-            <p className="text-sm text-gray-400 hover:text-blue-400 transition-colors">
-                {loading ? "Loading more tokens..." : "Click to load more tokens"}
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
+            <p className="text-sm text-[#00c3ff87] hover:text-blue-400 transition-colors animate-pulse">
+                Loading more tokens...
             </p>
         </div>
     );
@@ -296,21 +303,31 @@ const CryptoTable = () => {
             </InfiniteScroll>
 
             {/* Optional: Add a subtle API status indicator */}
-            <div className="fixed bottom-4 left-4 bg-black bg-opacity-50 rounded-lg text-gray-300 p-2 rounded text-xs z-50">
+            <div className="fixed bottom-4 left-4 bg-black bg-opacity-50 rounded-lg text-gray-300 p-2 text-xs z-50">
                 <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${canFetchRef.current && !loading
-                        ? 'bg-green-500'
-                        : 'bg-yellow-500'
+                    <div className={`w-2 h-2 rounded-full ${apiStatus === 'fetching'
+                            ? 'bg-blue-500'
+                            : apiStatus === 'ready'
+                                ? 'bg-green-500'
+                                : 'bg-yellow-500'
                         }`}></div>
                     <span>
-                        {loading
+                        {apiStatus === 'fetching'
                             ? 'Fetching data...'
-                            : canFetchRef.current
+                            : apiStatus === 'ready'
                                 ? 'API Ready'
                                 : `Throttling (${FETCH_DELAY_MS / 1000}s)`
                         }
                     </span>
                 </div>
+
+                <div
+                    className="ml-4 text-gray-400 text-xs opacity-60 hover:opacity-100 cursor-pointer hover:text-[#00FFFF]"
+                    onClick={handleManualFetch}
+                >
+                    Force fetch
+                </div>
+
                 <div className='flex w-full justify-end items-center gap-1 mt-3'>
                     <p className='font-unbounded tracking-[0.18rem] opacity-50 text-[8px]'>POWERED BY</p>
                     <Image src="/images/Coingecko_transparent.png" alt="Coingecko logo" width={90} height={100} className='opacity-80' />
