@@ -1,16 +1,14 @@
 'use client';
-import React, { useState, Suspense } from 'react';
+import React, { useState } from 'react';
 import CryptoChart from './CryptoChart';
 import PriceStatistics from './PriceStatistics';
 import useCoinChartData from '@/hooks/useCoinChartData';
-import CryptoDetailSkeleton from '@/app/cryptodetail/[slug]/CryptoDetailSkeleton';
 
 interface CryptoChartContainerProps {
     coinId: string;
 }
 
-// This component handles the actual data fetching and chart rendering
-const ChartContent = ({ coinId }: { coinId: string }) => {
+const CryptoChartContainer: React.FC<CryptoChartContainerProps> = ({ coinId }) => {
     // Available timeframe options
     const timeframes = [
         { label: '24h', value: 'day', days: 1 },
@@ -20,7 +18,7 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
         { label: '1y', value: 'year', days: 365 },
     ];
 
-    // Chart type options (new)
+    // Chart type options
     const chartTypes = [
         { label: 'Price', value: 'price' },
         { label: 'Market Cap', value: 'marketCap' },
@@ -28,7 +26,7 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
 
     // Default to 90 days
     const [selectedTimeframe, setSelectedTimeframe] = useState(timeframes[3]);
-    // Default to price chart (new)
+    // Default to price chart
     const [selectedChartType, setSelectedChartType] = useState(chartTypes[0]);
 
     // Fetch chart data using SWR
@@ -105,14 +103,6 @@ const ChartContent = ({ coinId }: { coinId: string }) => {
             )}
         </div>
     );
-};
-
-// This is the container component that handles the Suspense boundary
-const CryptoChartContainer: React.FC<CryptoChartContainerProps> = ({ coinId }) => {
-    const { isLoading } = useCoinChartData(coinId, 90);
-
-
-    return <ChartContent coinId={coinId} />;
 };
 
 export default CryptoChartContainer;
