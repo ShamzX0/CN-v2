@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     LineChart,
     Line,
@@ -34,16 +34,6 @@ const LastStatRow = ({ label, value }: { label: string; value: string }) => (
     </div>
 );
 
-const loader = (
-    <div className="flex items-center justify-center h-72 w-3/4 bg-slate-800 rounded-xl">
-        <div className="flex flex-col items-center text-center text-gray-400 text-xs px-4">
-            <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-blue-600 mb-2"></div>
-            <p className="text-sm tracking-widest ml-2 mt-9 font-unbounded text-[#00c3ff87] hover:text-blue-400 transition-colors animate-pulse">
-                ...Loading...
-            </p>
-        </div>
-    </div>
-)
 
 const CryptoChart: React.FC<CryptoChartProps> = ({
     priceData,
@@ -51,22 +41,58 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
     timeframe = 'month',
     chartType = 'price'
 }) => {
+    // Add state for loading error
+    const [isLoadingError, setIsLoadingError] = useState(false);
+
     // Choose which data to display based on chartType
     const chartData = chartType === 'price' ? priceData : marketCapData;
     const lineColor = chartType === 'price' ? '#00dffd' : '#3B82F6';
     const chartLabel = chartType === 'price' ? 'Price' : 'Market Cap';
 
+    // Effect to handle loading timeout
+    useEffect(() => {
+        // Only start the timer if we're in a loading state (no data yet)
+        if (!chartData || chartData.length === 0) {
+            const timer = setTimeout(() => {
+                setIsLoadingError(true);
+            }, 4000);
+
+            // Cleanup timer on unmount or when data arrives
+            return () => clearTimeout(timer);
+        }
+    }, [chartData]);
+
     // No data view
     if (!chartData || chartData.length === 0) {
         return (
             <div className='flex w-[1280px]'>
-                <div className="flex items-center justify-center h-72 w-3/4 bg-slate-800 rounded-xl">
-                    <div className="flex flex-col items-center text-center text-gray-400 text-xs px-4">
-                        <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-blue-600 mb-2"></div>
-                        <p className="text-sm tracking-widest ml-2 mt-9 font-unbounded text-[#00c3ff87] hover:text-blue-400 transition-colors animate-pulse">
-                            ...Loading...
-                        </p>
-                    </div>
+                <div className="flex items-center justify-center h-72 mb-2 w-3/4 bg-slate-800 rounded-xl">
+                    {isLoadingError ? (
+                        <div className="flex flex-col items-center text-center px-8">
+                            <div className="text-red-500 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-md font-bold text-red-400 mb-2">Woops! Something went wrong!</h3>
+                            <p className="text-xs text-gray-300 mb-4">Unable to load chart data at this time.</p>
+                            <div className="flex space-x-3">
+                                <button
+                                    onClick={() => window.location.reload()}
+                                    className="px-4 py-2 bg-blue-600 text-white text-xs rounded-md hover:bg-[#2ba7fac2] transition-colors"
+                                >
+                                    Reload page
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center text-center text-gray-400 text-xs px-4">
+                            <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-blue-600 mb-2"></div>
+                            <p className="text-sm tracking-widest ml-2 mt-9 font-unbounded text-[#00c3ff87] hover:text-blue-400 transition-colors animate-pulse">
+                                ...Loading...
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className="flex">
                     <div className="w-[300px] h-full p-1 ml-4 mt-[-25px]">
