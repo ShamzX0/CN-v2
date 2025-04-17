@@ -9,11 +9,24 @@ import StatItem, {
 } from '../../../components/Main/StatsItem/StatsItem';
 import CryptoDetailSkeleton from './CryptoDetailSkeleton';
 import CryptoChartContainer from '@/components/Main/CryptoChart/CryptoChartContainer';
+import { useState, useEffect } from 'react';
+
 
 export default function CryptoDetailPage() {
     const params = useParams();
     const cryptoSlug = params.slug as string;
     const { data: CoinData, isLoading } = useCoinDetail(cryptoSlug);
+    const [imgSrc, setImgSrc] = useState('');
+    const [imgError, setImgError] = useState(false);
+    const fallbackSrc = '/images/CNlogoMini.png';
+
+    // Update image source when coin data changes
+    useEffect(() => {
+        if (CoinData?.image?.large) {
+            setImgSrc(CoinData.image.large);
+            setImgError(false); // Reset error state when new data arrives
+        }
+    }, [CoinData]);
 
     if (isLoading) {
         return <CryptoDetailSkeleton />;
@@ -37,11 +50,14 @@ export default function CryptoDetailPage() {
                             <div className="w-10 h-10 bg-gray-800 rounded-full">
                                 {CoinData?.image ? (
                                     <Image
-                                        src={CoinData.image.large}
+                                        src={imgError ? fallbackSrc : imgSrc}
                                         alt={CoinData.name}
                                         width={64}
                                         height={64}
                                         className="rounded-full"
+                                        onError={() => {
+                                            setImgError(true);
+                                        }}
                                     />
                                 ) : (
                                     <span className="text-2xl">{CoinData?.symbol?.charAt(0)}</span>
