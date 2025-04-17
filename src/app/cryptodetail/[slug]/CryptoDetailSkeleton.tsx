@@ -95,7 +95,7 @@ const PriceStatisticsSkeleton = () => (
  */
 const CryptoDetailSkeleton = () => {
     return (
-        <div className="min-h-screen text-[#f4f4f4] py-5">
+        <div className="text-[#f4f4f4] mb-7 py-5">
             {/* Main content wrapper - centered */}
             <div className="w-full mx-auto">
                 <div className="flex flex-col gap-4 md:flex-row">
