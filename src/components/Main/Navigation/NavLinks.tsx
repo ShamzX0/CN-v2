@@ -29,9 +29,9 @@ const NavLinks = () => {
                         {oneLink.name}
                         {/* Active indicator or hover indicator */}
                         {isActive ? (
-                            <span className="absolute bottom-[-1px] rounded-xl left-0 w-full h-0.5 bg-[#00FFFF]"></span>
+                            <span className="absolute bottom-[-3px] rounded-xl left-0 w-full h-0.5 bg-[#00FFFF]"></span>
                         ) : (
-                            <span className="absolute bottom-[-1px] rounded-xl left-0 w-0 h-0.5 bg-[#00FFFF] group-hover:w-full transition-all duration-300"></span>
+                            <span className="absolute bottom-[-3px] rounded-xl left-0 w-0 h-0.5 bg-[#00FFFF] group-hover:w-full transition-all duration-300"></span>
                         )}
                     </Link>
                 );
