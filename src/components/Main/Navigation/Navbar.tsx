@@ -71,7 +71,7 @@ const Navbar: React.FC = () => {
                 <NavLinks />
             </div>
 
-            {/* Launch App Button / Connect wallet btn */}
+            {/* Launch App btn / Connect wallet btn */}
             <div className='flex flex-row gap-4'>
                 <WalletConnect pathname={pathname} />
                 {pathname !== '/swap' && <LaunchAppButton />}
