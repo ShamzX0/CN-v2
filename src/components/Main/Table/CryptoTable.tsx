@@ -268,7 +268,7 @@ const CryptoTable = () => {
     ], []);
 
     const handleRowClick = (record: any) => {
-        window.location.href = `/cryptodetail/${record.id.toLowerCase()}`;
+        window.open(`/cryptodetail/${record.id.toLowerCase()}`, '_blank');
     };
 
     // Don't render until initial data is loaded
@@ -306,10 +306,10 @@ const CryptoTable = () => {
             <div className="fixed bottom-4 left-4 bg-black bg-opacity-50 rounded-lg text-gray-300 p-2 text-xs z-50">
                 <div className="flex items-center gap-2">
                     <div className={`w-2 h-2 rounded-full ${apiStatus === 'fetching'
-                            ? 'bg-blue-500'
-                            : apiStatus === 'ready'
-                                ? 'bg-green-500'
-                                : 'bg-yellow-500'
+                        ? 'bg-blue-500'
+                        : apiStatus === 'ready'
+                            ? 'bg-green-500'
+                            : 'bg-yellow-500'
                         }`}></div>
                     <span>
                         {apiStatus === 'fetching'
