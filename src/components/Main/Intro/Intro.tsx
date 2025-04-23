@@ -1,22 +1,36 @@
 
 import React from 'react';
 import CryptoNews from '../CryptoNews/CryptoNews';
+import { DotIcon } from 'lucide-react';
+
+
 
 
 const Intro = () => {
+    // Define feature points for easier maintenance and consistency
+    const featurePoints = [
+        "Explore beginner-friendly guides",
+        "Expert hardware wallet advice",
+        "Real-time market prices",
+        "Swap ERC-20 Tokens"
+    ];
     return (
-        <section className="flex items-center mb-2">
+        <section className="flex items-center">
             {/* Left Section - Main Content */}
             <div className="flex w-3/5">
-                <div className="flex flex-col font-unbounded w-3/5 justify-center items-start">
-                    <h1 className="text-[37px] text-left text-[#fff] pt-0 mb-10 opacity-90 neon-writing">
+                <div className="flex flex-col gap-5 font-unbounded w-3/5 justify-center items-start">
+                    <h1 className="text-[37px] ml-3 text-[#fff] pt-0 mb-10 opacity-90 neon-writing">
                         <span className="text-2xl">THE UNIVERSE OF</span>{' '}CRYPTOCURRENCY
                     </h1>
-                    <span className="text-base mb-10">Discover - Learn - Secure</span>
-                    <p className="text-left text-base mb-8">
-                        Explore beginner-friendly guides,<br />
-                        expert hardware wallet advice, and real-time market prices.
-                    </p>
+
+                    <ul className="text-left text-base !font-normal leading-relaxed space-y-3">
+                        {featurePoints.map((point, index) => (
+                            <li key={index} className="flex items-center gap-2">
+                                <DotIcon className="flex-shrink-0 text-cyan-400" size={18} />
+                                <span>{point}</span>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
 
