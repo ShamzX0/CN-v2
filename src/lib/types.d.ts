@@ -82,6 +82,8 @@ interface GlobalData {
     usd: number;
   };
   market_cap_percentage: {
+    bnb: number;
+    xrp: number;
     btc: number;
     eth: number;
     sol: number;
