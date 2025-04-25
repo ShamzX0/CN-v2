@@ -19,18 +19,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className='scrollbar-hide'>
-      <body className="min-h-screen bg-slate-900 max-w-7xl mx-auto">
+      <body className="min-h-screen bg-slate-900 max-w-7xl mx-auto flex flex-col">
         <Providers>
           <Suspense fallback={<Loading />}>
             <DeviceWrapper>
               <div className="background-gradient absolute inset-0 -z-50 max-h-screen opacity-40" />
-              <Navbar />
-              {children}
-              <Footer />
+              <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-grow">{children}</main>
+                <Footer />
+              </div>
             </DeviceWrapper>
           </Suspense>
         </Providers>
       </body>
     </html>
   )
+
 }

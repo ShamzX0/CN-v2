@@ -312,7 +312,7 @@ const Swap: FC<SwapProps> = ({ }) => {
 
 
     return (
-        <main className='flex-col h-full'>
+        <main className='h-full bg-red-600'>
             {/*SWAP CARD */}
             <section className='flex flex-row justify-center items-center gap-6 h-[90%]'>
                 <header className='flex flex-col gap-4 font-unbounded pr-12 '>
