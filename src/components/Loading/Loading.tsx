@@ -49,7 +49,9 @@ const Loading = () => {
                 </svg>
 
             </div>
-            <p className='neon-writing2'>Good things come to those who wait.</p>
+            <div className='flex flex-col h-[200px] justify-center items-center'>
+                <p className='neon-writing animate-pulse'>...Fetching data...</p>
+            </div>
         </div>
     )
 }
