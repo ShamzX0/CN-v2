@@ -18,6 +18,8 @@ export const FALLBACK_GLOBAL_DATA = {
     btc: 58.05256509393119,
     eth: 9.970363027182204,
     sol: 1598.3,
+    xrp: 4.21,
+    bnb: 2.91,
   },
   market_cap_change_percentage_24h_usd: -2.461,
   updated_at: 1738740983,
