@@ -26,7 +26,7 @@ const Intro = () => {
                     <ul className="text-left text-base !font-normal leading-relaxed space-y-3">
                         {featurePoints.map((point, index) => (
                             <li key={index} className="flex items-center gap-2">
-                                <DotIcon className="flex-shrink-0 text-cyan-400" size={18} />
+                                <DotIcon className="flex-shrink-0 text-cyan-400" size={21} />
                                 <span>{point}</span>
                             </li>
                         ))}
