@@ -9,9 +9,10 @@ import DeviceWrapper from '@/components/DeviceWrapper'
 
 
 export const metadata: Metadata = {
-  title: 'The Universe of Cryptocurrency',
+  title: 'CryptoNewbie',
   description: 'Cryptocurrency real time data, information and DEX',
 }
+
 export default function RootLayout({
   children,
 }: {
