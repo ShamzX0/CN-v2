@@ -88,8 +88,8 @@ const CryptoNews = () => {
             <div className="p-3">
                 <div className='flex justify-between'>
                     <div className="flex items-center justify-between mb-1 px-2">
-                        <h2 className="text-sm font-bold border-b-[1px] border-[#00FFFF]">
-                            News From the CryptoUniverse
+                        <h2 className="text-sm text-gray-200 font-bold border-b-[1px] border-[#00FFFF]">
+                            Hot Web3 Headlines
                             {newsError && <span className="ml-2 text-xs text-red-400">(Using fallback data)</span>}
                         </h2>
                     </div>
