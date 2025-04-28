@@ -49,7 +49,7 @@ const Loading = () => {
                 </svg>
 
             </div>
-            <div className='flex flex-col h-[200px] justify-center items-center'>
+            <div className='flex flex-col h-16 justify-center items-center'>
                 <p className='neon-writing animate-pulse'>...Fetching data...</p>
             </div>
         </div>
