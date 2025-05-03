@@ -78,7 +78,7 @@ const RunningTab: React.FC<Props> = ({ btcData, globalData }) => {
     );
 
     const StatsContent = () => (
-        <div className="flex items-center gap-6 text-[8px] text-gray-300 py-2 px-4 whitespace-nowrap">
+        <div className="flex items-center gap-6 text-[8px] text-gray-300 py-2 px-4 whitespace-nowrap pointer-events-none">
             <Divider />
 
             <StatItem
