@@ -17,16 +17,11 @@ export default function useCoinNews(params: CoinNewsParams = {}) {
     kind = "news",
     regions,
     page,
-    refreshInterval = 600000, // 10 minutes default
+    refreshInterval = 120000,
   } = params;
 
-  // Build a unique cache key based on all relevant parameters
-  const cacheKey = `coinNews-${filter || "all"}-${kind}-${
-    regions?.join(",") || "all"
-  }-${page || 1}`;
-
   const { data, error, isValidating, mutate } = useSWR(
-    cacheKey,
+    `coinsNews/key/${filter}`,
     () =>
       getCoinNews({
         filter: filter || undefined,

@@ -24,6 +24,7 @@ export interface NewsItem {
     important: number;
     liked: number;
   };
+  _source: string;
 }
 
 interface NewsApiParams {
@@ -67,6 +68,7 @@ export const FALLBACK_NEWS_DATA: NewsItem[] = [
       important: 8,
       liked: 10,
     },
+    _source: "fallback",
   },
   {
     created_at: getRandomPastDate(),
@@ -88,6 +90,7 @@ export const FALLBACK_NEWS_DATA: NewsItem[] = [
       important: 12,
       liked: 18,
     },
+    _source: "fallback",
   },
   {
     created_at: getRandomPastDate(),
@@ -109,6 +112,7 @@ export const FALLBACK_NEWS_DATA: NewsItem[] = [
       important: 7,
       liked: 9,
     },
+    _source: "fallback",
   },
   {
     created_at: getRandomPastDate(),
@@ -130,6 +134,7 @@ export const FALLBACK_NEWS_DATA: NewsItem[] = [
       important: 9,
       liked: 11,
     },
+    _source: "fallback",
   },
   {
     created_at: getRandomPastDate(),
@@ -151,6 +156,7 @@ export const FALLBACK_NEWS_DATA: NewsItem[] = [
       important: 10,
       liked: 12,
     },
+    _source: "fallback",
   },
   {
     created_at: getRandomPastDate(),
@@ -172,6 +178,7 @@ export const FALLBACK_NEWS_DATA: NewsItem[] = [
       important: 8,
       liked: 10,
     },
+    _source: "fallback",
   },
 ];
 
@@ -180,7 +187,8 @@ export default async function getCoinNews(
 ): Promise<NewsItem[]> {
   try {
     // Simplified to directly fetch with the given parameters
-    return await fetchNewsWithParams(params);
+    const response = await fetchNewsWithParams(params);
+    return response;
   } catch (error) {
     console.error(`Error fetching coin news:`, error);
     return FALLBACK_NEWS_DATA;
@@ -191,36 +199,16 @@ export default async function getCoinNews(
 async function fetchNewsWithParams(params: NewsApiParams): Promise<NewsItem[]> {
   const queryParams = buildQueryParams(params);
   const url = `https://cryptopanic.com/api/v1/posts/?auth_token=${AUTH_TOKEN}${queryParams}`;
-
-  console.log(`Fetching news with filter: ${params.filter}`);
-  console.log(`Full URL: ${url}`);
-
   try {
-    const response = await fetch(url, {
-      cache: "no-store",
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const response = await fetch(url);
 
     if (!response.ok) {
       console.error(`API error: ${response.status} ${response.statusText}`);
       throw new Error(`API error: ${response.status} ${response.statusText}`);
     }
-
     const data = await response.json();
-    console.log(
-      `Received ${data.results?.length || 0} news items for filter: ${
-        params.filter
-      }`
-    );
 
-    // Check if we got results
-    if (!data.results || data.results.length === 0) {
-      console.warn(`No results for filter: ${params.filter}`);
-    }
-
-    return data.results || [];
+    return data.results.slice(0, 6);
   } catch (error) {
     console.error("Error fetching from CryptoPanic API:", error);
     throw error;
