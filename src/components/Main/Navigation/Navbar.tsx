@@ -80,10 +80,12 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ pathname }) => (
                                 >
                                     {/* Icon + Chain Name + Address */}
                                     <div className="flex items-center gap-2">
-                                        {chain?.iconUrl && (
-                                            <img
-                                                src={chain.iconUrl}
-                                                alt={chain.name}
+                                        {chain?.iconUrl && typeof chain.iconUrl === 'string' && (
+                                            <Image
+                                                src={chain.iconUrl!}
+                                                alt={chain.name ?? 'Chain icon'}
+                                                width={24}
+                                                height={24}
                                                 className="w-6 h-6"
                                             />
                                         )}
