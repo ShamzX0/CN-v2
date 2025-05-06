@@ -89,7 +89,7 @@ const CryptoChart: React.FC<CryptoChartProps> = ({
                         <div className="flex flex-col items-center text-center text-gray-400 text-xs px-4">
                             <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-blue-600 mb-2"></div>
                             <p className="text-sm tracking-widest ml-2 mt-9 font-unbounded text-[#00c3ff87] hover:text-blue-400 transition-colors animate-pulse">
-                                ...Loading...
+                                Fetching {chartLabel}...
                             </p>
                         </div>
                     )}
