@@ -9,9 +9,7 @@ import {
 import { WagmiProvider } from 'wagmi';
 import {
     mainnet,
-    polygon,
-    optimism,
-    arbitrum,
+    sepolia,
 } from 'wagmi/chains';
 import {
     QueryClientProvider,
@@ -23,7 +21,7 @@ import ModalDetector from '../components/Modal/ModalDetector';
 const config = getDefaultConfig({
     appName: 'CN-V2',
     projectId: 'b484a6d745f59bf0fc555e0d347124de',
-    chains: [mainnet, polygon, optimism, arbitrum],
+    chains: [mainnet, sepolia],
     ssr: true,
 });
 
@@ -45,6 +43,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
                         fontStack: 'system',
                         overlayBlur: 'large',
                     })}
+                    initialChain={mainnet}
                 >
                     <ModalDetector />
                     {children}
