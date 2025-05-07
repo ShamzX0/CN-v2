@@ -1,0 +1,37 @@
+[
+  {
+    "ticker": "ETH",
+    "img": "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=025",
+    "name": "Ethereum",
+    "address": "0x0000000000000000000000000000000000000000",
+    "decimals": 18
+  },
+  {
+    "ticker": "WETH",
+    "img": "https://cdn.moralis.io/eth/0xdd13e55209fd76afeb50eEDC6bD6134464eE7f3A.png",
+    "name": "Wrapped Ether",
+    "address": "0xdd13e55209fd76afeb50eEDC6bD6134464eE7f3A",
+    "decimals": 18
+  },
+  {
+    "ticker": "USDC",
+    "img": "https://cdn.moralis.io/eth/0xD35CCeEAD182dcee0F148EbaC9447DA2c4D449c4.png",
+    "name": "USD Coin",
+    "address": "0xD35CCeEAD182dcee0F148EbaC9447DA2c4D449c4",
+    "decimals": 6
+  },
+  {
+    "ticker": "LINK",
+    "img": "https://cdn.moralis.io/eth/0x779877A7B0D9E8603169DdbD7836e478b4624789.png",
+    "name": "Chainlink",
+    "address": "0x779877A7B0D9E8603169DdbD7836e478b4624789",
+    "decimals": 18
+  },
+  {
+    "ticker": "DAI",
+    "img": "https://cdn.moralis.io/eth/0xF2dA7A7e7b6eA6C5aA5e6e6e6e6e6e6e6e6e6e6e.png",
+    "name": "Dai Stablecoin",
+    "address": "0xF2dA7A7e7b6eA6C5aA5e6e6e6e6e6e6e6e6e6e6e",
+    "decimals": 18
+  }
+] 
