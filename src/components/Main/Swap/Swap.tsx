@@ -4,8 +4,9 @@ import { FC } from 'react'
 import React, { useState, useEffect } from "react";
 import { Input, Popover, Radio, Modal, message, RadioChangeEvent } from "antd";
 import { ArrowUpDown, ChevronDown, Settings, } from 'lucide-react';
-import tokenList from '../../../helpers/tokens/token-list.json'
-import { useSendTransaction, useAccount, useWaitForTransactionReceipt } from "wagmi";
+import mainnetTokenList from '../../../helpers/tokens/mainnetTokenList.json'
+import sepoliaTokenList from '../../../helpers/tokens/sepolia-token-list.json'
+import { useSendTransaction, useAccount, useWaitForTransactionReceipt, useChainId } from "wagmi";
 import Image from 'next/image';
 import { TokenData } from '../../../lib/coinTypes/tokenTypes';
 import Moralis from 'moralis'
@@ -18,6 +19,10 @@ interface SwapProps {
 
 const Swap: FC<SwapProps> = ({ }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const chainId = useChainId();
+    const isTestnet = chainId === 11155111; // Sepolia chain ID is 11155111
+    const tokenList = isTestnet ? sepoliaTokenList : mainnetTokenList;
+
     const [tokenOne, setTokenOne] = useState<TokenData>(tokenList[0])
     const [tokenTwo, setTokenTwo] = useState<TokenData>(tokenList[1])
     const [tokenOneAmount, setTokenOneAmount] = useState<any>(null)
@@ -315,7 +320,7 @@ const Swap: FC<SwapProps> = ({ }) => {
         <main className='h-full'>
             {/*SWAP CARD */}
             <section className='flex flex-row justify-center items-center gap-6 h-[90%]'>
-                <header className='flex flex-col gap-4 font-unbounded pr-12 '>
+                <header className='flex flex-col gap-4 font-unbounded pr-16 '>
                     <h1 className="font-bold text-4xl neon-writing  text-[#fff] flex flex-col">
                         <span>SWAP YOUR</span>
                         <div className='flex-row'>
