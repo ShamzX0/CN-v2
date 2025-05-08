@@ -13,7 +13,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 // Assets
 import CryptoNewbie from '../../../../public/images/CryptoNewbie.png'
-import { Wallet } from 'lucide-react'
+import { ChevronDown, Wallet } from 'lucide-react'
 
 // Styling constants
 const NEON_EFFECTS = {
@@ -123,17 +123,20 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({ pathname }) => {
                                                         e.stopPropagation();
                                                         setShowNetworkSelect(!showNetworkSelect);
                                                     }}
-                                                    className="cursor-pointer"
+                                                    className="flex items-center gap-1 cursor-pointer"
                                                 >
+                                                    <ChevronDown size={18} />
                                                     {chain?.iconUrl && typeof chain.iconUrl === 'string' && (
                                                         <Image
                                                             src={chain.iconUrl!}
                                                             alt={chain.name ?? 'Chain icon'}
                                                             width={24}
                                                             height={24}
-                                                            className="w-6 h-6 hover:scale-[1.3] transition-all duration-500 ease-in-out"
+                                                            className="w-6 h-6"
                                                         />
+
                                                     )}
+
                                                 </div>
                                                 <Divider />
                                                 <span

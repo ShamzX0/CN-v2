@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import walletImg from '../../../public/images/wallet1.jpeg'
 import LedgerNanoX from '../../../public/images/LedgerNanoXFinal.jpeg'
