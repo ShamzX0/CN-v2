@@ -1,40 +1,54 @@
 'use client';
 
 import { useConnectModal, useAccountModal, useChainModal } from '@rainbow-me/rainbowkit';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
+
+const OVERLAY_ID = 'modal-overlay';
 
 const ModalDetector = () => {
-
     const { connectModalOpen } = useConnectModal();
     const { accountModalOpen } = useAccountModal();
     const { chainModalOpen } = useChainModal();
 
     const isAnyModalOpen = connectModalOpen || accountModalOpen || chainModalOpen;
 
+    const createOverlay = useCallback(() => {
+        const overlay = document.createElement('div');
+        overlay.id = OVERLAY_ID;
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 999;
+        `;
+        return overlay;
+    }, []);
+
+    const removeOverlay = useCallback(() => {
+        const overlay = document.getElementById(OVERLAY_ID);
+        if (overlay) {
+            document.body.removeChild(overlay);
+        }
+    }, []);
+
     useEffect(() => {
         if (isAnyModalOpen) {
-            // Create a full-screen black overlay
-            const overlay = document.createElement('div');
-            overlay.id = 'modal-overlay';
-            overlay.style.position = 'fixed';
-            overlay.style.top = '0';
-            overlay.style.left = '0';
-            overlay.style.width = '100vw';
-            overlay.style.height = '100vh';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-            overlay.style.zIndex = '999'; //
-
+            const overlay = createOverlay();
             document.body.appendChild(overlay);
-
             console.log('Modal is open, overlay added');
         } else {
-            const overlay = document.getElementById('modal-overlay');
-            if (overlay) {
-                document.body.removeChild(overlay);
-                console.log('All modals closed, overlay removed');
-            }
+            removeOverlay();
+            console.log('All modals closed, overlay removed');
         }
-    }, [isAnyModalOpen]);
+
+        // Cleanup function to remove overlay when component unmounts
+        return () => {
+            removeOverlay();
+        };
+    }, [isAnyModalOpen, createOverlay, removeOverlay]);
 
     return null;
 };
